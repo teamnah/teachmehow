@@ -11,15 +11,18 @@ const userController = require('../db/user/UserController.js')
 router
   .route('/users/:userId')
     .get(userController.getUserDetails)
+    .post(userController.addOneUser)
 
 router
   .route('/lessons')
+    /** 
+     * userId may be passed as params attached to the 
+     * request object on a get request. If so, it will be used to get 
+     * avilable lessons filtered by the userId so that they
+     * may be presented on the teacher dashboard.
+     */ 
     .get(lessonController.getAllLessons)
     .post(lessonController.addOneLesson)
-
-router
-  .route('/lessons/:userId')
-    .get(lessonController.getAllLessons)
 
 router
   .route('/lessons/:lessonId')
@@ -33,16 +36,13 @@ router
     .post(ratingController.addRating)
 
 router
-  .route('/ratings/:userId')
-    .get(ratingController.getRating)
-    .post(ratingController.addRating)
-
-router
-  .route('/requests/:teacherId')
-    .get(requestController.getRequestByTeacherCategory)
-
-router
   .route('/requests')
+    /** 
+     * userId may be passed as params attached to the 
+     * request object on a get request. If so, it will be used to get 
+     * lessons requested by students and filtered by the teacher's 
+     * category so that they may be presented on the teacher dashboard.
+     */ 
     .get(requestController.getAllRequests)
     .post(requestController.addOneRequest)
 
@@ -50,6 +50,4 @@ router
   .route('/requests/:requestId')
     .put(requestController.updateOneRequest)
 
-module.exports = (app, express) => {
-  return router
-}
+module.exports = router
