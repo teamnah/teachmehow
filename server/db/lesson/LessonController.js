@@ -1,37 +1,21 @@
-module.exports.getAllLessons = (req, res) => {
+module.exports = {
   /**
-   * Make request to db to retrieve all lessons
-   * Check for teacherId param, if it exists only grab
-   * lessons associated with that userId (teacher)
-   * Otherwise get all lessons
-   * 
-   */ 
-}
+   * if userId param exists on request, only get lessons associated with that userId (teacher)
+   * otherwise get all lessons
+   */
+  getAllLessons: (req, res, next) => {
 
-module.exports.getOneLesson = (req, res) => {
-  /**
-   * use req.body.param to grab the lessonId then query the db for it
-   * 
-   */ 
-}
+  },
+  getOneLesson: (req, res, next) => {
 
-module.exports.addOneLesson = (req, res) => {
-  /**
-   *  add lesson 
-   * 
-   */ 
-}
+  },
+  addOneLesson: (req, res, next) => {
 
-module.exports.updateOneLesson = (req, res) => {
-  /**
-   * use req.body.param to grab the lesson id and update
-   * 
-   */ 
-}
+  },
+  updateOneLesson: (req, res, next) => {
 
-module.exports.deleteOneLesson = (req, res) => {
-  /**
-   * use req.body.param to grab the lesson id and delete
-   * 
-   */ 
+  },
+  deleteOneLesson: (req, res, next) => {
+
+  }
 }

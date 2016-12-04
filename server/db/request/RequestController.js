@@ -1,27 +1,14 @@
-module.exports.getAllRequests = (req, res) => {
-  /** 
-   * retrieve request data from db
-   * 
-   */ 
-}
+module.exports = {
+  getAllRequests: (req, res, next) => {
 
-module.exports.addOneRequest = (req, res) => {
-  /** 
-   * add one request to db 
-   * 
-   */ 
-}
+  },
+  addOneRequest: (req, res, next) => {
 
-module.exports.updateOneRequest = (req, res) => {
-  /** 
-   * grab the request based on get params from db and update it 
-   * e.g. req.body.params
-   */ 
-}
+  },
+  updateOneRequest: (req, res, next) => {
 
-module.exports.getRequestByTeacherCategory = (req, res) => {
-  /** 
-   * Use the teacherId to grab all requests in the teacher's
-   * category
-   */ 
+  }, 
+  getRequestByTeacherCategory: (req, res, next) => {
+
+  }
 }
