@@ -4,12 +4,12 @@ const Sequelize = require('sequelize')
  * Define paths to each model
  */
 const modelPaths = [
-  // __dirname+'/../db/booking/BookingModel.js',
-  // __dirname+'/../db/category/CategoryModel.js',
-  // __dirname+'/../db/lesson/LessonModel.js',
-  // __dirname+'/../db/rating/RatingModel.js',
-  // __dirname+'/../db/requests/RequestModel.js',
-  // __dirname+'/../db/user/UserModel.js'
+  __dirname+'/../db/booking/BookingModel.js',
+  __dirname+'/../db/category/CategoryModel.js',
+  __dirname+'/../db/lesson/LessonModel.js',
+  __dirname+'/../db/rating/RatingModel.js',
+  __dirname+'/../db/request/RequestModel.js',
+  __dirname+'/../db/user/UserModel.js'
 ]
 
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, {
