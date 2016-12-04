@@ -2,59 +2,54 @@ const express = require('express')
 const router = express.Router()
 
 const bookingController = require('../db/booking/BookingController.js')
-const categoryController = require('../db/category/categoryController.js')
-const lessonController = require('../db/lesson/lessonController.js')
-const ratingController = require('../db/rating/ratingController.js')
-const requestController = require('../db/request/requestController.js')
-const userController = require('../db/user/userController.js')
-
-/** 
- * We will probably need to create a querystring on the gets to the same end point with different outcomes 
- * We can use the qs parameters as inputs to the controller function and these inputs determine what data to retrieve
- * We can use the request/request-promise npm module to achieve this 
- * Note: If we do this route we will need to document in the API 
- */
+const categoryController = require('../db/category/CategoryController.js')
+const lessonController = require('../db/lesson/LessonController.js')
+const ratingController = require('../db/rating/RatingController.js')
+const requestController = require('../db/request/RequestController.js')
+const userController = require('../db/user/UserController.js')
 
 router
   .route('/users/:userId')
-  // /** Splash Page */ GET to userController: a function that grabs student details and populates the profile data 
-  // /** Lesson Page */ GET to userController: a function that grabs teacher details and populates them
-  // /** Profile Page */ GET to userController: a function that grabs user information, whether student or teacher depends on login 
-  // /** Teacher Dashboard */ GET to userController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered
-  // /** Teacher Dashboard */ GET to lessonController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered 
-  
+    .get(userController.getUserDetails)
+
 router
   .route('/lessons')
     .get(lessonController.getAllLessons)
     .post(lessonController.addOneLesson)
 
 router
+  .route('/lessons/:userId')
+    .get(lessonController.getAllLessons)
+
+router
   .route('/lessons/:lessonId')
     .get(lessonController.getOneLesson)
-    .put(updateOneLesson) 
-    .delete(deleteOneLesson)
+    .put(lessonController.updateOneLesson) 
+    .delete(lessonController.deleteOneLesson)
 
 router
   .route('/ratings/:lessonId')
-  // /** Lesson Page */ GET to ratingController.: a function where we pass in the lesson id as the param and retrieve the ratings
+    .get(ratingController.getRating)
+    .post(ratingController.addRating)
 
 router
   .route('/ratings/:userId')
-  // /** Profile Page */ GET to ratingController: a function where we pass in the lesson id as the param and retrieve the ratings for the teacher?
+    .get(ratingController.getRating)
+    .post(ratingController.addRating)
 
 router
-  .route('/requests/":somethingId"')
-  // /** Teacher Dashboard */ GET to requestController: a function where we make a join table that retrieves a list of requests in the teachers cat?
+  .route('/requests/:teacherId')
+    .get(requestController.getRequestByTeacherCategory)
 
 router
   .route('/requests')
-  // /** Requests */ GET to requestController to GET all requests data
-  // /** Requests */ POST to add a request to the table
+    .get(requestController.getAllRequests)
+    .post(requestController.addOneRequest)
 
 router
   .route('/requests/:requestId')
-  // /** Requests */ PUT to update an existing request (i.e. with an upvote or new information)
+    .put(requestController.updateOneRequest)
 
-module.exports = (app, express)=>{
+module.exports = (app, express) => {
   return router
 }
