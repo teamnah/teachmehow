@@ -1,4 +1,4 @@
-const retrieveAllRequests = (req, res) =>{
+const getAllRequests = (req, res) =>{
   /** retrieve request data from db */
 }
 
