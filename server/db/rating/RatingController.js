@@ -7,5 +7,6 @@ const getRating = (req, res) =>{
 
 module.exports = (app, express)=>{
   return {
+    getRating: getRating
   }
 }
