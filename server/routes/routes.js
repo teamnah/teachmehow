@@ -21,6 +21,9 @@ router
   // /** Lesson Page */ GET to userController: a function that grabs teacher details and populates them
   // /** Profile Page */ GET to userController: a function that grabs user information, whether student or teacher depends on login 
   // /** Teacher Dashboard */ GET to userController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered
+  // /** Teacher Dashboard */ GET to lessonController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered
+  // /** Teacher Dashboard */ POST to lessonController: a function where we enter som e new lesson information and associate it with the teacher 
+  // /** Teacher Dashboard */ DEL to lessonController: a function where we delete the lesson info from the db
 
 router
   .route('/lessons')
@@ -32,17 +35,11 @@ router
   // /** Lesson Page */ PUT to lessonController: a function that adds a lesson to the collection of lessons 
 
 router
-  .route('/lessons/:teacherId')
-  // /** Teacher Dashboard */ GET to lessonController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered
-  // /** Teacher Dashboard */ POST to lessonController: a function where we enter som e new lesson information and associate it with the teacher 
-  // /** Teacher Dashboard */ delete to lessonController: a function where we delete the lesson info from the db
-
-router
   .route('/ratings/:lessonId')
   // /** Lesson Page */ GET to ratingController.: a function where we pass in the lesson id as the param and retrieve the ratings
 
 router
-  .route('/ratings/:teacherId')
+  .route('/ratings/:userId')
   // /** Profile Page */ GET to ratingController: a function where we pass in the lesson id as the param and retrieve the ratings for the teacher?
 
 router
@@ -53,6 +50,9 @@ router
   .route('/requests')
   // /** Requests */ GET to requestController to GET all requests data
   // /** Requests */ POST to add a request to the table
+
+router
+  .route('/requests/:requestId')
   // /** Requests */ PUT to update an existing request (i.e. with an upvote or new information)
 
 module.exports = (app, express)=>{
