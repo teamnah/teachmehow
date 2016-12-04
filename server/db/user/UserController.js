@@ -1,9 +1,13 @@
 const getUserDetails = (req, res)=>{
-  /** Splash Page: need student details for profile data */
-  /** Lesson Page: need teacher details as they relate to lesson */
+  /**
+   * Query db for all details as they relate to user
+   * 
+   */ 
 
 }
 
 module.exports = (app, express)=>{
-  
+  return {
+    getUserDetails: getUserDetails
+  }
 }

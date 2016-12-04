@@ -12,7 +12,33 @@ const getOneLesson = (req, res) =>{
    */ 
 }
 
+const addOneLesson = (req, res) =>{
+  /**
+   *  add lesson 
+   * 
+   */ 
+}
+
+const updateOneLesson = (req, res) =>{
+  /**
+   * use req.body.param to grab the lesson id and update
+   * 
+   */ 
+}
+
+const deleteOneLesson = (req, res) =>{
+  /**
+   * use req.body.param to grab the lesson id and delete
+   * 
+   */ 
+}
+
 module.exports = (app, express)=>{
   return {
+    getAllLessons: getAllLessons,
+    getOneLesson: getOneLesson,
+    addOneLesson: addOneLesson,
+    updateOneLesson: updateOneLesson,
+    deleteOneLesson: deleteOneLesson
   }
 }

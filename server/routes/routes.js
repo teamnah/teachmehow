@@ -21,18 +21,18 @@ router
   // /** Lesson Page */ GET to userController: a function that grabs teacher details and populates them
   // /** Profile Page */ GET to userController: a function that grabs user information, whether student or teacher depends on login 
   // /** Teacher Dashboard */ GET to userController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered
-  // /** Teacher Dashboard */ GET to lessonController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered
-  // /** Teacher Dashboard */ POST to lessonController: a function where we enter som e new lesson information and associate it with the teacher 
-  // /** Teacher Dashboard */ DEL to lessonController: a function where we delete the lesson info from the db
-
+  // /** Teacher Dashboard */ GET to lessonController: a function where we pass in the teacher id as the param and retrieve the list of lessons offered 
+  
 router
   .route('/lessons')
-  // /** Splash Page */ GET to lessonController: a function that returns all lesson data
+    .get(lessonController.getAllLessons)
+    .post(lessonController.addOneLesson)
 
 router
   .route('/lessons/:lessonId')
-  // /** Lesson Page */ GET to lessonController: a function that grabs specific lesson information from the db
-  // /** Lesson Page */ PUT to lessonController: a function that adds a lesson to the collection of lessons 
+    .get(lessonController.getOneLesson)
+    .put(updateOneLesson) 
+    .delete(deleteOneLesson)
 
 router
   .route('/ratings/:lessonId')
