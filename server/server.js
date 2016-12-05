@@ -1,19 +1,10 @@
-const express = require('express')  
-const app = express()  
-const routes = require('./routes/routes.js')  
-require('dotenv').config()
-
-const port = process.env.PORT || 8080  
-
-require('./config/middleware.js')(app, express)  
+require('dotenv').config();
 
 /**
- * compiling all models into the model object
+ * Compiling all models into the model object
  * all models can now be accessed by models.[modelName]
  */
-const models = require('./config/db.connect.js')  
-
-app.use('/api', routes)
+const models = require('./config/db.connect.js');  
 
 /**
  * Sync all SQL models and THEN start the express server, 
@@ -22,7 +13,14 @@ app.use('/api', routes)
  * 
  */
 models.sequelize.sync().then(()=>{
-    app.listen(port, ()=>{
-        console.log("Listening on port " + port)
-    })
-})
+  const express = require('express'); 
+  const app = express();
+  const port = process.env.PORT || 8080
+  const routes = require('./routes/routes.js');
+  require('./config/middleware.js')(app, express); 
+   
+  app.use('/api', routes);
+  app.listen(port, ()=>{
+      console.log("Listening on port " + port);
+  });
+});
