@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes)=>{
     name: {
       type: DataTypes.STRING,
     },
+    upvote: {
+      type: DataTypes.INTEGER,
+    },
     spare1: {
       type: DataTypes.TEXT
     }

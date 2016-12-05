@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="495" y="0" name="Requests">
+</datatypes><table x="468" y="4" name="Requests">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -47,6 +47,9 @@
 <row name="Spare1" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
+<row name="upvote" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>0</default></row>
 <row name="UserId" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="User" row="id" />
