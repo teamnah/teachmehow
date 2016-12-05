@@ -2,7 +2,11 @@ const models = require('../../config/db.connect.js');
 
 module.exports = {
   getAllRequests: (req, res, next) => {
-    
+    models.Request.findAll()
+    .then((requests) => {
+      res
+        .json(requests);
+    });
   },
   /** inputs are name of the request, the user making the request, and the category */
   addOneRequest: (req, res, next) => {
@@ -42,7 +46,7 @@ module.exports = {
     });
   },
   updateOneRequest: (req, res, next) => {
-
+    
   }, 
   getRequestByTeacherCategory: (req, res, next) => {
     
