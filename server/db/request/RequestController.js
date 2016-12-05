@@ -28,22 +28,18 @@ module.exports = {
         console.log('This is what temp looks like before', temp);
         temp.CategoryId = category.dataValues.id;
         console.log('This is what temp looks like after', temp);
-        res
-          .json(category)
+        return models.Request.create({
+          name: req.body.name,
+          UserId: temp.UserId,
+          CategoryId: temp.CategoryId
+        })
+        .then((request) => {
+          console.log('Successfully created the request');
+          res
+            .json(request)
+        })
       })
-    })
-
-
-    // models.Request.create({
-    //   name: req.body.name,
-    //   UserId: temp.UserId,
-    //   CategoryId: temp.CategoryId
-    // })
-    // .then((request) => {
-    //   res
-    //     .json(request)
-    // })
-
+    });
   },
   updateOneRequest: (req, res, next) => {
 
