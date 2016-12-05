@@ -1,6 +1,13 @@
+/** 
+ * when making get requests, the controller assumes the client is sending information as part of the
+ * query object on the request object 
+ */
 const models = require('../../config/db.connect.js');
 
 module.exports = {
+/** 
+ * team note: we need to handle case where want to get all requests filtered by teacher's category 
+ */
   getAllRequests: (req, res, next) => {
     models.Request.findAll()
     .then((requests) => {
@@ -8,37 +15,42 @@ module.exports = {
         .json(requests);
     });
   },
-  /** inputs are name of the request, the user making the request, and the category */
+  /** 
+   * addOneRequest inputs on body of request object:
+   * req.body.userName
+   * req.body.categoryName
+   * req.body.requestName 
+   */
   addOneRequest: (req, res, next) => {
-    console.log('In the add one request controller');
-    console.log('Username that is sent', req.body.username);
+    console.log('RequestController (addOneRequest): In the add one request controller');
+    console.log('RequestController (addOneRequest): Username that is sent', req.body.userName);
     let temp = {
       UserId: null,
       CategoryId: null
     }
-    models.User.findOne({
+    models.User.find({
       where: {
-        name: req.body.username
+        name: req.body.userName
       }
     })
     .then((user) => {
       temp.UserId = user.dataValues.id; 
-      return models.Category.findOne({
+      return models.Category.find({
         where: {
           name: req.body.categoryName
         }
       })
       .then((category) => {
-        console.log('This is what temp looks like before', temp);
+        console.log('RequestController (addOneRequest): This is what temp looks like before', temp);
         temp.CategoryId = category.dataValues.id;
-        console.log('This is what temp looks like after', temp);
+        console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
         return models.Request.create({
-          name: req.body.name,
+          name: req.body.requestName,
           UserId: temp.UserId,
           CategoryId: temp.CategoryId
         })
         .then((request) => {
-          console.log('Successfully created the request');
+          console.log('RequestController (addOneRequest): Successfully created the request');
           res
             .json(request)
         })
@@ -46,39 +58,19 @@ module.exports = {
     });
   },
   updateOneRequest: (req, res, next) => {
-    
-  }, 
-  getRequestByTeacherCategory: (req, res, next) => {
-    
+    /** will enable when upvote field added to request table */
+    // let requestId = req.query.requestId;
+    // models.Request.find({
+    //   where: {
+    //     id: requestId
+    //   }
+    // })
+    // .then((request) => {
+    //   request.dataValues.upvote = request.dataValues.upvote++;
+    //   request.save().then((updatedRequest) => {
+    //     res
+    //       .json(updatedRequest)
+    //   });
+    // });
   }
-}
-
-// pretend this is a controller
-// module.exports = () => {
-    // let tmp = {
-    //     UserId: null,
-    //     CategoryId: null
-    // }
-    // console.log('in test');
-    // var khoa = models.User.create({
-    //     name: "khoa"
-    // })
-    // .then((result)=>{
-    //     console.log("----- Result of User add", result.dataValues);
-    //     tmp.UserId = result.dataValues.id;
-    //     return models.Category.create({
-    //         name: "driving"
-    //     })
-    // })
-    // .then((result)=>{
-    //     console.log("----- Result of Category add", result.dataValues);
-    //     return models.Request.create({
-    //         name: "myRequest",
-    //         UserId: tmp.UserId,
-    //         CategoryId: result.dataValues.id
-    //     })
-    // })
-    // .catch(err=>{
-    //     console.log("there was an error in the test", err);
-    // })
-// }
+};
