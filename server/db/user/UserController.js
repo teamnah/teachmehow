@@ -2,7 +2,10 @@ const models = require('../../config/db.connect.js');
 
 module.exports = {
   getAllUsers: (req, res, next) => {
-
+    models.User.findAll({})
+    .then((users) => {
+      res.json(users);
+    });
   },
 
   getUserDetails: (req, res, next) => {
@@ -12,7 +15,9 @@ module.exports = {
       }
     })
     .then((user) => {
-      res.json(user);
+      let tmp = [];
+      user === null || user === undefined ? user : tmp.push(user);
+      res.json(tmp);
     })
     .catch((err) => {
       res.json(err);
@@ -36,18 +41,3 @@ module.exports = {
     });
   }
 };
-
-// models.User.findOrCreate({
-//   where: {
-//     name: req.body.name
-//   },
-//   defaults: {
-//     name: req.body.name,
-//     teachFlag: req.body.teachFlag,
-//     rating: null,
-//     bio: req.body.bio,
-//     picture: req.body.picture,
-//     auth: req.body.auth
-//   }
-// })
-// .then(())
