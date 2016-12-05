@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js"
+    "start": "rimraf dist && webpack --bail --progress --profile && nodemon server/server.js"
   },
   "repository": {
     "type": "git",
