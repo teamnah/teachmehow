@@ -91,7 +91,7 @@ module.exports = function makeWebpackConfig () {
       test: /\.js$/,
       loader: 'babel',
       exclude: /node_modules/
-    }, /** {
+    },/** {
       // CSS LOADER
       // Reference: https://github.com/webpack/css-loader
       // Allow loading css through js
@@ -105,7 +105,8 @@ module.exports = function makeWebpackConfig () {
       // Reference: https://github.com/webpack/style-loader
       // Use style-loader in development.
       loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
-    },*/ {
+    },*/ 
+    {
       // ASSET LOADER
       // Reference: https://github.com/webpack/file-loader
       // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
