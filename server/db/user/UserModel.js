@@ -27,7 +27,12 @@ module.exports = (sequelize, DataTypes)=>{
     /**
      * freezeTableName: Model tableName will be the same as the model name
      *  */ 
-    freezeTableName: true 
+    freezeTableName: true,
+    classMethods: {
+      associate: (models)=>{
+        User.hasMany(models.Lesson);
+      }
+    } 
   })
   
   return User
