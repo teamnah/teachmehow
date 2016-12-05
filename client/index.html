@@ -10,12 +10,8 @@
         .navbar { border-radius:0; }
     </style>
 
-    <!-- JS (load angular, ui-router, and our custom js file) -->
-    <script src="lib/angular/angular.min.js"></script>
-    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <!--
-      <script src="app.js"></script>
-    -->
+    <!--Live reload with webpack-->
+    <script src="http://localhost:35729/livereload.js"></script>
 </head>
 
 <!-- apply our angular app to our site 
@@ -36,7 +32,7 @@
 
 <!-- MAIN CONTENT -->
 <div class="container">
-
+    sup
     <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
     <div ui-view></div>
 
