@@ -17,5 +17,6 @@ export const AppComponent = {
     <footer>
         Copyright MyApp 2016.
     </footer>
-  `
+  `,
+    controller: function(){}
 };
