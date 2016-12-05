@@ -12,7 +12,6 @@ module.exports = {
       UserId: null,
       CategoryId: null
     }
-
     models.User.findOne({
       where: {
         name: req.body.username
@@ -20,18 +19,20 @@ module.exports = {
     })
     .then((user) => {
       temp.UserId = user.dataValues.id; 
-      res
-        .json(user)
+      return models.Category.findOne({
+        where: {
+          name: req.body.categoryName
+        }
+      })
+      .then((category) => {
+        console.log('This is what temp looks like before', temp);
+        temp.CategoryId = category.dataValues.id;
+        console.log('This is what temp looks like after', temp);
+        res
+          .json(category)
+      })
     })
 
-    // models.Category.findOne({
-    //   where: {
-    //     name: req.body.categoryName
-    //   }
-    // })
-    // .then((category) => {
-    //   temp.CategoryId = category.dataValues.id;
-    // })
 
     // models.Request.create({
     //   name: req.body.name,
