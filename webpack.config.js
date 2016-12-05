@@ -13,6 +13,7 @@ let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
+let LiveReloadPlugin = require('webpack-livereload-plugin');
 
 // /**
 //  * Env
@@ -167,6 +168,7 @@ module.exports = function makeWebpackConfig () {
   // Add build specific plugins
   if (isProd) {
     config.plugins.push(
+      new LiveReloadPlugin(),
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
