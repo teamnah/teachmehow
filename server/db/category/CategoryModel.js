@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes)=>{
       type: DataTypes.TEXT
     }
     }, {
-    freezeTableName: true 
+    freezeTableName: true,
+    classMethods: {
+      associate: (models)=>{
+        Category.hasMany(models.Lesson);
+      }
+    }
   })
   
   return Category

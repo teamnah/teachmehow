@@ -1,18 +1,12 @@
-function AppConfig(lockProvider, $urlRouterProvider, $stateProvider) {
+function AppConfig(/*lockProvider,*/ $urlRouterProvider, $stateProvider) {
   'ngInject';
 
-    $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: 'app/home/home.html',
-      controller: 'HomeCtrl',
-      controllerAs: 'vm'
-    })
-    
-  lockProvider.init({
-    clientID: '5KsCxrCUF5N69xhmQbISpHrihbBLPqwy',
-    domain: 'teach-me-how.auth0.com'
-  });
+  $stateProvider
+    .state('app', {
+      abstract: true,
+    });  
 
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/');
 }
+
+export default AppConfig;
