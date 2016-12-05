@@ -1,15 +1,22 @@
-const express = require('express')
-const router = express.Router()
-const bookingController = require('../db/booking/BookingController.js')
-const categoryController = require('../db/category/CategoryController.js')
-const lessonController = require('../db/lesson/LessonController.js')
-const ratingController = require('../db/rating/RatingController.js')
-const requestController = require('../db/request/RequestController.js')
-const userController = require('../db/user/UserController.js')
+const express = require('express');
+const router = express.Router();
+
+const bookingController = require('../db/booking/BookingController.js');
+const categoryController = require('../db/category/CategoryController.js');
+const lessonController = require('../db/lesson/LessonController.js');
+const ratingController = require('../db/rating/RatingController.js');
+const requestController = require('../db/request/RequestController.js');
+const userController = require('../db/user/UserController.js');
+
+router
+  .route('/users')
+    .get(userController.getAllUsers)
+    .post(userController.addOneUser);
+
 router
   .route('/users/:userId')
-    .get(userController.getUserDetails)
-    .post(userController.addOneUser)
+    .get(userController.getUserDetails);
+
 router
   .route('/lessons')
     /** 
@@ -18,17 +25,15 @@ router
      * avilable lessons filtered by the userId so that they
      * may be presented on the teacher dashboard.
      */ 
-    .get(lessonController.getAllLessons)
-    .post(lessonController.addOneLesson)
-router
-  .route('/lessons/:lessonId')
-    .get(lessonController.getOneLesson)
-    .put(lessonController.updateOneLesson) 
-    .delete(lessonController.deleteOneLesson)
+    .get(lessonController.getLesson)
+    .post(lessonController.addLesson)
+    .put(lessonController.updateLesson);
+
 router
   .route('/ratings/:lessonId')
     .get(ratingController.getRating)
-    .post(ratingController.addRating)
+    .post(ratingController.addRating);
+
 router
   .route('/requests')
     /** 
@@ -38,8 +43,10 @@ router
      * category so that they may be presented on the teacher dashboard.
      */ 
     .get(requestController.getAllRequests)
-    .post(requestController.addOneRequest)
+    .post(requestController.addOneRequest);
+
 router
   .route('/requests/:requestId')
-    .put(requestController.updateOneRequest)
-module.exports = router
+    .put(requestController.updateOneRequest);
+
+module.exports = router;
