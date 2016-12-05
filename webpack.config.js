@@ -1,18 +1,26 @@
 'use strict';
+/**
+ * note: many sections of the webpack config have been commented
+ * out as we are not sure if they will be necessary or not but do
+ * not yet feel comfortable deleting them. Also, the webpack setup
+ * guide we used was heavily commented. These comments have been
+ * left in to better understand what this document is doing.
+ */
+
 
 // Modules
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+let webpack = require('webpack');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // /**
 //  * Env
 //  * Get npm lifecycle event to identify the environment
 //  */
-var ENV = process.env.npm_lifecycle_event;
-var isTest = ENV === 'test' || ENV === 'test-watch';
-var isProd = ENV === 'build';
+let ENV = process.env.npm_lifecycle_event;
+let isTest = ENV === 'test' || ENV === 'test-watch';
+let isProd = ENV === 'build';
 
 module.exports = function makeWebpackConfig () {
   /**
@@ -20,7 +28,7 @@ module.exports = function makeWebpackConfig () {
    * Reference: http://webpack.github.io/docs/configuration.html
    * This is the object where all configuration gets set
    */
-  var config = {};
+  let config = {};
 
   /**
    * Entry
@@ -114,7 +122,7 @@ module.exports = function makeWebpackConfig () {
     }]
   };
 
-  // ISTANBUL LOADER
+  /** /// ISTANBUL LOADER
   // https://github.com/deepsweet/istanbul-instrumenter-loader
   // Instrument JS files with istanbul-lib-instrument for subsequent code coverage reporting
   // Skips node_modules and files that end with .test
@@ -130,7 +138,7 @@ module.exports = function makeWebpackConfig () {
         esModules: true
       }
     })
-  }
+  } */
 
   /**
    * Plugins
