@@ -1,9 +1,9 @@
-/** 
- * when making get requests, the controller assumes the client is sending information as part of the
- * query object on the request object 
- */
 const models = require('../../config/db.connect.js');
 
+/** 
+ * when making get requests, the controller assumes the client is sending information as part of the
+ * query object on the request
+ */
 module.exports = {
 /** 
  * team note: we need to handle case where want to get all requests filtered by teacher's category 
@@ -11,10 +11,10 @@ module.exports = {
   getAllRequests: (req, res, next) => {
     models.Request.findAll()
     .then((requests) => {
-      res
-        .json(requests);
+      res.json(requests);
     });
   },
+  
   /** 
    * addOneRequest inputs on body of request object:
    * req.body.userName
@@ -51,12 +51,12 @@ module.exports = {
         })
         .then((request) => {
           console.log('RequestController (addOneRequest): Successfully created the request');
-          res
-            .json(request)
+          res.json(request)
         })
       })
     });
   },
+
   updateOneRequest: (req, res, next) => {
     /** will enable when upvote field added to request table */
     // let requestId = req.query.requestId;
@@ -68,8 +68,7 @@ module.exports = {
     // .then((request) => {
     //   request.dataValues.upvote = request.dataValues.upvote++;
     //   request.save().then((updatedRequest) => {
-    //     res
-    //       .json(updatedRequest)
+    //     res.json(updatedRequest)
     //   });
     // });
   }
