@@ -18,7 +18,7 @@ models.sequelize.sync().then(()=>{
   const port = process.env.PORT || 8080
   const routes = require('./routes/routes.js');
   require('./config/middleware.js')(app, express); 
-   
+  //require('../sqlTest.js')(); 
   app.use('/api', routes);
   app.listen(port, ()=>{
       console.log("Listening on port " + port);

@@ -1,0 +1,22 @@
+{
+  "name": "teachmehow",
+  "description": "Connecting people who want to learn things with people who want to teach things.",
+  "main": "index.js",
+  "authors": [
+    "Khoa Nguyen <knb.nguyen8@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/iamknguyen/teachmehow",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.9",
+    "angular-ui-router": "^0.3.2"
+  }
+}
