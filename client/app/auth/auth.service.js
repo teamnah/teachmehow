@@ -1,8 +1,8 @@
 angular.module('teachMe')
-.factory('authService', function($q, lock, authManager){
-  let isLoggedIn = !!localStorage.getItem('id_profile');
+.factory('authService', function($q, $http, lock, authManager){
+  let currentUser = localStorage.getItem('id_profile');
   let showCurrent = function(){
-    return isLoggedIn;
+    return currentUser;
   }
   let login = () => {
     lock.show();
@@ -12,7 +12,7 @@ angular.module('teachMe')
     localStorage.removeItem('id_token');
     localStorage.removeItem('id_profile');
     authManager.unauthenticate();
-    isLoggedIn = false;
+    currentUser = false;
   }
 
   /**
@@ -47,9 +47,22 @@ angular.module('teachMe')
          */
 
         if (profile.firstLogin) {
-
+          console.log('first login')
+          $http.post('/api/users', {
+            name: profile.name,
+            teachFlag: false,
+            rating: null,
+            bio: '',
+            picture: profile.picture,
+            auth: profile.user_id            
+          }).then((user)=>{
+            currentUser = user.data;
+            console.log(currentUser);
+          });
+        } else {
+          console.log(profile)
+          currentUser = true;
         }
-        isLoggedIn = true;
       })
     });
   }
