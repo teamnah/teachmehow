@@ -13,7 +13,10 @@ angular.module('teachMe', [
 .config(config)
 .run(run)
 
-function config ($stateProvider, lockProvider, $urlRouterProvider) {
+function config ($stateProvider,
+                 $urlRouterProvider,
+                 jwtOptionsProvider,
+                 lockProvider) {
   $urlRouterProvider.otherwise('/splash');
 
   $stateProvider
@@ -23,12 +26,12 @@ function config ($stateProvider, lockProvider, $urlRouterProvider) {
       controller: 'SplashCtrl as vm'
     })
     .state('dash',{
-      url: '/dash',
+      url: '/dash/:input',
       templateUrl: 'app/components/dash/dash.html',
       controller: 'DashCtrl as vm'
     })
     .state('prof',{
-      url: '/prof',
+      url: '/prof/:input',
       templateUrl: 'app/components/prof/prof.html',
       controller: 'ProfCtrl as vm'
     })
@@ -39,12 +42,19 @@ function config ($stateProvider, lockProvider, $urlRouterProvider) {
     })
 
   lockProvider.init({
-      clientID: 'n2ZOtt8oFInDvBD34j8741C1UV3PBh61',
-      domain: 'teach-me-how.auth0.com'
-    });      
+    clientID: 'n2ZOtt8oFInDvBD34j8741C1UV3PBh61',
+    domain: 'teach-me-how.auth0.com'
+  })
+  
+  /** configuration for agular.jwt */
+  jwtOptionsProvider.config({
+    tokenGetter: function(){
+      return localStorage.getItem('id_token')
+    }
+  });      
 }
 
-function run($rootScope, authService, lock) {
+function run($rootScope, authService, authManager, lock) {
     // Put the authService on $rootScope so its methods
     // can be accessed from the nav bar
     $rootScope.authService = authService;
@@ -56,4 +66,11 @@ function run($rootScope, authService, lock) {
     // Register the synchronous hash parser
     // when using UI Router
     lock.interceptHash();
+
+  /**
+   * Use the authManager from angular-jwt to check for
+   * the user's authentication state when the page is
+   * refreshed and maintain authentication. Will use 
+   * the setting set in jwtOptionsProvider.config*/
+  authManager.checkAuthOnRefresh();
   }
