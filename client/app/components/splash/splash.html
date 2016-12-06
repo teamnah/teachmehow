@@ -5,19 +5,21 @@
   <div class="lessonTbl">
       <table class="table table-bordered">
         <tr>
-          <td id="caption" colspan="5"></td>
+          <td id="caption" colspan="6"></td>
         </tr>
         <th>
           <td>Lesson id</td>
           <td>Name</td>
-          <td>Details</td>
+          <td>Category</td>
+          <td>Teacher</td>
           <td>Rating</td>
         </th>
-        <tr ng-repeat="lesson in vm.lessons">
+        <tr ng-repeat="lesson in vm.cache.Master">
           <td></td>
           <td>{{lesson.id}}</td>
           <td>{{lesson.name}}</td>
-          <td>{{lesson.details}}</td>
+          <td>{{lesson.CategoryName.name}}</td>
+          <td ng-click="vm.goProfile(lesson.UserName.name)">{{lesson.UserName.name}}</td>
           <td>{{lesson.rating}}</td>
         </tr>
     </table>
