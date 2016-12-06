@@ -2,30 +2,14 @@
 
 angular
 .module('app.splash', [])
-.controller('SplashCtrl',function($http,Helpers){
+.controller('SplashCtrl',function($http,Helpers,$state){
   vm = this;
-  
-  vm.lessons = [];
+  vm.cache = {};
+  vm.cache = Helpers.getCache();
 
-  vm.storage = Helpers.getCache();
-  console.log(vm.storage);
-  // Helpers.getLessons()
-  // .then(result=>{
-  //   console.log("client:splashCtrl:",result);
-  //   vm.lessons = result.data;
-  // })
-
-  // Helpers.getCategory()
-  // .then(result=>{
-  //   console.log("getCategory: splashCtrl:",result);
-  // })
-
-  // Helpers.getUsers()
-  // .then(result=>{
-  //   console.log("getUsers: splashCtrl:",result);
-  // })
-
-
-
+  vm.goProfile = (input) =>{
+    console.log(input);
+    $state.go("prof",{input: input})
+  }
   return vm;
 })
