@@ -7,6 +7,7 @@ const lessonController = require('../db/lesson/LessonController.js');
 const ratingController = require('../db/rating/RatingController.js');
 const requestController = require('../db/request/RequestController.js');
 const userController = require('../db/user/UserController.js');
+const lessByController = require('../db/lessonBy/lessonByController.js');
 
 router
   .route('/users')
@@ -48,5 +49,19 @@ router
 router
   .route('/requests/:requestId')
     .put(requestController.updateOneRequest);
+
+router
+  .route('/category')
+    .get(categoryController.getCat);
+
+router
+  .route('/lessByCat')
+    .get(lessByController.lessByCat);
+
+router
+  .route('/lessByUser')
+    .get(lessByController.lessByUser);
+
+
 
 module.exports = router;
