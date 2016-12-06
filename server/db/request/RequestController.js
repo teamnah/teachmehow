@@ -31,6 +31,10 @@ module.exports = {
       UserId: null,
       CategoryId: null
     }
+    if (req.body.userName === undefined || req.body.requestName === undefined || req.body.categoryName === undefined) {
+      res.json([]);
+      return;
+    }
     models.User.find({
       where: {
         name: req.body.userName
@@ -56,7 +60,12 @@ module.exports = {
     })
     .then((request) => {
       console.log('RequestController (addOneRequest): Successfully created the request');
-      res.json(request)
+      if (request) {
+        console.log('Sending back the request');
+        res.json('Hey')
+      } else {
+        res.json([])
+      }
     })
     .catch((err) => {
       res.json(err);
