@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Teacher Dashboard</h1>
+  </div>
+  <div class="lessonTbl">
+      <table class="table table-bordered">
+        <tr>
+          <td id="caption" colspan="5"></td>
+        </tr>
+        <th>
+          <td>Lesson id</td>
+          <td>Name</td>
+          <td>Details</td>
+          <td>Rating</td>
+        </th>
+        <tr ng-repeat="lesson in vm.teacherDetails.Lessons">
+          <td></td>
+          <td>{{lesson.id}}</td>
+          <td>{{lesson.name}}</td>
+          <td>{{lesson.details}}</td>
+          <td>{{lesson.rating}}</td>
+        </tr>
+    </table>
+  </div>
+</div>
