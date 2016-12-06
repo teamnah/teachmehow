@@ -19,6 +19,10 @@ router
     .get(userController.getUserDetails);
 
 router
+  .route('/login')
+    .post(userController.findUser);
+
+router
   .route('/lessons')
     /** 
      * userId may be passed as params attached to the 
