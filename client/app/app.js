@@ -5,6 +5,7 @@ angular.module('teachMe', [
   'angular-jwt',
   'app.dash',
   'app.prof',
+  'app.lesson',
   'app.request',
   'app.splash',
   'app.helpers',
@@ -29,6 +30,11 @@ function config ($stateProvider,
       url: '/dash/:input',
       templateUrl: 'app/components/dash/dash.html',
       controller: 'DashCtrl as vm'
+    })
+    .state('lesson',{
+      url: '/lesson/:input',
+      templateUrl: 'app/components/lesson/lesson.html',
+      controller: 'LessonCtrl as vm'
     })
     .state('prof',{
       url: '/prof/:input',
