@@ -2,6 +2,15 @@
   <div class="jumbotron">
     <h1>Teacher Dashboard</h1>
   </div>
+  <div>
+    <!--Edit such that we can add a lesson for the teacher-->
+    <!--<form ng-submit="vm.addRequest()">
+      <label>Requested By:</label><input type="" name="" ng-model="vm.userName">
+      <label>Requested Lesson:</label> <input type="" name="" ng-model="vm.requestName">
+      <label>Category:</label> <input type="" name="" ng-model="vm.categoryName">
+      <button type="submit">Submit Request</button>
+    </form>-->
+  </div>
   <div class="lessonTbl">
       <table class="table table-bordered">
         <tr>
@@ -13,7 +22,7 @@
           <td>Details</td>
           <td>Rating</td>
         </th>
-        <tr ng-repeat="lesson in vm.teacherDetails">
+        <tr ng-repeat="lesson in vm.teacherDetails.Lessons">
           <td></td>
           <td>{{lesson.id}}</td>
           <td>{{lesson.name}}</td>
