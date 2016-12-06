@@ -5,6 +5,7 @@ angular.module('teachMe', [
   'angular-jwt',
   'app.dash',
   'app.prof',
+  'app.lesson',
   'app.request',
   'app.splash',
   'app.helpers',
@@ -30,6 +31,11 @@ function config ($stateProvider,
       templateUrl: 'app/components/dash/dash.html',
       controller: 'DashCtrl as vm'
     })
+    .state('lesson',{
+      url: '/lesson/:input',
+      templateUrl: 'app/components/lesson/lesson.html',
+      controller: 'LessonCtrl as vm'
+    })
     .state('prof',{
       url: '/prof/:input',
       templateUrl: 'app/components/prof/prof.html',
@@ -49,7 +55,7 @@ function config ($stateProvider,
   /** configuration for agular.jwt */
   jwtOptionsProvider.config({
     tokenGetter: function(){
-      return localStorage.getItem('id_token')
+      return localStorage.getItem('id_token');
     }
   });      
 }

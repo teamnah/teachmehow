@@ -1,7 +1,10 @@
 
 angular
 .module('app.dash', [])
-.controller('DashCtrl', function($scope, $stateParams, Helpers){
+.controller('DashCtrl', function($scope, $state, $stateParams, authService, Helpers){
+  if (!authService.showCurrent() /** ||!authService.showCurrent().teacherFlag */) {
+    $state.go('splash')
+  }
   vm = this;
   vm.teacherId = $stateParams.input;
   vm.teacherDetails;
