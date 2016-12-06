@@ -113,6 +113,7 @@ angular
 
 
   return {
+    init: init,
     getCache: getCache,
     getLessons: getLessons,
     getCategory: getCategory,

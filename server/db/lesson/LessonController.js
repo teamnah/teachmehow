@@ -38,7 +38,7 @@ module.exports = {
         result.map(item=>{
           allItems.push(item.dataValues);
         })
-        console.log("LessonCtrlr:getAll: mapped results", allItems);
+        //console.log("LessonCtrlr:getAll: mapped results", allItems);
         res.json(result);
       })
       .catch(err=>{
