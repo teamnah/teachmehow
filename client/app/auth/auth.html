@@ -1,1 +1,6 @@
-<button ng-click="vm.authService.login()">Log In</button>
+<div ng-show="vm.authService.showCurrent()">
+  <button ng-click="vm.authService.logout()">Log Out</button>
+</div>
+<div ng-hide="vm.authService.showCurrent()">
+  <button ng-click="vm.authService.login()">Log In/Register</button>
+</div>
