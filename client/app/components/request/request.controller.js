@@ -9,7 +9,7 @@ angular
   
   RequestService
       .getAllRequests()
-
+  
   vm.addRequest = function() {
     RequestService
       .addRequest()
@@ -19,7 +19,7 @@ angular
         Helpers
           .init()
           .then(function(cache) {
-            vm.cache = cache;
+            vm.cache = Helpers.getCache();
             console.log('Attempting to access the cache after calling init', vm.cache);
           })
           .catch(function(error) {
