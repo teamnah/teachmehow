@@ -12,6 +12,9 @@ module.exports = {
     models.Request.findAll()
     .then((requests) => {
       res.json(requests);
+    })
+    .catch((err) => {
+      res.json(err)
     });
   },
   
@@ -28,6 +31,10 @@ module.exports = {
       UserId: null,
       CategoryId: null
     }
+    if (req.body.userName === undefined || req.body.requestName === undefined || req.body.categoryName === undefined) {
+      res.json([]);
+      return;
+    }
     models.User.find({
       where: {
         name: req.body.userName
@@ -40,20 +47,27 @@ module.exports = {
           name: req.body.categoryName
         }
       })
-      .then((category) => {
-        console.log('RequestController (addOneRequest): This is what temp looks like before', temp);
-        temp.CategoryId = category.dataValues.id;
-        console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
-        return models.Request.create({
-          name: req.body.requestName,
-          UserId: temp.UserId,
-          CategoryId: temp.CategoryId
-        })
-        .then((request) => {
-          console.log('RequestController (addOneRequest): Successfully created the request');
-          res.json(request)
-        })
+    }) // here
+    .then((category) => {
+      console.log('RequestController (addOneRequest): This is what temp looks like before', temp);
+      temp.CategoryId = category.dataValues.id;
+      console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
+      return models.Request.create({
+        name: req.body.requestName,
+        UserId: temp.UserId,
+        CategoryId: temp.CategoryId
       })
+    })
+    .then((request) => {
+      console.log('RequestController (addOneRequest): Successfully created the request');
+      if (request) {
+        res.json(request)
+      } else {
+        res.json([])
+      }
+    })
+    .catch((err) => {
+      res.json(err);
     });
   },
 
