@@ -1,9 +1,11 @@
 
 angular
 .module('app.request', []) 
-.controller('RequestCtrl', function($http, RequestService){
+.controller('RequestCtrl', function($http, RequestService, Helpers){
   vm = this;
   vm.requests = [];
+  vm.cache = Helpers.getCache();
+  console.log('Attemping to access the cache on controller instantiation', vm.cache);
   
   RequestService
       .getAllRequests()
@@ -12,8 +14,21 @@ angular
     RequestService
       .addRequest()
       .then(function(addedRequest) {
-        vm.requests.data.push(addedRequest)
+        vm.requests.data.push(addedRequest);
+        vm.cache;
+        Helpers
+          .init()
+          .then(function(cache) {
+            vm.cache = cache;
+            console.log('Attempting to access the cache after calling init', vm.cache);
+          })
+          .catch(function(error) {
+            console.log('Error reinitializing the helpers cache');
+          })
       })
+      .catch(function(error) {
+        console.log('Error adding request');
+      });
   };
 
   return vm;
