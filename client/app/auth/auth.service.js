@@ -1,5 +1,5 @@
 angular.module('teachMe')
-.factory('authService', function($q, $http, lock, authManager){
+.factory('authService', function($q, $http, $state, lock, authManager){
   let currentUser = localStorage.getItem('id_profile');
   let showCurrent = function(){
     return currentUser;
@@ -57,11 +57,33 @@ angular.module('teachMe')
             auth: profile.user_id            
           }).then((user)=>{
             currentUser = user.data;
-            console.log(currentUser);
+            console.log('logged in as:',currentUser);
           });
         } else {
-          console.log(profile)
-          currentUser = true;
+          $http.post('/api/login', {
+            auth: profile.user_id
+          }).then((user) => {
+            console.log(user.data)
+            if (user.data[0]) {
+              currentUser = user.data[0];
+              console.log('logged in as:',currentUser);
+            } else {
+              $http.post('/api/users', {
+                name: profile.name,
+                teachFlag: false,
+                rating: null,
+                bio: '',
+                picture: profile.picture,
+                auth: profile.user_id            
+              }).then((user)=>{
+                currentUser = user.data;
+                console.log('logged in as:',currentUser);
+                if (currentUser.teacherFlag) {
+                  $state.go('dash', {input:input})
+                }
+              });              
+            }          
+          })
         }
       })
     });
