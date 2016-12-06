@@ -43,20 +43,23 @@ module.exports = {
           name: req.body.categoryName
         }
       })
-      .then((category) => {
-        console.log('RequestController (addOneRequest): This is what temp looks like before', temp);
-        temp.CategoryId = category.dataValues.id;
-        console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
-        return models.Request.create({
-          name: req.body.requestName,
-          UserId: temp.UserId,
-          CategoryId: temp.CategoryId
-        })
-        .then((request) => {
-          console.log('RequestController (addOneRequest): Successfully created the request');
-          res.json(request)
-        })
+    }) // here
+    .then((category) => {
+      console.log('RequestController (addOneRequest): This is what temp looks like before', temp);
+      temp.CategoryId = category.dataValues.id;
+      console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
+      return models.Request.create({
+        name: req.body.requestName,
+        UserId: temp.UserId,
+        CategoryId: temp.CategoryId
       })
+    })
+    .then((request) => {
+      console.log('RequestController (addOneRequest): Successfully created the request');
+      res.json(request)
+    })
+    .catch((err) => {
+      res.json(err);
     });
   },
 
