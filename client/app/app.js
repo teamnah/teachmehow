@@ -49,7 +49,7 @@ function config ($stateProvider,
   /** configuration for agular.jwt */
   jwtOptionsProvider.config({
     tokenGetter: function(){
-      return localStorage.getItem('id_token')
+      return localStorage.getItem('id_token');
     }
   });      
 }
