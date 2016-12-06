@@ -61,8 +61,7 @@ module.exports = {
     .then((request) => {
       console.log('RequestController (addOneRequest): Successfully created the request');
       if (request) {
-        console.log('Sending back the request');
-        res.json('Hey')
+        res.json(request)
       } else {
         res.json([])
       }

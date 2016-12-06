@@ -4,10 +4,18 @@ angular
 .controller('RequestCtrl', function($http, DashService){
   vm = this;
   vm.requests = [];
-  // vm.getRequests = function() {
-    DashService
+  
+  DashService
       .getAllRequests()
-  // };
+
+  vm.addRequest = function() {
+    DashService
+      .addRequest()
+      .then(function(addedRequest) {
+        vm.requests.data.push(addedRequest)
+      })
+  };
+
   return vm;
 })
 .factory('DashService', function($http) {
@@ -25,7 +33,30 @@ angular
     })
   };
 
+  const addRequest = function() {
+
+    let newRequest = {};
+    newRequest.userName = vm.userName;
+    newRequest.requestName = vm.requestName;
+    newRequest.categoryName = vm.categoryName;
+
+    return $http({
+      method: 'POST',
+      url: '/api/requests',
+      data: newRequest
+    })
+    .then(function(addedRequest) {
+      console.log('these are our requests', vm.requests);
+      console.log('this is the request that we added', addedRequest)
+      return addedRequest.data;
+    })
+    .catch(function(err) {
+      console.log('Error posting request');
+    });
+  };
+
   return {
-    getAllRequests: getAllRequests
+    getAllRequests: getAllRequests,
+    addRequest: addRequest
   };
 });
