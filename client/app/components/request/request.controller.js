@@ -26,10 +26,10 @@ angular
     })
     .then(function(requests) {
       vm.requests = requests;
-      console.log('Here are the requests', vm.requests);
+      console.log('RequestController (getAllRequests): Here are the requests', vm.requests);
     })
     .catch(function(err) {
-      console.log('Error retrieving requests.');
+      console.log('RequestController (getAllRequests): Error retrieving requests.');
     })
   };
 
@@ -46,8 +46,6 @@ angular
       data: newRequest
     })
     .then(function(addedRequest) {
-      console.log('these are our requests', vm.requests);
-      console.log('this is the request that we added', addedRequest)
       return addedRequest.data;
     })
     .catch(function(err) {
