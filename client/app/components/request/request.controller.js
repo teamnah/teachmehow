@@ -1,15 +1,15 @@
 
 angular
 .module('app.request', []) 
-.controller('RequestCtrl', function($http, DashService){
+.controller('RequestCtrl', function($http, RequestService){
   vm = this;
   vm.requests = [];
   
-  DashService
+  RequestService
       .getAllRequests()
 
   vm.addRequest = function() {
-    DashService
+    RequestService
       .addRequest()
       .then(function(addedRequest) {
         vm.requests.data.push(addedRequest)
@@ -18,7 +18,7 @@ angular
 
   return vm;
 })
-.factory('DashService', function($http) {
+.factory('RequestService', function($http) {
   const getAllRequests = function() {
     return $http({
       method: 'GET',
