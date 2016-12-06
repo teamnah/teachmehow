@@ -7,21 +7,23 @@ angular
   
   vm.lessons = [];
 
-  Helpers.getLessons()
-  .then(result=>{
-    console.log("client:splashCtrl:",result);
-    vm.lessons = result.data;
-  })
+  vm.storage = Helpers.getCache();
+  console.log(vm.storage);
+  // Helpers.getLessons()
+  // .then(result=>{
+  //   console.log("client:splashCtrl:",result);
+  //   vm.lessons = result.data;
+  // })
 
-  Helpers.getCategory()
-  .then(result=>{
-    console.log("getCategory: splashCtrl:",result);
-  })
+  // Helpers.getCategory()
+  // .then(result=>{
+  //   console.log("getCategory: splashCtrl:",result);
+  // })
 
-  Helpers.getUsers()
-  .then(result=>{
-    console.log("getUsers: splashCtrl:",result);
-  })
+  // Helpers.getUsers()
+  // .then(result=>{
+  //   console.log("getUsers: splashCtrl:",result);
+  // })
 
 
 
