@@ -12,6 +12,9 @@ module.exports = {
     models.Request.findAll()
     .then((requests) => {
       res.json(requests);
+    })
+    .catch((err) => {
+      res.json(err)
     });
   },
   

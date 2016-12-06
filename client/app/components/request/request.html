@@ -1,5 +1,6 @@
-<div>
-  <h1>
-    This is the requestpage
-  </h1>
-</div>
+<h1>Here Are The Requests</h1>
+<ul ng-repeat="request in vm.requests.data">
+  <li>Request Name: {{request.name}}</li>
+  <li>User Requesting: {{request.UserId}}</li>
+  <li>Requested Category: {{request.CategoryId}}</li>
+</ul>
