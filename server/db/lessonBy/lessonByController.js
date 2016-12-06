@@ -13,7 +13,7 @@ module.exports = {
         include: [models.Lesson]
       })
       .then(result=>{
-        console.log("look here:", result.dataValues)
+        //console.log("look here:", result.dataValues)
         res.json(result)
       })
       .catch(err=>{
@@ -24,7 +24,7 @@ module.exports = {
         include: [models.Lesson]
       })
       .then(result=>{
-        console.log("look here:", result.dataValues)
+        //console.log("look here:", result.dataValues)
         res.json(result)
       })
       .catch(err=>{
@@ -42,7 +42,7 @@ module.exports = {
         include: [models.Lesson]
       })
       .then(result=>{
-        console.log("look here:", result.dataValues)
+        //console.log("look here:", result.dataValues)
         res.json(result)
       })
       .catch(err=>{
@@ -53,7 +53,7 @@ module.exports = {
         include: [models.Lesson]
       })
       .then(result=>{
-        console.log("look here:", result.dataValues)
+        //console.log("look here:", result.dataValues)
         res.json(result)
       })
       .catch(err=>{
