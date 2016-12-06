@@ -1,95 +1,82 @@
 angular.module('teachMe')
 .factory('authService', function($q, $http, $state, lock, authManager){
-  let currentUser = localStorage.getItem('id_profile');
-  let showCurrent = function(){
-    return currentUser;
-  }
-  let login = () => {
-    lock.show();
+  /**
+   * connect the profile sent back from Auth0 with the profile from our
+   * database. If the profile does not exist in our database, create it.
+   */
+  let connectProfile = (profile) => {
+    $http.post('/api/login', {
+      auth: profile.user_id
+    }).then((user) => {
+      if (user.data[0]) {
+        currentUser = user.data[0];
+        console.log('logged in as:',currentUser);
+      } else {
+        $http.post('/api/users', {
+          name: profile.name,
+          teachFlag: false,
+          rating: null,
+          bio: '',
+          picture: profile.picture,
+          auth: profile.user_id            
+        }).then((user)=>{
+          currentUser = user.data;
+          console.log('logged in as:',currentUser);
+          if (currentUser.teacherFlag) {
+            $state.go('dash', {input:input})
+          }
+        });              
+      }          
+    })
   }
 
-  let logout = () => {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('id_profile');
-    authManager.unauthenticate();
-    currentUser = false;
+  /**
+   * check to see if user is already logged in. If they are, fetch
+   * auth0 profile and then use that to fetch database profile
+   */
+  let currentUser = localStorage.getItem('id_token');
+  if (currentUser) {
+    lock.getProfile(currentUser, (err, profile) => {
+      if (err) throw new Error(err);
+      connectProfile(profile);
+    })
   }
 
   /**
    * set up the logic for when a user authenticates
    * This method is called from .run in app.js
    */
-
-
-
   let registerAuthListener = () => {
     lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
       authManager.authenticate()
-  
-      /** 
-       * Used to get social profile information.
-       * Can be saved with a deferred promise.
-       * Profile.user_id is the same as the user
-       * id retrieved from payload token.
+      /**
+       * Use the token sent back to get full Auth0 profile 
+       * information, then connect that to database profile
        */
       lock.getProfile(authResult.idToken, (err, profile) => {
         if (err) throw new Error(err);
-        localStorage.setItem('id_profile', profile);
-        /**
-         * to implement the following, a 'rule' must be set
-         * on the the auth0 website with the following code:
-         * function(user, context, callback) {
-         *   user.firstLogin = context.stats.loginsCount === 1 ?
-         *     true:false;
-         *   callback(null, user, context);
-         * }
-         */
-
-        if (profile.firstLogin) {
-          console.log('first login')
-          $http.post('/api/users', {
-            name: profile.name,
-            teachFlag: false,
-            rating: null,
-            bio: '',
-            picture: profile.picture,
-            auth: profile.user_id            
-          }).then((user)=>{
-            currentUser = user.data;
-            console.log('logged in as:',currentUser);
-          });
-        } else {
-          $http.post('/api/login', {
-            auth: profile.user_id
-          }).then((user) => {
-            console.log(user.data)
-            if (user.data[0]) {
-              currentUser = user.data[0];
-              console.log('logged in as:',currentUser);
-            } else {
-              $http.post('/api/users', {
-                name: profile.name,
-                teachFlag: false,
-                rating: null,
-                bio: '',
-                picture: profile.picture,
-                auth: profile.user_id            
-              }).then((user)=>{
-                currentUser = user.data;
-                console.log('logged in as:',currentUser);
-                if (currentUser.teacherFlag) {
-                  $state.go('dash', {input:input})
-                }
-              });              
-            }          
-          })
-        }
+        connectProfile(profile);
       })
     });
   }
 
+  /** basic authentication functionality */
+  let showCurrent = function(){
+    return currentUser;
+  }
 
+  let login = () => {
+    lock.show();
+  }
+
+  let logout = () => {
+    localStorage.removeItem('id_token');
+    authManager.unauthenticate();
+    currentUser = false;
+  }
+  
+  /** expose public methods */
   return {
     login: login,
     logout: logout,
