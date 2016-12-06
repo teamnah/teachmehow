@@ -9,7 +9,8 @@ angular
   Helpers
     .getlessByUser(vm.teacherId)
     .then(function(teacherData) {
-      vm.teacherDetails = teacherData.data;
+      vm.teacherDetails = teacherData.data[0];
+      console.log('these are the teacher details', teacherData.data)
     })
 
   return vm;
