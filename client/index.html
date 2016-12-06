@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gif Me!</title>
+    <title>Teach Me How</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
@@ -11,11 +12,12 @@
     <!-- NAVIGATION -->
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="splash">Gif Me</a>
+            <a class="navbar-brand" ui-sref="splash">Teach Me How</a>
         </div>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav" ng-controller="AuthCtrl">
             <li><a ui-sref="splash">Home</a></li>
             <li><a ui-sref="Requests">Requests</a></li>
+            <li><a><auth></auth></a></li>
         </ul>
     </nav>
 
@@ -32,17 +34,21 @@
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
         <!-- JS (load angular, ui-router, and our custom js file) -->
-        <script src="https://code.jquery.com/jquery-3.1.1.js"
-            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-            crossorigin="anonymous"></script>
-        <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+        <script src="lib/angular/angular.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
         
         <script src="app/app.js"></script>
+        <script src="app/auth/auth.component.js"></script>
+        <script src="app/auth/auth.service.js"></script>
+        <script src="app/auth/auth.controller.js"></script>
         <script src="app/components/dash/dash.controller.js"></script>
         <script src="app/components/request/request.controller.js"></script>
         <script src="app/components/prof/prof.controller.js"></script>
         <script src="app/components/splash/splash.controller.js"></script>
+
+        <script src="lib/auth0-lock/build/lock.js"></script>
+        <script src="lib/angular-lock/dist/angular-lock.js"></script>
+        <script src="lib/angular-jwt/dist/angular-jwt.js"></script>
 
         <script src="app/common/helpers.js"></script>
     </div>
