@@ -1,12 +1,18 @@
 angular.module('teachMe')
 .factory('authService', function($q, lock, authManager){
+  let isLoggedIn = !!localStorage.getItem('id_profile');
+  let showCurrent = function(){
+    return isLoggedIn;
+  }
   let login = () => {
     lock.show();
   }
 
   let logout = () => {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('id_profile');
     authManager.unauthenticate();
+    isLoggedIn = false;
   }
 
   /**
@@ -19,8 +25,6 @@ angular.module('teachMe')
   let registerAuthListener = () => {
     lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
-      /** log the user id */
-      console.log(authResult.idTokenPayload.sub)
       authManager.authenticate()
   
       /** 
@@ -31,7 +35,7 @@ angular.module('teachMe')
        */
       lock.getProfile(authResult.idToken, (err, profile) => {
         if (err) throw new Error(err);
-        console.log(profile);
+        localStorage.setItem('id_profile', profile);
         /**
          * to implement the following, a 'rule' must be set
          * on the the auth0 website with the following code:
@@ -41,9 +45,11 @@ angular.module('teachMe')
          *   callback(null, user, context);
          * }
          */
+
         if (profile.firstLogin) {
 
         }
+        isLoggedIn = true;
       })
     });
   }
@@ -52,6 +58,7 @@ angular.module('teachMe')
   return {
     login: login,
     logout: logout,
+    showCurrent: showCurrent,
     registerAuthListener: registerAuthListener
   }
 })
