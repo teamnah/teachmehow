@@ -18,13 +18,14 @@ angular
         vm.cache;
         Helpers
           .init()
-          .then(function(cache) {
+          // .then(function(cache) {
+          //   console.log('Helpers.init() returns this', cache);
             vm.cache = Helpers.getCache();
             console.log('Attempting to access the cache after calling init', vm.cache);
-          })
-          .catch(function(error) {
-            console.log('Error reinitializing the helpers cache');
-          })
+          // })
+          // .catch(function(error) {
+          //   console.log('Error reinitializing the helpers cache');
+          // })
       })
       .catch(function(error) {
         console.log('Error adding request');
