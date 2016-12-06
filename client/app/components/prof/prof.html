@@ -1,33 +1,34 @@
 <div class="container">
-  <div class="profile-card">
+  <div>
 
     <header>
-        <img src="http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg" />
-        <h1>{{vm.id}}</h1>
-        <h2>Web Developer</h2>
+        <img src="{{vm.picture}}" />
+        <h1>{{vm.profile.name}}</h1>
+        <h2>{{vm.title}}</h2>
     </header>
 
     <div class="profile-bio">
-        <p>some bio stuff here</p>
+        <p>{{vm.blurb}}</p>
+        <button ng-if="vm.myProfile" ng-click="vm.updateProf()">update profile</button>
     </div>
   </div>
 
-    <div class="lessonTbl">
-        <table class="table table-bordered">
-          <tr>
-            <td id="caption" colspan="4"></td>
-          </tr>
-          <th>
-            <td>Name</td>
-            <td>Category</td>
-            <td>Rating</td>
-          </th>
-          <tr ng-repeat="lesson in vm.lessons">
-            <td></td>
-            <td>{{lesson.id}}</td>
-            <td>{{lesson.name}}</td>
-            <td>{{lesson.rating}}</td>
-          </tr>
-      </table>
-    </div>
+  <div class="lessonTbl" ng-show="vm.profile.teachFlag">
+      <table class="table table-bordered">
+        <tr>
+          <td id="caption" colspan="4"></td>
+        </tr>
+        <th>
+          <td>Name</td>
+          <td>Category</td>
+          <td>Rating</td>
+        </th>
+        <tr ng-repeat="lesson in vm.lessons">
+          <td></td>
+          <td>{{lesson.name}}</td>
+          <td>{{lesson.category}}</td>
+          <td>{{lesson.rating}}</td>
+        </tr>
+    </table>
+  </div>
 </div>
