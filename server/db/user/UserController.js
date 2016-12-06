@@ -16,7 +16,7 @@ module.exports = {
     })
     .then((user) => {
       let tmp = [];
-      user === null || user === undefined ? user : tmp.push(user);
+      if (user) tmp.push(user);
       res.json(tmp);
     })
     .catch((err) => {
@@ -35,6 +35,21 @@ module.exports = {
     })
     .then((user) => {
       res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+  },
+
+  findUser: (req, res, next) => {
+    models.User.find({
+      where: {
+        auth: req.body.auth
+      }
+    }).then((user) => {
+      let tmp = [];
+      if (user) tmp.push(user);
+      res.json(tmp);
     })
     .catch((err) => {
       res.json(err);
