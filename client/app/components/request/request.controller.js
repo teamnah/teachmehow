@@ -1,38 +1,63 @@
 
 angular
 .module('app.request', []) 
-.controller('RequestCtrl', function($http, RequestService, Helpers){
+.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout){
   vm = this;
   vm.requests = [];
-  vm.cache = Helpers.getCache();
-  console.log('Attemping to access the cache on controller instantiation', vm.cache);
+  vm.pendingRequest;
+  $timeout(() => {
+    if (Object.keys(Helpers.getCache()).length === 0) {
+      Helpers
+        .init()
+        .then(function() {
+          vm.cache = Helpers.getCache();
+          console.log('Attemping to access the cache in if block', vm.cache);
+        })
+    } else {
+      vm.cache = Helpers.getCache();
+      console.log('Attemping to access the cache in else block', vm.cache.Category);
+      RequestService
+        .getAllRequests()
+        .then(function(returnedRequests) {
+          console.log('accessing cache categories in getallrequests', vm.cache.Category)
+          vm.requests = returnedRequests.map(vm.init).reverse();
+          console.log('modified requests', vm.requests);
+        })
+        .catch(function(error) {
+          console.log('Error returning requests');
+        })
+    }
+  }, 500)
   
-  RequestService
-      .getAllRequests()
-  
+  vm.init = function(request) {
+    request.userName = vm.cache.Users.filter(function(user) {
+      if (user.id === request.UserId) return user;
+    })[0].name;
+    // request.categoryName = vm.cache.Category.filter(function(category) {
+    //   if (category.id === request.CategoryId) return category;
+    // })[0].name;
+    return request;
+  };
+
   vm.addRequest = function() {
     RequestService
       .addRequest()
       .then(function(addedRequest) {
-        vm.requests.data.push(addedRequest);
-        vm.cache;
-        Helpers
-          .init()
-          // .then(function(cache) {
-          //   console.log('Helpers.init() returns this', cache);
-            vm.cache = Helpers.getCache();
-            console.log('Attempting to access the cache after calling init', vm.cache);
-          // })
-          // .catch(function(error) {
-          //   console.log('Error reinitializing the helpers cache');
-          // })
+        vm.pendingRequest = vm.init(addedRequest);
+        // return Helpers.init()
       })
+      // .then(function() {
+      //   vm.cache = Helpers.getCache();
+      //   let modifiedRequest = vm.init(vm.pendingRequest);
+      //   vm.requests.push(modifiedRequest);
+      // })
       .catch(function(error) {
         console.log('Error adding request');
       });
   };
 
   return vm;
+
 })
 .factory('RequestService', function($http) {
   const getAllRequests = function() {
@@ -41,8 +66,7 @@ angular
       url: '/api/requests'
     })
     .then(function(requests) {
-      vm.requests = requests;
-      console.log('RequestController (getAllRequests): Here are the requests', vm.requests);
+      return requests.data;
     })
     .catch(function(err) {
       console.log('RequestController (getAllRequests): Error retrieving requests.');
