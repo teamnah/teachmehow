@@ -16,7 +16,8 @@ router
 
 router
   .route('/users/:userId')
-    .get(userController.getUserDetails);
+    .get(userController.getUserDetails)
+    .put(userController.updateUser);
 
 router
   .route('/login')
