@@ -1,5 +1,14 @@
+/*body{
+    background-image: url("http://www.pixelstalk.net/wp-content/uploads/2016/06/Everest-Minimal-wallpaper-light.png");
+}*/
+.lessonTbl{
+    font-weight: 550;
+}
 .jumbotron {
   text-align: center;
+  -webkit-box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
+  box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
 }
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {height: 450px}

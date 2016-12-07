@@ -2,9 +2,9 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <h5>You may also want to learn</h5>
+      <h5>Suggestions for you...</h5>
       <p ng-repeat="item in vm.relLessons|limitTo:3">
-        <a>{{item.name}}</a>
+        <a ng-click="vm.goLesson(item.id)">{{item.name}}</a>
       </p>
     </div>
     <div class="col-sm-8 text-left"> 
@@ -21,7 +21,7 @@
       <div class="well">
         <img class="lessonProf" src="https://s-media-cache-ak0.pinimg.com/564x/ff/81/65/ff81651acd716cfe56b1b48127b0ab82.jpg"/>
         <p></p>
-        <p>Taught by: {{vm.Lesson.UserName.name}}</p>
+        <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
       </div>
       <div class="well">
         <h5>Qualifications</h5>
