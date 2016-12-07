@@ -3,9 +3,10 @@ angular
 .module('app.lesson', [])
 .controller('LessonCtrl',function($state, $stateParams, Helpers, authService, $timeout, $http){
   vm = this;
-  // if (!authService.showCurrent()  ||!authService.showCurrent().teacherFlag */) {
-  //   $state.go('splash')
-  // }
+  let userExists = authService.showCurrent();
+  if (!userExists) {
+    $state.go('splash')
+  }
   vm.id = $stateParams.input;
   console.log("Looking for lesson id:", vm.id);
 
