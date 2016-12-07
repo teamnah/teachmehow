@@ -1,8 +1,10 @@
 <div class="container">
   <div>
 
-    <header>
-        <img src="{{vm.picture}}" />
+    <div>
+        <div class="lessonProf">
+         <img src="{{vm.picture}}" />
+        </div>
         <h1 editable-text="vm.profile.name" e-form="textBtnForm" 
         ng-hide="textBtnForm.$visible">
           {{vm.profile.name}}
@@ -14,7 +16,7 @@
           <button ng-if="vm.myProfile" ng-click="textBtnForm1.$show()"
             ng-hide="textBtnForm1.$visible">edit</button>
         </h2>
-    </header>
+    </div>
 
     <div class="profile-bio" editable-textarea="vm.blurb" 
     e-form="textBtnForm2" e-rows="7" e-cols="40" ng-hide="textBtnForm2.$visible">
