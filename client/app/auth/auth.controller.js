@@ -16,8 +16,12 @@ angular.module('teachMe')
   }
 
   vm.goDash = () => {
-    $state.go('dash')
+    $state.go('dash',{input:authService.showCurrent().id})
   }
+  vm.goProf = () => {
+    $state.go('prof', {input:authService.showCurrent().id})
+  }
+
   return vm;
   
 })
