@@ -1,6 +1,6 @@
 angular
 .module('app.request', []) 
-.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout) {
+.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout, authService) {
 
   vm = this;
   vm.requests = [];
@@ -19,6 +19,7 @@ angular
         .getAllRequests()
         .then(function(returnedRequests) {
           vm.requests = returnedRequests.map(vm.init).reverse();
+          console.log('these are the returned requests', vm.requests);
         })
         .catch(function(error) {
           console.log('Error returning requests');
@@ -37,9 +38,12 @@ angular
   };
 
   vm.addRequest = function() {
+    vm.UserId = authService.showCurrent().id;
+    console.log('passing in this userId', vm.UserId);
     RequestService
       .addRequest()
       .then(function(addedRequest) {
+        console.log('this is the request we are attempting to add', addedRequest);
         vm.pendingRequest = addedRequest;
         return Helpers.init()
       })
@@ -73,7 +77,8 @@ angular
   const addRequest = function() {
 
     let newRequest = {};
-    newRequest.userName = vm.userName;
+    newRequest.userId = vm.UserId;
+    // newRequest.userName = vm.userName;
     newRequest.requestName = vm.requestName;
     newRequest.categoryName = vm.categoryName;
 

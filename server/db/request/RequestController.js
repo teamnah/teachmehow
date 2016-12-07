@@ -31,13 +31,14 @@ module.exports = {
       UserId: null,
       CategoryId: null
     }
-    if (req.body.userName === undefined || req.body.requestName === undefined || req.body.categoryName === undefined) {
+    if (req.body.userId === undefined || req.body.requestName === undefined || req.body.categoryName === undefined) {
       res.json([]);
       return;
     }
     models.User.find({
       where: {
-        name: req.body.userName
+        // name: req.body.userName
+        id: req.body.userId
       }
     })
     .then((user) => {
