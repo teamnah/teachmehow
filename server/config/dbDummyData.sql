@@ -13,61 +13,68 @@ DELETE FROM request;
 DELETE FROM user;
 
 
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Khoa',0, NOW(), NOW(),
         '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'Khoa@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Nate',0, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'Nate@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Kevin',0, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'kevin@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Kan',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'Kan@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Sergey',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'Sergey@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Daria',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'Daria@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
     VALUES('Ricky',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
-        }'
+        }',
+        'Ricky@test.com'
     );
 
 

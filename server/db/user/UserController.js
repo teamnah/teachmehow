@@ -25,13 +25,15 @@ module.exports = {
   }, 
 
   addOneUser: (req, res, next) => {
+    console.log("adding user", req.body);
    models.User.create({
       name: req.body.name,
       teachFlag: req.body.teachFlag,
       rating: null,
       bio: req.body.bio,
       picture: req.body.picture,
-      auth: req.body.auth
+      auth: req.body.auth,
+      spare1: req.body.spare1
     })
     .then((user) => {
       res.json(user);
