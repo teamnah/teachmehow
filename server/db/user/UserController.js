@@ -56,10 +56,29 @@ module.exports = {
     });
   },
 
-  updateUser: (req, res, next) => {
+  updateUserBio: (req, res, next) => {
     models.User.update(
       {
         bio: JSON.stringify(req.body)
+      },
+      {
+        where: {
+          id:req.params.userId
+        }
+    })
+    .then((user) => {
+      console.log(user)
+      res.json(user)
+    })
+    .catch((err) => {
+      res.json(err)
+    })
+  },
+
+  updateUserTeachFlag: (req, res, next) => {
+    models.User.update(
+      {
+        teachFlag: true
       },
       {
         where: {
