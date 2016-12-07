@@ -31,26 +31,37 @@ module.exports = {
       UserId: null,
       CategoryId: null
     }
-    if (req.body.userName === undefined || req.body.requestName === undefined || req.body.categoryName === undefined) {
+    if (req.body.userId === undefined || req.body.requestName === undefined || req.body.categoryName === undefined) {
       res.json([]);
       return;
     }
     models.User.find({
       where: {
-        name: req.body.userName
+        // name: req.body.userName
+        id: req.body.userId
       }
     })
     .then((user) => {
-      temp.UserId = user.dataValues.id; 
-      return models.Category.find({
+      temp.UserId = user.dataValues.id;
+      /** 
+       * findOrCreate returns a promise that consists of two values in an array
+       * the first value is the returned instance
+       * the second value is a boolean indicating whether the instance was created or note
+       * true --> instance created 
+       * false --> instance found
+       * */ 
+      return models.Category.findOrCreate({
         where: {
+          name: req.body.categoryName
+        },
+        defaults: {
           name: req.body.categoryName
         }
       })
-    }) // here
+    })
     .then((category) => {
-      console.log('RequestController (addOneRequest): This is what temp looks like before', temp);
-      temp.CategoryId = category.dataValues.id;
+      console.log('RequestController (addOneRequest): This is what temp looks like before', category);
+      temp.CategoryId = category[0].dataValues.id;
       console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
       return models.Request.create({
         name: req.body.requestName,

@@ -101,6 +101,9 @@ angular
       })
       cache.Master = tmp;
       console.log("Finished initializing helpers", cache);
+
+      return cache;
+
     })
     .catch(err=>console.log(err));
   }
