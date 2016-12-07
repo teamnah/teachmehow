@@ -1,6 +1,6 @@
 
 angular
-.module('app.dash',[])
+.module('app.dash',['datatables'])
 .controller('DashCtrl', function($scope, $state, $stateParams, authService, Helpers, $timeout, $http){
   if (!authService.showCurrent() /** ||!authService.showCurrent().teacherFlag */) {
     $state.go('splash')
