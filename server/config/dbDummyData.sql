@@ -4,9 +4,9 @@
 -- this file will delete your old data and populate your already made tables
 
 
-USE teachme;
+USE practice;
 
-DELETE FROM booking;
+
 DELETE FROM category;
 DELETE FROM rating;
 DELETE FROM request;
@@ -40,41 +40,45 @@ INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`)
         }',
         'kevin@test.com'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`,`picture`) 
     VALUES('Kan',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
         }',
-        'Kan@test.com'
+        'Kan@test.com',
+        'https://avatars0.githubusercontent.com/u/8520106?v=3&s=400'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`, `picture`) 
     VALUES('Sergey',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
         }',
-        'Sergey@test.com'
+        'Sergey@test.com',
+        'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/552453_10150606395761010_779695352_n.jpg?oh=a4254cc5fd50ec05687d03b27a5b7b1b&oe=58EDCC43'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`, `picture`) 
     VALUES('Daria',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
         }',
-        'Daria@test.com'
+        'Daria@test.com',
+        'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/10420013_10152477254181563_8453790733562109721_n.jpg?oh=a60f0b79334e3330838497e958e94bb9&oe=58EE9CAE'
     );
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`) 
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`,`spare1`, `picture`) 
     VALUES('Ricky',1, NOW(), NOW(),
        '{
             "title":"",
             "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
             "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
         }',
-        'Ricky@test.com'
+        'Ricky@test.com',
+        'https://avatars1.githubusercontent.com/u/12319192?v=3&s=400'
     );
 
 
