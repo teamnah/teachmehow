@@ -6,15 +6,17 @@ angular
   vm.requests = [];
   vm.pendingRequest;
 
-  if (Object.keys(Helpers.getCache()).length === 0) {
-    Helpers
-      .init()
-      .then(function() {
-        vm.init();
-      })
-  } else {
-    vm.init();
-  }
+  $timeout(function() {
+    if (Object.keys(Helpers.getCache()).length === 0) {
+      Helpers
+        .init()
+        .then(function() {
+          vm.init();
+        })
+    } else {
+      vm.init();
+    }
+  }, 500);
 
   vm.init = function() {
     vm.cache = Helpers.getCache();
