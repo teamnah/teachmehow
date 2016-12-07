@@ -1,11 +1,16 @@
 
 angular
-.module('app.prof', [])
+.module('app.prof', ['datatables'])
 .controller('ProfCtrl',function($state, $stateParams, $scope, $http, $timeout, authService, Helpers){
   vm = this;
   vm.cache = {};
   vm.cache = Helpers.getCache();
   // console.log("state params", $stateParams);
+  vm.goLesson = (input) =>{
+    console.log(input);
+    $state.go("lesson",{input: input})
+  }
+
   if (!Object.keys(vm.cache).length) {
     console.log('********reinitializing helpers')
     Helpers.init()
@@ -23,7 +28,7 @@ angular
     })[0]
     console.log("viewing profile for:",vm.profile)
     vm.picture = vm.profile.picture || "http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg"
-    if (typeof vm.profile.bio === 'string') {
+    if (typeof vm.profile.bio === 'string' && vm.profile.bio !== '') {
       vm.profile.bio = JSON.parse(vm.profile.bio)
     }
     vm.title = vm.profile.bio && vm.profile.bio.title? 

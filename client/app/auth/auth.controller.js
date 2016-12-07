@@ -5,7 +5,7 @@ angular.module('teachMe')
   authService.registerAuthListener();
   $timeout(()=>{
     vm.isTeach = authService.showCurrent().teachFlag
-  }, 100)
+  }, 300)
 
   vm.becomeTeacher = () => {
     authService.becomeTeacher()
