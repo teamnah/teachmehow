@@ -1,5 +1,5 @@
 angular
-.module('app.request', []) 
+.module('app.request', ['datatables']) 
 .controller('RequestCtrl', function($http, RequestService, Helpers, $timeout, authService) {
 
   vm = this;
@@ -11,23 +11,27 @@ angular
       Helpers
         .init()
         .then(function() {
-          vm.cache = Helpers.getCache();
+          vm.init();
         })
     } else {
-      vm.cache = Helpers.getCache();
-      RequestService
-        .getAllRequests()
-        .then(function(returnedRequests) {
-          vm.requests = returnedRequests.map(vm.init).reverse();
-          console.log('these are the returned requests', vm.requests);
-        })
-        .catch(function(error) {
-          console.log('Error returning requests');
-        })
+      vm.init();
     }
-  }, 500)
+  }, 500);
+
+  vm.init = function() {
+    vm.cache = Helpers.getCache();
+    RequestService
+      .getAllRequests()
+      .then(function(returnedRequests) {
+        vm.requests = returnedRequests.map(vm.editRequests).reverse();
+        console.log('these are the returned requests', vm.requests);
+      })
+      .catch(function(error) {
+        console.log('Error returning requests');
+      })
+  };
   
-  vm.init = function(request) {
+  vm.editRequests = function(request) {
     request.userName = vm.cache.Users.filter(function(user) {
       if (user.id === request.UserId) return user;
     })[0].name;
@@ -43,13 +47,12 @@ angular
     RequestService
       .addRequest()
       .then(function(addedRequest) {
-        console.log('this is the request we are attempting to add', addedRequest);
         vm.pendingRequest = addedRequest;
         return Helpers.init()
       })
       .then(function(returnedCache) {
         vm.cache = returnedCache;
-        let modifiedRequest = vm.init(vm.pendingRequest);
+        let modifiedRequest = vm.editRequests(vm.pendingRequest);
         vm.requests.unshift(modifiedRequest);
       })
       .catch(function(error) {
@@ -78,7 +81,6 @@ angular
 
     let newRequest = {};
     newRequest.userId = vm.UserId;
-    // newRequest.userName = vm.userName;
     newRequest.requestName = vm.requestName;
     newRequest.categoryName = vm.categoryName;
 
