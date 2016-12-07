@@ -16,8 +16,15 @@ router
 
 router
   .route('/users/:userId')
-    .get(userController.getUserDetails)
-    .put(userController.updateUser);
+    .get(userController.getUserDetails);
+
+router
+  .route('/users/:userId/bio')
+    .put(userController.updateUserBio);
+
+router
+  .route('/users/:userId/teach')
+    .put(userController.updateUserTeachFlag);
 
 router
   .route('/login')

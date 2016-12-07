@@ -50,19 +50,18 @@ angular
           vm.profile.bio.title = newVal :
           vm.profile.bio = {title: newVal};
         console.log(vm.profile.bio)
-        $http.put('/api/users/'+vm.profile.id, vm.profile.bio)
+        $http.put('/api/users/'+vm.profile.id+'/bio', vm.profile.bio)
         .then(resp => console.log(resp))
       }
     });
 
     $scope.$watch('vm.blurb', function(newVal, oldVal) {
-      console.log('old:',oldVal,'; new:',newVal,'; bio:',vm.profile.bio)
       if (newVal !== oldVal) {
         vm.profile.bio?
           vm.profile.bio.blurb = newVal :
           vm.profile.bio = {blurb: newVal};
         console.log("$watch:",vm.profile.bio)
-        $http.put('/api/users/'+vm.profile.id, vm.profile.bio)
+        $http.put('/api/users/'+vm.profile.id+'/bio', vm.profile.bio)
         .then(resp => console.log(resp))
       }
     });
