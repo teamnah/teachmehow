@@ -1,21 +1,48 @@
 
 angular
 .module('app.lesson', [])
-.controller('LessonCtrl',function($state, $stateParams, Helpers){
+.controller('LessonCtrl',function($state, $stateParams, Helpers, $timeout, $http){
   vm = this;
-  vm.cache = {};
-  vm.cache = Helpers.getCache();
-  //console.log("state params", $stateParams);
   vm.id = $stateParams.input;
+  console.log("Looking for lesson id:", vm.id);
 
-  vm.lessons = vm.cache.LessByUser.filter(lesson=>{
-    if(lesson.name===vm.id){
-      return lesson.Lessons;
-    }
-  })[0].Lessons
+  vm.initLesson = () =>{
+    vm.Lesson = Helpers.getCache()
+                       .Master
+                       .filter(lesson=>{
+                         if(lesson.id===Number(vm.id)) return lesson
+                       })[0]
+    vm.relLessons = Helpers.getCache()
+                       .LessByCat
+                       .filter(lesson=>{
+                         if(lesson.name===vm.Lesson.CategoryName.name) return lesson
+                       })[0]
+                       .Lessons
+                       .filter(lesson=>{
+                         if(lesson.name!==vm.Lesson.name) return lesson
+                       })
   
-  vm.bio = vm.cache.Users
+    console.log("Lesson found: ", vm.Lesson);
+    console.log("Related Lessons found: ", vm.relLessons);
+    $http.get(`http://api.giphy.com/v1/gifs/search?q=${vm.Lesson.name}&api_key=dc6zaTOxFJmzC&limit=5`)
+    .then(result=>{
+      vm.gifs = result.data.data.map(gif=>{
+        return gif.images.fixed_height_small.url
+      })
+      vm.randGif = vm.gifs[Math.floor(Math.random() * vm.gifs.length)]
+    })
+  }
+
+  $timeout(()=>{
+    if(Object.keys(Helpers.getCache()).length === 0){
+      Helpers.init()
+      .then(()=>{
+        vm.initLesson()
+      });
+    }else{
+      vm.initLesson()
+    }
+  }, 500)
   console.log("VM id = ", vm.id);
-  console.log("lessons by user from cache", vm.lessons)
   return vm;
 })

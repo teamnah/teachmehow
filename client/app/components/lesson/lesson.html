@@ -1,0 +1,31 @@
+
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <h5>You may also want to learn</h5>
+      <p ng-repeat="item in vm.relLessons|limitTo:3">
+        <a>{{item.name}}</a>
+      </p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1>{{vm.Lesson.name}}</h1>
+      <h5>Current rating: {{vm.Lesson.rating}}</h5>
+      <h5>Category: {{vm.Lesson.CategoryName.name}}</h5>
+      <hr>
+      <p>{{vm.Lesson.details}}</p>
+      <hr>
+      <h3>This could be you...</h3>
+      <img ng-src="{{vm.randGif}}"/>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <img class="lessonProf" src="https://s-media-cache-ak0.pinimg.com/564x/ff/81/65/ff81651acd716cfe56b1b48127b0ab82.jpg"/>
+        <p></p>
+        <p>Taught by: {{vm.Lesson.UserName.name}}</p>
+      </div>
+      <div class="well">
+        <h5>Qualifications</h5>
+      </div>
+    </div>
+  </div>
+</div>

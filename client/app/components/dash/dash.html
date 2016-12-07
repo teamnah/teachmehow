@@ -1,34 +1,56 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Teacher Dashboard</h1>
+  <div class="jumbotron vertical-center">
+    <h3>Welcome back {{vm.teacherName}}!</h3>
   </div>
+
   <div>
-    <!--Edit such that we can add a lesson for the teacher-->
-    <!--<form ng-submit="vm.addRequest()">
-      <label>Requested By:</label><input type="" name="" ng-model="vm.userName">
-      <label>Requested Lesson:</label> <input type="" name="" ng-model="vm.requestName">
-      <label>Category:</label> <input type="" name="" ng-model="vm.categoryName">
-      <button type="submit">Submit Request</button>
-    </form>-->
+    <div class="addLesson">
+      <form name="lessonForm" ng-submit="vm.submitForm(lessonForm.$valid)" novalidate>
+          <label>Create a new lesson:</label>
+          <!-- NAME -->
+          <div class="form-group" ng-class="{ 'has-error' : lessonForm.name.$invalid && !lessonForm.name.$pristine }">
+              <label> Lesson Name*</label>
+              <input type="text" name="name" class="form-control" ng-model="vm.lesson.name" required>
+              <p ng-show="lessonForm.name.$invalid && !lessonForm.name.$pristine" class="help-block">You name is required.</p>
+          </div>
+          
+          <!-- Category -->
+          <div class="form-group" ng-class="{ 'has-error' : lessonForm.category.$invalid && !lessonForm.category.$pristine }">
+              <label>Category</label>
+              <input type="text" name="category" class="form-control" ng-model="vm.lesson.category" ng-minlength="3" required>
+              <p ng-show="lessonForm.category.$error.minlength" class="help-block">category is too short.</p>
+          </div>
+
+          <!-- Details -->
+          <div class="form-group" ng-class="{ 'has-error' : lessonForm.details.$invalid && !lessonForm.details.$pristine }">
+              <label>Details</label>
+              <input type="text" name="details" class="form-control" ng-model="vm.lesson.details" ng-minlength="3" required>
+              <p ng-show="lessonForm.details.$error.minlength" class="help-block">details is too short.</p>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
   </div>
+
   <div class="lessonTbl">
-      <table class="table table-bordered">
-        <tr>
-          <td id="caption" colspan="5"></td>
-        </tr>
-        <th>
-          <td>Lesson id</td>
-          <td>Name</td>
-          <td>Details</td>
-          <td>Rating</td>
-        </th>
-        <tr ng-repeat="lesson in vm.teacherDetails.Lessons">
-          <td></td>
-          <td>{{lesson.id}}</td>
-          <td>{{lesson.name}}</td>
-          <td>{{lesson.details}}</td>
-          <td>{{lesson.rating}}</td>
-        </tr>
+      <table datatable="ng" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Lesson id</th>
+            <th>Name</th>
+            <th>Details</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="lesson in vm.teacher.Lessons">
+            <td>{{lesson.id}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.name}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.details}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.rating}}</td>
+          </tr>
+        </tbody>
     </table>
   </div>
+
 </div>
