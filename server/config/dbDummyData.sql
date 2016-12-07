@@ -13,16 +13,71 @@ DELETE FROM request;
 DELETE FROM user;
 
 
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`) VALUES('Khoa',0, NOW(), NOW());
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`) VALUES('Nate',0, NOW(), NOW());
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`) VALUES('Kevin',0, NOW(), NOW());
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`) VALUES('Daria',1, NOW(), NOW());
-INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`) VALUES('Ricky',1, NOW(), NOW());
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Khoa',0, NOW(), NOW(),
+        '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Nate',0, NOW(), NOW(),
+       '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Kevin',0, NOW(), NOW(),
+       '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Kan',1, NOW(), NOW(),
+       '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Sergey',1, NOW(), NOW(),
+       '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Daria',1, NOW(), NOW(),
+       '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+INSERT INTO `User` (`name`,`teachFlag`,`createdAt`, `updatedAt`,`bio`) 
+    VALUES('Ricky',1, NOW(), NOW(),
+       '{
+            "title":"",
+            "blurb":"I enjoy long walks on the beach and teaching people how to dance.",
+            "qualifications":["blackbelt in tai chi","breakdancing","Dungeon Master Level 3"]
+        }'
+    );
+
 
 INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('dance', NOW(), NOW());
 INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('driving', NOW(), NOW());
 INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('cooking', NOW(), NOW());
 INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('javascript', NOW(), NOW());
+INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('surfing', NOW(), NOW());
+INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('powerlifting', NOW(), NOW());
+INSERT INTO `Category` (`name`,`createdAt`, `updatedAt`) VALUES('music', NOW(), NOW());
 
 INSERT INTO `Lesson` (`UserId`,`CategoryId`,`name`,`details`,`rating`,`createdAt`, `updatedAt`) VALUES(
     (select id from user where name='Daria'),
@@ -50,6 +105,46 @@ INSERT INTO `Lesson` (`UserId`,`CategoryId`,`name`,`details`,`rating`,`createdAt
     'How to Drift',
     'lesson details go here',
     4.8,
+    NOW(),
+    NOW()
+);
+
+INSERT INTO `Lesson` (`UserId`,`CategoryId`,`name`,`details`,`rating`,`createdAt`, `updatedAt`) VALUES(
+    (select id from user where name='Kan'),
+    (select id from category where name='surfing'),
+    'How to surf',
+    'lesson details go here',
+    4.5,
+    NOW(),
+    NOW()
+);
+
+INSERT INTO `Lesson` (`UserId`,`CategoryId`,`name`,`details`,`rating`,`createdAt`, `updatedAt`) VALUES(
+    (select id from user where name='Kan'),
+    (select id from category where name='dance'),
+    'How to do breakdance',
+    'lesson details go here',
+    4.5,
+    NOW(),
+    NOW()
+);
+
+INSERT INTO `Lesson` (`UserId`,`CategoryId`,`name`,`details`,`rating`,`createdAt`, `updatedAt`) VALUES(
+    (select id from user where name='Sergey'),
+    (select id from category where name='music'),
+    'How to freestyle',
+    'lesson details go here',
+    4.5,
+    NOW(),
+    NOW()
+);
+
+INSERT INTO `Lesson` (`UserId`,`CategoryId`,`name`,`details`,`rating`,`createdAt`, `updatedAt`) VALUES(
+    (select id from user where name='Sergey'),
+    (select id from category where name='powerlifting'),
+    'How to lift bro',
+    'lesson details go here',
+    4.5,
     NOW(),
     NOW()
 );
