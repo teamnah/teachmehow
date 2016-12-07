@@ -1,5 +1,9 @@
 <div ng-show="vm.authService.showCurrent()">
   <button ng-click="vm.authService.logout()">Log Out</button>
+  <button ng-hide="vm.isTeach"
+   ng-click="vm.becomeTeacher()">
+    Start Teaching!
+  </button>
 </div>
 <div ng-hide="vm.authService.showCurrent()">
   <button ng-click="vm.authService.login()">Log In/Register</button>
