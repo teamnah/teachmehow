@@ -4,12 +4,19 @@
     <header>
         <img src="{{vm.picture}}" />
         <h1>{{vm.profile.name}}</h1>
-        <h2>{{vm.title}}</h2>
+        <h2 editable-text="vm.title" e-form="textBtnForm" ng-hide="textBtnForm.$visible">
+          {{vm.title}}
+          <button ng-if="vm.myProfile" ng-click="textBtnForm.$show()"
+            ng-hide="textBtnForm.$visible">edit</button>
+        </h2>
     </header>
 
-    <div class="profile-bio">
-        <p>{{vm.blurb}}</p>
-        <button ng-if="vm.myProfile" ng-click="vm.updateProf()">update profile</button>
+    <div class="profile-bio" editable-textarea="vm.blurb" 
+    e-form="textBtnForm2" e-rows="7" e-cols="40" ng-hide="textBtnForm2.$visible">
+        <pre>{{vm.blurb}}
+          <button ng-if="vm.myProfile" ng-click="textBtnForm2.$show()"
+            ng-hide="textBtnForm2.$visible">edit</button>
+        </pre>
     </div>
   </div>
 
