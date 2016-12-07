@@ -1,9 +1,8 @@
-<h1>Requests Page!</h1>
+<h1>Request a Lesson Here!</h1>
 
 <br>
 
 <form ng-submit="vm.addRequest()">
-  <!--<label>Requested By:</label><input type="" name="" ng-model="vm.userName">-->
   <label>Requested Lesson:</label> <input type="" name="" ng-model="vm.requestName">
   <label>Category:</label> <input type="" name="" ng-model="vm.categoryName">
   <button type="submit">Submit Request</button>
@@ -11,8 +10,27 @@
 
 <br>
 
-<ul ng-repeat="request in vm.requests">
-  <li>Request Name: {{request.name}}</li>
-  <li>User Requesting: {{request.userName}}</li>
-  <li>Requested Category: {{request.categoryName}}</li>
-</ul>
+<div>
+  <div class="lessonTbl">
+      <table datatable="ng" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Date Requested</th>
+            <th>Requested Lesson</th>
+            <!--<th>Upvotes</th>-->
+            <th>Category</th>
+            <th>User Requesting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="request in vm.requests">
+            <td>{{request.createdAt | date: "MM.dd.y"}}</td>
+            <td>{{request.name}}</td>
+            <!--<td>{{request.upvote}}</td>-->
+            <td>{{request.categoryName}}</td>
+            <td>{{request.userName}}</td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
