@@ -1,6 +1,7 @@
 
 
 angular.module('teachMe', [
+  "xeditable",
   'auth0.lock',
   'angular-jwt',
   'app.dash',
@@ -60,7 +61,13 @@ function config ($stateProvider,
   });      
 }
 
-function run($rootScope, authService, authManager, lock) {
+function run($rootScope, authService, authManager, lock, editableOptions, editableThemes) {
+    // set `default` theme for xEditable
+    editableOptions.theme = 'default';
+    
+    // overwrite submit button template for xEditable
+    editableThemes['default'].submitTpl = '<button type="submit">ok</button>';
+
     // Put the authService on $rootScope so its methods
     // can be accessed from the nav bar
     $rootScope.authService = authService;

@@ -54,5 +54,24 @@ module.exports = {
     .catch((err) => {
       res.json(err);
     });
+  },
+
+  updateUser: (req, res, next) => {
+    models.User.update(
+      {
+        bio: JSON.stringify(req.body)
+      },
+      {
+        where: {
+          id:req.params.userId
+        }
+    })
+    .then((user) => {
+      console.log(user)
+      res.json(user)
+    })
+    .catch((err) => {
+      res.json(err)
+    })
   }
 };
