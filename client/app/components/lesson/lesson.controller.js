@@ -5,7 +5,14 @@ angular
   vm = this;
   vm.id = $stateParams.input;
   console.log("Looking for lesson id:", vm.id);
-
+  vm.goLesson = (input) =>{
+    console.log(input);
+    $state.go("lesson",{input: input})
+  }
+  vm.goProfile = (input) =>{
+    console.log(input);
+    $state.go("prof",{input: input})
+  }
   vm.initLesson = () =>{
     vm.Lesson = Helpers.getCache()
                        .Master
