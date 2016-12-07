@@ -61,6 +61,10 @@ angular.module('teachMe')
     });
   }
 
+  let becomeTeacher = () => {
+    return $http.put('/api/users/'+currentUser.id+'/teach', {teachFlag:true})
+  }
+
   /** basic authentication functionality */
   let showCurrent = function(){
     return currentUser;
@@ -81,6 +85,7 @@ angular.module('teachMe')
     login: login,
     logout: logout,
     showCurrent: showCurrent,
+    becomeTeacher: becomeTeacher,
     registerAuthListener: registerAuthListener
   }
 })
