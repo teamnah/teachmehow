@@ -3,25 +3,25 @@
     <h1>Welcome to Teach Me How</h1>
   </div>
   <div class="lessonTbl">
-      <table class="table table-bordered">
-        <tr>
-          <td id="caption" colspan="6"></td>
-        </tr>
-        <th>
-          <td>Lesson id</td>
-          <td>Name</td>
-          <td>Category</td>
-          <td>Teacher</td>
-          <td>Rating</td>
-        </th>
-        <tr ng-repeat="lesson in vm.cache.Master">
-          <td></td>
-          <td>{{lesson.id}}</td>
-          <td>{{lesson.name}}</td>
-          <td>{{lesson.CategoryName.name}}</td>
-          <td ng-click="vm.goProfile(lesson.UserName.id)">{{lesson.UserName.name}}</td>
-          <td>{{lesson.rating}}</td>
-        </tr>
+      <table datatable="ng" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Lesson id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Teacher</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="lesson in vm.cache.Master">
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.id}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.name}}</td>
+            <td>{{lesson.CategoryName.name}}</td>
+            <td ng-click="vm.goProfile(lesson.UserName.id)">{{lesson.UserName.name}}</td>
+            <td>{{lesson.rating}}</td>
+          </tr>
+        </tbody>
     </table>
   </div>
 </div>
