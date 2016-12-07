@@ -1,27 +1,24 @@
-
 angular
 .module('app.request', []) 
-.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout){
+.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout) {
+
   vm = this;
   vm.requests = [];
   vm.pendingRequest;
-  $timeout(() => {
+
+  $timeout(function() {
     if (Object.keys(Helpers.getCache()).length === 0) {
       Helpers
         .init()
         .then(function() {
           vm.cache = Helpers.getCache();
-          console.log('Attemping to access the cache in if block', vm.cache);
         })
     } else {
       vm.cache = Helpers.getCache();
-      console.log('Attemping to access the cache in else block', vm.cache.Category);
       RequestService
         .getAllRequests()
         .then(function(returnedRequests) {
-          console.log('accessing cache categories in getallrequests', vm.cache.Category)
           vm.requests = returnedRequests.map(vm.init).reverse();
-          console.log('modified requests', vm.requests);
         })
         .catch(function(error) {
           console.log('Error returning requests');
@@ -33,9 +30,9 @@ angular
     request.userName = vm.cache.Users.filter(function(user) {
       if (user.id === request.UserId) return user;
     })[0].name;
-    // request.categoryName = vm.cache.Category.filter(function(category) {
-    //   if (category.id === request.CategoryId) return category;
-    // })[0].name;
+    request.categoryName = vm.cache.Category.filter(function(category) {
+      if (category.id === request.CategoryId) return category;
+    })[0].name;
     return request;
   };
 
@@ -43,14 +40,14 @@ angular
     RequestService
       .addRequest()
       .then(function(addedRequest) {
-        vm.pendingRequest = vm.init(addedRequest);
-        // return Helpers.init()
+        vm.pendingRequest = addedRequest;
+        return Helpers.init()
       })
-      // .then(function() {
-      //   vm.cache = Helpers.getCache();
-      //   let modifiedRequest = vm.init(vm.pendingRequest);
-      //   vm.requests.push(modifiedRequest);
-      // })
+      .then(function(returnedCache) {
+        vm.cache = returnedCache;
+        let modifiedRequest = vm.init(vm.pendingRequest);
+        vm.requests.unshift(modifiedRequest);
+      })
       .catch(function(error) {
         console.log('Error adding request');
       });
@@ -97,4 +94,5 @@ angular
     getAllRequests: getAllRequests,
     addRequest: addRequest
   };
+
 });
