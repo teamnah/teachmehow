@@ -6,28 +6,30 @@ angular
   vm.requests = [];
   vm.pendingRequest;
 
-  $timeout(function() {
-    if (Object.keys(Helpers.getCache()).length === 0) {
-      Helpers
-        .init()
-        .then(function() {
-          vm.cache = Helpers.getCache();
-        })
-    } else {
-      vm.cache = Helpers.getCache();
-      RequestService
-        .getAllRequests()
-        .then(function(returnedRequests) {
-          vm.requests = returnedRequests.map(vm.init).reverse();
-          console.log('these are the returned requests', vm.requests);
-        })
-        .catch(function(error) {
-          console.log('Error returning requests');
-        })
-    }
-  }, 500)
+  if (Object.keys(Helpers.getCache()).length === 0) {
+    Helpers
+      .init()
+      .then(function() {
+        vm.init();
+      })
+  } else {
+    vm.init();
+  }
+
+  vm.init = function() {
+    vm.cache = Helpers.getCache();
+    RequestService
+      .getAllRequests()
+      .then(function(returnedRequests) {
+        vm.requests = returnedRequests.map(vm.editRequests).reverse();
+        console.log('these are the returned requests', vm.requests);
+      })
+      .catch(function(error) {
+        console.log('Error returning requests');
+      })
+  };
   
-  vm.init = function(request) {
+  vm.editRequests = function(request) {
     request.userName = vm.cache.Users.filter(function(user) {
       if (user.id === request.UserId) return user;
     })[0].name;
@@ -48,7 +50,7 @@ angular
       })
       .then(function(returnedCache) {
         vm.cache = returnedCache;
-        let modifiedRequest = vm.init(vm.pendingRequest);
+        let modifiedRequest = vm.editRequests(vm.pendingRequest);
         vm.requests.unshift(modifiedRequest);
       })
       .catch(function(error) {
