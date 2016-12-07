@@ -21,21 +21,21 @@
   </div>
 
   <div class="lessonTbl" ng-show="vm.profile.teachFlag">
-      <table class="table table-bordered">
-        <tr>
-          <td id="caption" colspan="4"></td>
-        </tr>
-        <th>
-          <td>Name</td>
-          <td>Category</td>
-          <td>Rating</td>
-        </th>
-        <tr ng-repeat="lesson in vm.lessons">
-          <td></td>
-          <td>{{lesson.name}}</td>
-          <td>{{lesson.category}}</td>
-          <td>{{lesson.rating}}</td>
-        </tr>
+    <table datatable="ng" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="lesson in vm.lessons">
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.name}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.category}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.rating}}</td>
+          </tr>
+        </tbody>
     </table>
   </div>
 </div>
