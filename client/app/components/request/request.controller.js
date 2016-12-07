@@ -47,8 +47,14 @@ angular
   };
 
   vm.addRequest = function() {
-    vm.userExists = authService.showCurrent();
-    if (vm.userExists !== null) {
+    let userExists = authService.showCurrent();
+    if (!userExists) {
+      swal({
+        title: "Invalid Login",
+        text: "Please log in to make a request.",
+        imageUrl: "http://vignette2.wikia.nocookie.net/youtubepoop/images/4/4e/Tubby.png/revision/latest?cb=20140517044848"
+      });
+    } else {
       let UserId = authService.showCurrent().id;
       vm.UserId = UserId;
       RequestService
@@ -64,12 +70,6 @@ angular
         })
         .catch(function(error) {
           console.log('Error adding request');
-        });
-    } else {
-        swal({
-          title: "Invalid Login",
-          text: "Please log in to make a request.",
-          imageUrl: "http://vignette2.wikia.nocookie.net/youtubepoop/images/4/4e/Tubby.png/revision/latest?cb=20140517044848"
         });
     }
   };
