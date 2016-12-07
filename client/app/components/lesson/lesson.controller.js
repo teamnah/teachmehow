@@ -22,6 +22,11 @@ angular
 
   vm.bookLesson = function(ev) {
     console.log("booking lesson....");
+    swal({
+      title: "Contact Teacher",
+      text: "To book this lesson,\ncontact the teacher at:\n"+vm.Lesson.UserName.spare1,
+      imageUrl: "http://marketingland.com/wp-content/ml-loads/2015/12/email_ss_1920.png"
+    });
   };
 
   vm.initLesson = () =>{

@@ -20,7 +20,7 @@ angular.module('teachMe')
           bio: '',
           picture: profile.picture,
           auth: profile.user_id,
-          spare1: profile.email            
+          spare1: profile.email || profile.link            
         }).then((user)=>{
           currentUser = user.data;
           console.log('logged in as:',currentUser);
