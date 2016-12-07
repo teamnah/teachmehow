@@ -1,6 +1,6 @@
 angular
 .module('app.request', ['datatables']) 
-.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout, authService) {
+.controller('RequestCtrl', function($state, $http, RequestService, Helpers, $timeout, authService) {
 
   vm = this;
   vm.requests = [];
@@ -17,6 +17,11 @@ angular
       vm.init();
     }
   }, 500);
+
+  vm.goProfile = function(input) {
+    console.log(input);
+    $state.go("prof", {input: input})
+  };
 
   vm.init = function() {
     vm.cache = Helpers.getCache();
@@ -42,22 +47,31 @@ angular
   };
 
   vm.addRequest = function() {
-    vm.UserId = authService.showCurrent().id;
-    console.log('passing in this userId', vm.UserId);
-    RequestService
-      .addRequest()
-      .then(function(addedRequest) {
-        vm.pendingRequest = addedRequest;
-        return Helpers.init()
-      })
-      .then(function(returnedCache) {
-        vm.cache = returnedCache;
-        let modifiedRequest = vm.editRequests(vm.pendingRequest);
-        vm.requests.unshift(modifiedRequest);
-      })
-      .catch(function(error) {
-        console.log('Error adding request');
+    let userExists = authService.showCurrent();
+    if (!userExists) {
+      swal({
+        title: "Invalid Login",
+        text: "Please log in to make a request.",
+        imageUrl: "http://vignette2.wikia.nocookie.net/youtubepoop/images/4/4e/Tubby.png/revision/latest?cb=20140517044848"
       });
+    } else {
+      let UserId = authService.showCurrent().id;
+      vm.UserId = UserId;
+      RequestService
+        .addRequest()
+        .then(function(addedRequest) {
+          vm.pendingRequest = addedRequest;
+          return Helpers.init()
+        })
+        .then(function(returnedCache) {
+          vm.cache = returnedCache;
+          let modifiedRequest = vm.editRequests(vm.pendingRequest);
+          vm.requests.unshift(modifiedRequest);
+        })
+        .catch(function(error) {
+          console.log('Error adding request');
+        });
+    }
   };
 
   return vm;
