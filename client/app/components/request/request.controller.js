@@ -1,30 +1,56 @@
-
 angular
 .module('app.request', []) 
-.controller('RequestCtrl', function($http, RequestService, Helpers){
+.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout, authService) {
+
   vm = this;
   vm.requests = [];
-  vm.cache = Helpers.getCache();
-  console.log('Attemping to access the cache on controller instantiation', vm.cache);
+  vm.pendingRequest;
+
+  $timeout(function() {
+    if (Object.keys(Helpers.getCache()).length === 0) {
+      Helpers
+        .init()
+        .then(function() {
+          vm.cache = Helpers.getCache();
+        })
+    } else {
+      vm.cache = Helpers.getCache();
+      RequestService
+        .getAllRequests()
+        .then(function(returnedRequests) {
+          vm.requests = returnedRequests.map(vm.init).reverse();
+          console.log('these are the returned requests', vm.requests);
+        })
+        .catch(function(error) {
+          console.log('Error returning requests');
+        })
+    }
+  }, 500)
   
-  RequestService
-      .getAllRequests()
+  vm.init = function(request) {
+    request.userName = vm.cache.Users.filter(function(user) {
+      if (user.id === request.UserId) return user;
+    })[0].name;
+    request.categoryName = vm.cache.Category.filter(function(category) {
+      if (category.id === request.CategoryId) return category;
+    })[0].name;
+    return request;
+  };
 
   vm.addRequest = function() {
+    vm.UserId = authService.showCurrent().id;
+    console.log('passing in this userId', vm.UserId);
     RequestService
       .addRequest()
       .then(function(addedRequest) {
-        vm.requests.data.push(addedRequest);
-        vm.cache;
-        Helpers
-          .init()
-          .then(function(cache) {
-            vm.cache = cache;
-            console.log('Attempting to access the cache after calling init', vm.cache);
-          })
-          .catch(function(error) {
-            console.log('Error reinitializing the helpers cache');
-          })
+        console.log('this is the request we are attempting to add', addedRequest);
+        vm.pendingRequest = addedRequest;
+        return Helpers.init()
+      })
+      .then(function(returnedCache) {
+        vm.cache = returnedCache;
+        let modifiedRequest = vm.init(vm.pendingRequest);
+        vm.requests.unshift(modifiedRequest);
       })
       .catch(function(error) {
         console.log('Error adding request');
@@ -32,6 +58,7 @@ angular
   };
 
   return vm;
+
 })
 .factory('RequestService', function($http) {
   const getAllRequests = function() {
@@ -40,8 +67,7 @@ angular
       url: '/api/requests'
     })
     .then(function(requests) {
-      vm.requests = requests;
-      console.log('RequestController (getAllRequests): Here are the requests', vm.requests);
+      return requests.data;
     })
     .catch(function(err) {
       console.log('RequestController (getAllRequests): Error retrieving requests.');
@@ -51,7 +77,8 @@ angular
   const addRequest = function() {
 
     let newRequest = {};
-    newRequest.userName = vm.userName;
+    newRequest.userId = vm.UserId;
+    // newRequest.userName = vm.userName;
     newRequest.requestName = vm.requestName;
     newRequest.categoryName = vm.categoryName;
 
@@ -72,4 +99,5 @@ angular
     getAllRequests: getAllRequests,
     addRequest: addRequest
   };
+
 });
