@@ -3,7 +3,7 @@
 <br>
 
 <form ng-submit="vm.addRequest()">
-  <label>Requested By:</label><input type="" name="" ng-model="vm.userName">
+  <!--<label>Requested By:</label><input type="" name="" ng-model="vm.userName">-->
   <label>Requested Lesson:</label> <input type="" name="" ng-model="vm.requestName">
   <label>Category:</label> <input type="" name="" ng-model="vm.categoryName">
   <button type="submit">Submit Request</button>
@@ -11,8 +11,8 @@
 
 <br>
 
-<ul ng-repeat="request in vm.requests.data">
+<ul ng-repeat="request in vm.requests">
   <li>Request Name: {{request.name}}</li>
-  <li>User Requesting: {{request.UserId}}</li>
-  <li>Requested Category: {{request.CategoryId}}</li>
+  <li>User Requesting: {{request.userName}}</li>
+  <li>Requested Category: {{request.categoryName}}</li>
 </ul>
