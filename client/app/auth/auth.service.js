@@ -5,6 +5,7 @@ angular.module('teachMe')
    * database. If the profile does not exist in our database, create it.
    */
   let connectProfile = (profile) => {
+    console.log('auth0 profile:',profile)
     $http.post('/api/login', {
       auth: profile.user_id
     }).then((user) => {
@@ -13,12 +14,13 @@ angular.module('teachMe')
         console.log('logged in as:',currentUser);
       } else {
         $http.post('/api/users', {
-          name: profile.name,
+          name: profile.nickname,
           teachFlag: false,
           rating: null,
           bio: '',
           picture: profile.picture,
-          auth: profile.user_id            
+          auth: profile.user_id,
+          spare1: profile.email            
         }).then((user)=>{
           currentUser = user.data;
           console.log('logged in as:',currentUser);
