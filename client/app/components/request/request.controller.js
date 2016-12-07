@@ -1,5 +1,5 @@
 angular
-.module('app.request', []) 
+.module('app.request', ['datatables']) 
 .controller('RequestCtrl', function($http, RequestService, Helpers, $timeout, authService) {
 
   vm = this;
@@ -43,7 +43,6 @@ angular
     RequestService
       .addRequest()
       .then(function(addedRequest) {
-        console.log('this is the request we are attempting to add', addedRequest);
         vm.pendingRequest = addedRequest;
         return Helpers.init()
       })
@@ -78,7 +77,6 @@ angular
 
     let newRequest = {};
     newRequest.userId = vm.UserId;
-    // newRequest.userName = vm.userName;
     newRequest.requestName = vm.requestName;
     newRequest.categoryName = vm.categoryName;
 
