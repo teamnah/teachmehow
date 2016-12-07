@@ -28,7 +28,7 @@
             <td>{{request.name}}</td>
             <!--<td>{{request.upvote}}</td>-->
             <td>{{request.categoryName}}</td>
-            <td>{{request.userName}}</td>
+            <td ng-click="vm.goProfile(request.UserId)">{{request.userName}}</td>
           </tr>
         </tbody>
     </table>

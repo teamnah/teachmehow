@@ -1,6 +1,6 @@
 angular
 .module('app.request', ['datatables']) 
-.controller('RequestCtrl', function($http, RequestService, Helpers, $timeout, authService) {
+.controller('RequestCtrl', function($state, $http, RequestService, Helpers, $timeout, authService) {
 
   vm = this;
   vm.requests = [];
@@ -17,6 +17,11 @@ angular
       vm.init();
     }
   }, 500);
+
+  vm.goProfile = function(input) {
+    console.log(input);
+    $state.go("prof", {input: input})
+  };
 
   vm.init = function() {
     vm.cache = Helpers.getCache();
