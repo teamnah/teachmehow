@@ -28,6 +28,13 @@ angular
     vm.profile = vm.cache.Users.filter(user=>{
       return user.id === +$stateParams.input;
     })[0]
+
+    vm.allLessons = vm.cache.Master
+                    .filter(lesson=>{
+                      if(lesson.UserName.id === +$stateParams.input) return lesson;
+                    })
+
+    console.log("All lessons related to this profile", vm.allLessons);
     console.log("viewing profile for:",vm.profile)
     vm.picture = vm.profile.picture || "http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg"
     if (typeof vm.profile.bio === 'string' && vm.profile.bio !== '') {
@@ -43,13 +50,6 @@ angular
     if (authService.showCurrent()){
       vm.myProfile = vm.profile.id === authService.showCurrent().id
     }
-    
-    vm.lessons = vm.cache.LessByUser.filter(lesson=>{
-      if(lesson.id===vm.profile.id){
-        return lesson.Lessons;
-      }
-    })[0].Lessons
-    console.log("lessons by user from cache", vm.lessons)
 
     $scope.$watch('vm.title', function(newVal, oldVal) {
       if (newVal !== oldVal) {

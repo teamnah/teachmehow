@@ -35,9 +35,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="lesson in vm.lessons">
+          <tr ng-repeat="lesson in vm.allLessons">
             <td ng-click="vm.goLesson(lesson.id)">{{lesson.name}}</td>
-            <td ng-click="vm.goLesson(lesson.id)">{{lesson.category}}</td>
+            <td ng-click="vm.goLesson(lesson.id)">{{lesson.CategoryName.name}}</td>
             <td ng-click="vm.goLesson(lesson.id)">{{lesson.rating}}</td>
           </tr>
         </tbody>
