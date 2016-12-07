@@ -1,5 +1,5 @@
 angular.module('teachMe')
-.factory('authService', function($q, $http, $state, lock, authManager){
+.factory('authService', function($q, $http, $state, lock, Helpers, authManager){
   /**
    * connect the profile sent back from Auth0 with the profile from our
    * database. If the profile does not exist in our database, create it.
@@ -23,7 +23,11 @@ angular.module('teachMe')
           currentUser = user.data;
           console.log('logged in as:',currentUser);
           if (currentUser.teacherFlag) {
-            $state.go('dash', {input:input})
+            Helpers.init()
+            .then($state.go('dash', {input:currentUser.id}))
+          } else {
+            Helpers.init()
+            .then($state.go('prof', {input:currentUser.id}))
           }
         });              
       }          
@@ -78,6 +82,7 @@ angular.module('teachMe')
     localStorage.removeItem('id_token');
     authManager.unauthenticate();
     currentUser = false;
+    $state.go('splash')
   }
   
   /** expose public methods */

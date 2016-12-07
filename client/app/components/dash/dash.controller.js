@@ -11,7 +11,7 @@ angular
     category: '',
     details: ''
   }
-  vm.teacherId = $stateParams.input;
+  vm.teacherId = authService.showCurrent().id;
   console.log(vm.teacherId)
   vm.goLesson = (input) =>{
     console.log(input);

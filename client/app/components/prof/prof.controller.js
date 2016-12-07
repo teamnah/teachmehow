@@ -11,16 +11,18 @@ angular
     $state.go("lesson",{input: input})
   }
 
-  if (!Object.keys(vm.cache).length) {
-    console.log('********reinitializing helpers')
-    Helpers.init()
-    .then(() => {
-      vm.cache = Helpers.getCache();
+  $timeout(()=>{
+    if (!Object.keys(vm.cache).length) {
+      console.log('********reinitializing helpers')
+      Helpers.init()
+      .then(() => {
+        vm.cache = Helpers.getCache();
+        init();
+      })
+    } else {
       init();
-    })
-  } else {
-    init();
-  }
+    }   
+  }, 300)
 
   function init(){
     vm.profile = vm.cache.Users.filter(user=>{
@@ -67,6 +69,15 @@ angular
           vm.profile.bio = {blurb: newVal};
         console.log("$watch:",vm.profile.bio)
         $http.put('/api/users/'+vm.profile.id+'/bio', vm.profile.bio)
+        .then(resp => console.log(resp))
+      }
+    });
+
+    $scope.$watch('vm.profile.name', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        vm.profile.name = newVal;
+        console.log("$watch:",vm.profile.name)
+        $http.put('/api/users/'+vm.profile.id+'/name', {name: vm.profile.name})
         .then(resp => console.log(resp))
       }
     });

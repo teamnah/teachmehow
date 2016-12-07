@@ -14,5 +14,10 @@ angular.module('teachMe')
       $state.go('dash')
     })
   }
+
+  vm.goDash = () => {
+    $state.go('dash')
+  }
   return vm;
+  
 })
