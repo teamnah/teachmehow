@@ -9,6 +9,7 @@
   -webkit-box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
   box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
+  font-family: 'Courgette', cursive;
 }
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {height: 450px}
@@ -31,6 +32,19 @@
 }
 
 .lessonProf{
-    height: 125px;
-    width: 125px;
+    max-height: 150px;
+    max-width: 150px;
+    margin-bottom: 60px;
 }
+
+img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+footer {
+     background-color: #555;
+     color: white;
+     padding: 15px;
+     margin-top: 30px;
+   }
