@@ -92,5 +92,24 @@ module.exports = {
     .catch((err) => {
       res.json(err)
     })
-  }
+  },
+
+  updateUserName: (req, res, next) => {
+    models.User.update(
+      {
+        name: req.body.name
+      },
+      {
+        where: {
+          id:req.params.userId
+        }
+    })
+    .then((user) => {
+      console.log(user)
+      res.json(user)
+    })
+    .catch((err) => {
+      res.json(err)
+    })
+  },
 };

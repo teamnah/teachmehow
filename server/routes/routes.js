@@ -27,6 +27,10 @@ router
     .put(userController.updateUserTeachFlag);
 
 router
+  .route('/users/:userId/name')
+    .put(userController.updateUserName);
+
+router
   .route('/login')
     .post(userController.findUser);
 

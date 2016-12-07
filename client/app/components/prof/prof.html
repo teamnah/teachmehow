@@ -3,11 +3,16 @@
 
     <header>
         <img src="{{vm.picture}}" />
-        <h1>{{vm.profile.name}}</h1>
-        <h2 editable-text="vm.title" e-form="textBtnForm" ng-hide="textBtnForm.$visible">
-          {{vm.title}}
+        <h1 editable-text="vm.profile.name" e-form="textBtnForm" 
+        ng-hide="textBtnForm.$visible">
+          {{vm.profile.name}}
           <button ng-if="vm.myProfile" ng-click="textBtnForm.$show()"
             ng-hide="textBtnForm.$visible">edit</button>
+        </h1>
+        <h2 editable-text="vm.title" e-form="textBtnForm1" ng-hide="textBtnForm1.$visible">
+          {{vm.title}}
+          <button ng-if="vm.myProfile" ng-click="textBtnForm1.$show()"
+            ng-hide="textBtnForm1.$visible">edit</button>
         </h2>
     </header>
 
