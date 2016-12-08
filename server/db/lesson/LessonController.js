@@ -1,61 +1,57 @@
 
-/**
- * Get lesson(s) getLesson()
- *  IF client provides a userId, get will return all lessons associated 
- *  with that teacher
- * Post lesson(s) addUpdateLesson()
- *  client provides a lessonId assumes its an update
- *  
- *  client NEEDS to provide a userName, and program will assume that is 
- *  a teacher doing the request, this will either post or update lesson
- * 
- */
+
 
 const models = require('../../config/db.connect.js');
 
 module.exports = {
-
+   /**
+   * getLesson() queries for all instances in the Lesson Table
+   * 
+   * input(optional): queries for lesson with matching id 
+   *  or queries for everything
+   * 
+   * output: result of query
+   */
   getLesson: (req, res, next) => {
-    console.log("LessonCtrlr:getLesson: request initiated", req.query.lessonId);
-    if(req.query.lessonId){
+    if (req.query.lessonId) {
       models.Lesson.findOne({
         where: {
           id: req.query.lessonId
         }
       })
-      .then(result=>{
+      .then(result => {
         let tmp = [];
         result === null || result === undefined ? result : tmp.push(result);
         res.json(tmp);
       })
       .catch(err=>{
-        console.log("LessonCtrlr:getLesson: Error", err);
+        throw err;
+        //console.log("LessonCtrlr:getLesson: Error", err);
       })
-    }else{
+    } else {
       models.Lesson.findAll({})
       .then(result=>{
         let allItems = [];
-        result.map(item=>{
+        result.map(item => {
           allItems.push(item.dataValues);
         })
-        //console.log("LessonCtrlr:getAll: mapped results", allItems);
         res.json(result);
       })
       .catch(err=>{
-        console.log("LessonCtrlr:getAll: Error trying to get all lessons", err);
+        throw err;
+        //console.log("LessonCtrlr:getAll: Error trying to get all lessons", err);
       })
     }
   },
 
   addLesson: (req, res, next) => {
 
-    console.log("LessonCtrlr:addLesson: request initiated", req.body);
     if (!req.body.userName || !req.body.category) {
       res.json([]);
       return
     }
     /**
-     * We need to check if the user or parameter even exists and grab
+     * Needs to check if the user or parameter even exists and grab
      * the foreign key before we store it
      */
     let lessonConfig = {
@@ -64,14 +60,13 @@ module.exports = {
     }
     lessonConfig.name = req.body.name ? req.body.name : null;
     lessonConfig.details = req.body.details ? req.body.details : null;
-    //lessonConfig.rating = req.body.rating ? req.body.rating : null;
 
     models.User.findOne({
       where: {
         name: req.body.userName
       }
     })
-    .then(result=>{
+    .then(result => {
       /** Check if user exists AND is a teacher */
       if (result !== null && result.id && result.teachFlag) {
         lessonConfig.UserId = result.id;
@@ -87,7 +82,7 @@ module.exports = {
         res.json([]);
       }
     })
-    .then(result=>{
+    .then(result => {
       if (result) {
         /**
          * Find or create returns the instance created
@@ -104,7 +99,7 @@ module.exports = {
         res.json([]);
       }
     })
-    .then(result=>{
+    .then(result => {
       let tmp = [];
       if (result) {
         tmp.push(result);
@@ -114,15 +109,13 @@ module.exports = {
       }
     })
     .catch(err => {
-      console.log("LessonCtrl:addLesson: ERROR", err);
       res.json(err);
+      throw err;
     })
 
   },
 
   updateLesson: (req, res, next) => {
-    console.log("LessonCtrlr:updateLesson: request initiated", req.body);
-    
      if (!req.body.userId || !req.body.lessonId) {
       res.json([]);
       return
@@ -141,7 +134,7 @@ module.exports = {
         id: req.body.lessonId
       }
     })
-    .then(result=>{
+    .then(result => {
       if (result) {
         /**
          * will update everything so the user needs to confirm on 
@@ -154,13 +147,12 @@ module.exports = {
         res.json([])
       }
     })
-    .then(result=>{
-      console.log("LessonCtrl:updateLesson: SUCCESS");
+    .then(result => {
       res.json(result);
     })
     .catch(err => {
-      console.log("LessonCtrl:updateLesson: ERROR", err);
       res.json(err);
+      throw err;
     })
 
   }
