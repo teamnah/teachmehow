@@ -6,47 +6,47 @@ angular
   vm.requests = [];
   vm.pendingRequest;
 
-  $timeout(function() {
+  $timeout(() => {
     if (Object.keys(Helpers.getCache()).length === 0) {
       Helpers
         .init()
-        .then(function() {
+        .then(() => {
           vm.init();
-        })
+        });
     } else {
       vm.init();
-    }
+    };
   }, 500);
 
-  vm.goProfile = function(input) {
-    console.log(input);
-    $state.go("prof", {input: input})
+  vm.goProfile = (input) => {
+    $state.go("prof", {
+      input: input
+    });
   };
 
-  vm.init = function() {
+  vm.init = () => {
     vm.cache = Helpers.getCache();
     RequestService
       .getAllRequests()
-      .then(function(returnedRequests) {
+      .then((returnedRequests) => {
         vm.requests = returnedRequests.map(vm.editRequests).reverse();
-        console.log('these are the returned requests', vm.requests);
       })
-      .catch(function(error) {
-        console.log('Error returning requests');
-      })
+      .catch((error) => {
+        console.log('Error returning requests', error);
+      });
   };
   
-  vm.editRequests = function(request) {
-    request.userName = vm.cache.Users.filter(function(user) {
+  vm.editRequests = (request) => {
+    request.userName = vm.cache.Users.filter((user) => {
       if (user.id === request.UserId) return user;
     })[0].name;
-    request.categoryName = vm.cache.Category.filter(function(category) {
+    request.categoryName = vm.cache.Category.filter((category) => {
       if (category.id === request.CategoryId) return category;
     })[0].name;
     return request;
   };
 
-  vm.addRequest = function() {
+  vm.addRequest = () => {
     let userExists = authService.showCurrent();
     if (!userExists) {
       swal({
@@ -59,61 +59,20 @@ angular
       vm.UserId = UserId;
       RequestService
         .addRequest()
-        .then(function(addedRequest) {
+        .then((addedRequest) => {
           vm.pendingRequest = addedRequest;
           return Helpers.init()
         })
-        .then(function(returnedCache) {
+        .then((returnedCache) => {
           vm.cache = returnedCache;
           let modifiedRequest = vm.editRequests(vm.pendingRequest);
           vm.requests.unshift(modifiedRequest);
         })
-        .catch(function(error) {
-          console.log('Error adding request');
+        .catch((error) => {
+          console.log('Error adding request', error);
         });
-    }
+    };
   };
 
   return vm;
-
-})
-.factory('RequestService', function($http) {
-  const getAllRequests = function() {
-    return $http({
-      method: 'GET',
-      url: '/api/requests'
-    })
-    .then(function(requests) {
-      return requests.data;
-    })
-    .catch(function(err) {
-      console.log('RequestController (getAllRequests): Error retrieving requests.');
-    })
-  };
-
-  const addRequest = function() {
-
-    let newRequest = {};
-    newRequest.userId = vm.UserId;
-    newRequest.requestName = vm.requestName;
-    newRequest.categoryName = vm.categoryName;
-
-    return $http({
-      method: 'POST',
-      url: '/api/requests',
-      data: newRequest
-    })
-    .then(function(addedRequest) {
-      return addedRequest.data;
-    })
-    .catch(function(err) {
-      console.log('Error posting request');
-    });
-  };
-
-  return {
-    getAllRequests: getAllRequests,
-    addRequest: addRequest
-  };
-
 });
