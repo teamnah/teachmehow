@@ -1,5 +1,6 @@
 -- how to run this file
 -- use the following command with your computer's absolute path (my filename was db.sql)
+-- THIS IS ONLY FOR PRACTICE with mysql, do not use this file during test
 -- mysql -u root -p < C:\Users\Khoa\Documents\HRLA11\Projects\Practice\sean_pract\server\config\db.sql
 
 DROP DATABASE IF EXISTS test;

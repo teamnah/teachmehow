@@ -1,7 +1,8 @@
 
 
-module.exports = (sequelize, DataTypes)=>{
-  var User = sequelize.define('User', {
+module.exports = (sequelize, DataTypes) => {
+  
+  const User = sequelize.define('User', {
       name: {
         type: DataTypes.STRING
       },
@@ -20,6 +21,9 @@ module.exports = (sequelize, DataTypes)=>{
       auth: {
         type: DataTypes.TEXT
       },
+      /**
+       * spare1 is currently being used to store a User's email
+       */
       spare1: {
         type: DataTypes.TEXT
       }
@@ -29,11 +33,11 @@ module.exports = (sequelize, DataTypes)=>{
      *  */ 
     freezeTableName: true,
     classMethods: {
-      associate: (models)=>{
+      associate: (models) => {
         User.hasMany(models.Lesson);
       }
     } 
   })
   
-  return User
+  return User;
 }

@@ -1,6 +1,7 @@
 
-module.exports = (sequelize, DataTypes)=>{
-  var Booking = sequelize.define('Booking', {
+module.exports = (sequelize, DataTypes) => {
+
+  const Booking = sequelize.define('Booking', {
       accept: {
         type: DataTypes.BOOLEAN,
       },
@@ -30,5 +31,5 @@ module.exports = (sequelize, DataTypes)=>{
     }
   })
   
-  return Booking
+  return Booking;
 }

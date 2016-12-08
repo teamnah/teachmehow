@@ -1,6 +1,7 @@
 
-module.exports = (sequelize, DataTypes)=>{
-  var Request = sequelize.define('Request', {
+module.exports = (sequelize, DataTypes) => {
+
+  const Request = sequelize.define('Request', {
     name: {
       type: DataTypes.STRING,
     },
@@ -13,7 +14,7 @@ module.exports = (sequelize, DataTypes)=>{
     }, {
     freezeTableName: true,
     classMethods: {
-      associate: (models)=>{
+      associate: (models) => {
         Request.belongsTo(models.User, {
           foreignKey: {
             allowNull: false,
@@ -30,5 +31,5 @@ module.exports = (sequelize, DataTypes)=>{
     }
   })
   
-  return Request
+  return Request;
 }

@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 
 /** 
  * Define paths to each model
@@ -27,33 +27,35 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, pr
  */
 sequelize
   .authenticate()
-  .then(message=>{
-    console.log('Connection has been established to:', process.env.DB_HOST)
+  .then(message => {
+    console.log('Connection has been established to:', process.env.DB_HOST);
   })
-  .catch(err=>{
-    console.log("Error connecting to SQL database", err)
+  .catch(err => {
+    throw err;
   })
 
-const db = {}
+const db = {};
 
 /**
  * Allows us to reference each model from the db object
  * so we don't need to require different paths for different 
  * models each time we need to access a model
  */
-modelPaths.forEach(path=>{
+modelPaths.forEach(path => {
+
   let model = sequelize.import(path)
   db[model.name] = model
 })
 
-Object.keys(db).forEach(function(modelName) {
+Object.keys(db).forEach((modelName) => {
+
   if ("associate" in db[modelName]) {
     db[modelName].associate(db)
   }
 })
 
-db.sequelize = sequelize
-db.Sequelize = Sequelize
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-module.exports = db
+module.exports = db;
 
