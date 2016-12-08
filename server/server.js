@@ -12,15 +12,14 @@ const models = require('./config/db.connect.js');
  * the models have finished syncing with the database 
  * 
  */
-models.sequelize.sync().then(()=>{
+models.sequelize.sync().then(() => {
   const express = require('express'); 
   const app = express();
   const port = process.env.PORT || 8080
   const routes = require('./routes/routes.js');
   require('./config/middleware.js')(app, express); 
-  // require('../sqlTest.js')(); 
   app.use('/api', routes);
-  app.listen(port, ()=>{
+  app.listen(port, () => {
       console.log("Listening on port " + port);
   });
 });

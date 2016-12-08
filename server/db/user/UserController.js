@@ -1,6 +1,7 @@
 const models = require('../../config/db.connect.js');
 
 module.exports = {
+
   getAllUsers: (req, res, next) => {
     models.User.findAll({})
     .then((users) => {
@@ -21,11 +22,11 @@ module.exports = {
     })
     .catch((err) => {
       res.json(err);
+      throw err;
     });
   }, 
 
   addOneUser: (req, res, next) => {
-    console.log("adding user", req.body);
    models.User.create({
       name: req.body.name,
       teachFlag: req.body.teachFlag,
@@ -69,11 +70,11 @@ module.exports = {
         }
     })
     .then((user) => {
-      console.log(user)
       res.json(user)
     })
     .catch((err) => {
       res.json(err)
+      throw err;
     })
   },
 

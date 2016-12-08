@@ -5,9 +5,7 @@ const models = require('../../config/db.connect.js');
  * query object on the request
  */
 module.exports = {
-/** 
- * team note: we need to handle case where want to get all requests filtered by teacher's category 
- */
+  
   getAllRequests: (req, res, next) => {
     models.Request.findAll()
     .then((requests) => {
@@ -15,6 +13,7 @@ module.exports = {
     })
     .catch((err) => {
       res.json(err)
+      throw err;
     });
   },
   
@@ -37,7 +36,6 @@ module.exports = {
     }
     models.User.find({
       where: {
-        // name: req.body.userName
         id: req.body.userId
       }
     })
@@ -60,9 +58,7 @@ module.exports = {
       })
     })
     .then((category) => {
-      console.log('RequestController (addOneRequest): This is what temp looks like before', category);
       temp.CategoryId = category[0].dataValues.id;
-      console.log('RequestController (addOneRequest): This is what temp looks like after', temp);
       return models.Request.create({
         name: req.body.requestName,
         UserId: temp.UserId,
@@ -70,7 +66,6 @@ module.exports = {
       })
     })
     .then((request) => {
-      console.log('RequestController (addOneRequest): Successfully created the request');
       if (request) {
         res.json(request)
       } else {
@@ -79,6 +74,7 @@ module.exports = {
     })
     .catch((err) => {
       res.json(err);
+      throw err;
     });
   },
 

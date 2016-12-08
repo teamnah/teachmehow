@@ -1,5 +1,6 @@
 -- how to run this file
 -- use the following command with your computer's absolute path (my filename was db.sql)
+-- this will populate dummy data in your SQL file
 -- mysql -u root -p < C:\Users\Khoa\Documents\HRLA11\Projects\teachmehow\server\config\dbDummyData.sql
 -- this file will delete your old data and populate your already made tables
 

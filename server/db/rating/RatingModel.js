@@ -1,6 +1,7 @@
 
-module.exports = (sequelize, DataTypes)=>{
-  var Rating = sequelize.define('Rating', {
+module.exports = (sequelize, DataTypes) => {
+
+  const Rating = sequelize.define('Rating', {
       rating: {
         type: DataTypes.FLOAT,
       },
@@ -13,7 +14,7 @@ module.exports = (sequelize, DataTypes)=>{
     }, {
     freezeTableName: true,
     classMethods: {
-      associate: (models)=>{
+      associate: (models) => {
         Rating.belongsTo(models.User, {
           foreignKey: {
             allowNull: false,
@@ -30,5 +31,5 @@ module.exports = (sequelize, DataTypes)=>{
     }
   })
   
-  return Rating
+  return Rating;
 }

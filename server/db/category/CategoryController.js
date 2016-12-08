@@ -3,28 +3,35 @@
 const models = require('../../config/db.connect.js');
 
 module.exports = {
-  getCat: (req, res, next)=>{
-    if(req.query.id){
+
+  /**
+   * getcat() queries for all instances in the Category Table
+   * 
+   * input(optional): queries for categories with matching id 
+   *  or queries for everything
+   * 
+   * output: result of query
+   */
+  getCat: (req, res, next) => {
+    if (req.query.id) {
       models.Category.findAll({
         where: {
           id: req.query.id
         }
       })
-      .then(result=>{
-        console.log("look here:", result.dataValues)
+      .then(result => {
         res.json(result)
       })
-      .catch(err=>{
-        console.log("Error in user get lesson", err);
+      .catch(err => {
+        throw err;
       })
-    }else{
+    } else {
       models.Category.findAll({})
-      .then(result=>{
-        console.log("look here:", result.dataValues)
+      .then(result => {
         res.json(result)
       })
-      .catch(err=>{
-        console.log("Error in user get lesson", err);
+      .catch(err => {
+        throw err;
       })
     }
   }
