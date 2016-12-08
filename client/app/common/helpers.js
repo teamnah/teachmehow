@@ -4,7 +4,9 @@ angular
 .module('app.helpers', [])
 .factory('Helpers', function($http) {
   /**
-   * If no id is given to these functions it will return everything
+   * to save on many server calls, the helpers
+   * calls all the data and stores it in a cache object 
+   * 
    */
   const cache = {};
 
@@ -48,6 +50,12 @@ angular
     });
   };
 
+  /**
+   * init returns a promise with the data formatted
+   * if data new data was ever stored in the database
+   * the cache object would need to reinitialize
+   * 
+   */
   const init = () => {
     return getLessons()
     .then(result=>{
