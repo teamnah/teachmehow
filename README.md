@@ -1,8 +1,6 @@
-# Project Name
+# Teach Me How
 
-Teach Me How 
-
-> A platform for connecting people who want to learn things with people who want to teach things.
+A platform for connecting people who want to learn things with people who want to teach things.
 
 ## Team
 
@@ -12,8 +10,8 @@ Teach Me How
 
 ## Table of Contents
 
-* [Configuration](#Configuration)
-* [Developer Tools](#Developer Tools)
+* [Configuration](#configuration)
+* [Developer Tools](#developer-tools)
 
 ## Configuration
 
