@@ -5,6 +5,9 @@
         <div class="lessonProf">
          <img src="{{vm.picture}}" />
         </div>
+        <!--the editable text and e-form fields are part of-->
+        <!--Angular xEditable. Refer to their docs for info-->
+        <!--https://vitalets.github.io/angular-xeditable/-->
         <h1 editable-text="vm.profile.name" e-form="textBtnForm" 
         ng-hide="textBtnForm.$visible">
           {{vm.profile.name}}
