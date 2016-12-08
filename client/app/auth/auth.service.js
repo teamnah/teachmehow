@@ -5,13 +5,22 @@ angular.module('teachMe')
    * database. If the profile does not exist in our database, create it.
    */
   let connectProfile = (profile) => {
-    console.log('auth0 profile:',profile)
     $http.post('/api/login', {
+      /**
+       * The 'auth' field in the user database must be identical to the
+       * user_id field from the profile object sent back by auth0 in
+       * order to connect the accounts
+       */
       auth: profile.user_id
-    }).then((user) => {
+    })
+    .then((user) => {
+      /**
+       * If the user exists in our database, the post request to /api/login
+       * will return the user profile as the first entry in an array. If the
+       * user does not exist, teh request will send back an empty array
+       */
       if (user.data[0]) {
         currentUser = user.data[0];
-        console.log('logged in as:',currentUser);
       } else {
         $http.post('/api/users', {
           name: profile.nickname,
@@ -21,20 +30,28 @@ angular.module('teachMe')
           picture: profile.picture,
           auth: profile.user_id,
           spare1: profile.email || profile.link            
-        }).then((user)=>{
+        })
+        .then((user) => {
           currentUser = user.data;
-          console.log('logged in as:',currentUser);
           if (currentUser.teacherFlag) {
+            /**
+             * Re-initialize Helpers to update the cache with new user
+             * information
+             */
             Helpers.init()
-            .then($state.go('dash', {input:currentUser.id}))
+            .then($state.go('dash', {
+              input: currentUser.id
+            }));
           } else {
             Helpers.init()
-            .then($state.go('prof', {input:currentUser.id}))
-          }
+            .then($state.go('prof', {
+              input: currentUser.id
+            }));
+          };
         });              
-      }          
-    })
-  }
+      };          
+    });
+  };
 
   /**
    * check to see if user is already logged in. If they are, fetch
@@ -45,8 +62,8 @@ angular.module('teachMe')
     lock.getProfile(currentUser, (err, profile) => {
       if (err) throw new Error(err);
       connectProfile(profile);
-    })
-  }
+    });
+  };
 
   /**
    * set up the logic for when a user authenticates
@@ -55,7 +72,7 @@ angular.module('teachMe')
   let registerAuthListener = () => {
     lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
-      authManager.authenticate()
+      authManager.authenticate();
       /**
        * Use the token sent back to get full Auth0 profile 
        * information, then connect that to database profile
@@ -63,29 +80,31 @@ angular.module('teachMe')
       lock.getProfile(authResult.idToken, (err, profile) => {
         if (err) throw new Error(err);
         connectProfile(profile);
-      })
+      });
     });
   }
 
   let becomeTeacher = () => {
-    return $http.put('/api/users/'+currentUser.id+'/teach', {teachFlag:true})
-  }
+    return $http.put('/api/users/'+currentUser.id+'/teach', {
+      teachFlag: true
+    });
+  };
 
   /** basic authentication functionality */
   let showCurrent = function(){
     return currentUser;
-  }
+  };
 
   let login = () => {
     lock.show();
-  }
+  };
 
   let logout = () => {
     localStorage.removeItem('id_token');
     authManager.unauthenticate();
     currentUser = false;
     $state.go('splash')
-  }
+  };
   
   /** expose public methods */
   return {
@@ -94,5 +113,5 @@ angular.module('teachMe')
     showCurrent: showCurrent,
     becomeTeacher: becomeTeacher,
     registerAuthListener: registerAuthListener
-  }
-})
+  };
+});
