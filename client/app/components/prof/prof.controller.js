@@ -11,7 +11,12 @@ angular
     });
   };
 
+  /**
+   * Place any functionality that requires cached information
+   * in the $timeout to avoid async issues
+   */
   $timeout(() => {
+    /** initializes the cache if it is empty */
     if (!Object.keys(vm.cache).length) {
       Helpers.init()
       .then(() => {
@@ -24,6 +29,10 @@ angular
   }, 300);
 
   function init(){
+    /**
+     * pulls the profile information for the current profile page
+     * from the cache using the params from $state
+     */
     vm.profile = vm.cache.Users.filter(user => {
       return user.id === +$stateParams.input;
     })[0];
@@ -35,9 +44,17 @@ angular
 
     vm.picture = vm.profile.picture || 
       "http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg";
+
+     /**
+     * The 'bio' information for the profile is stored on the server as JSON
+     * data. This must be parsed back to an object, however new profiles might
+     * not have bio data yet so the empty string must be accounted for or 
+     * else you will get json errors.
+     */
     if (typeof vm.profile.bio === 'string' && vm.profile.bio !== '') {
       vm.profile.bio = JSON.parse(vm.profile.bio)
     };
+
     vm.title = vm.profile.bio && vm.profile.bio.title? 
       vm.profile.bio.title : 
       "Knowledge Enthusiast";
@@ -45,10 +62,19 @@ angular
       vm.profile.bio.blurb : 
       "TeachMeHow.com member since\n"+vm.profile.createdAt;
     
+    /** 
+     * myProfile is for determining if the profile being viewed
+     * belongs to the currently logged in user. If it does, it
+     * will be editable
+     */
     if (authService.showCurrent()) {
       vm.myProfile = vm.profile.id === authService.showCurrent().id;
     };
 
+    /** 
+     * watch for changes to profile information and send any
+     * updates back to the database
+     */
     $scope.$watch('vm.title', function(newVal, oldVal) {
       if (newVal !== oldVal) {
         vm.profile.bio?
