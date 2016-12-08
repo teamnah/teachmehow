@@ -1,5 +1,5 @@
 angular
-.module('app.request', ['datatables'])
+.module('app.request')
 .factory('RequestService', function($http) {
   const getAllRequests = () => {
     return $http({
