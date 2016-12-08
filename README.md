@@ -20,12 +20,13 @@ A platform for connecting people who want to learn things with people who want t
 ## Configuration
 
 1. Fork and clone this repo
-2. In your terminal within the root directory type **npm install** and then **bower install**
-3. Open two tabs in terminal
-4. In the first tab, type **npm start**
-5. In the second tab start your mysql server by running the following: **mysql -u root -p**
-6. Visit **http://localhost:8080/**
-7. Populate dummy data by navigating to server/config/dbDummyData.sql and following population instructions therein
+2. Make a copy of the **example.env** file, name it **.env**, and follow the instructions to configure the dev environment
+3. In your terminal within the root directory type **npm install** and then **bower install**
+4. Open two tabs in terminal
+5. In the first tab, type **npm start**
+6. In the second tab start your mysql server by running the following: **mysql -u root -p**
+7. Visit **http://localhost:8080/**
+8. Populate dummy data by navigating to server/config/dbDummyData.sql and following population instructions therein
 
 ## Technologies Used 
 
