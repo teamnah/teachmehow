@@ -1,5 +1,3 @@
-
-
 angular
 .module('app.splash', ['datatables'])
 .controller('SplashCtrl',function($http,Helpers,$state, authService){
@@ -7,7 +5,7 @@ angular
   vm.cache = {};
   vm.cache = Helpers.getCache();
   
-  vm.goLesson = (input) =>{
+  vm.goLesson = (input) => {
     if (!authService.showCurrent()) {
       swal({
         title: "Invalid Login",
@@ -17,10 +15,10 @@ angular
     } else {
       console.log(input);
       $state.go("lesson",{input: input})
-    }
-  }
+    };
+  };
   
-  vm.goProfile = (input) =>{
+  vm.goProfile = (input) => {
     if (!authService.showCurrent()) {
       swal({
         title: "Invalid Login",
@@ -30,7 +28,7 @@ angular
     } else {
       console.log(input);
       $state.go("prof",{input: input})
-    }
-  }
+    };
+  };
   return vm;
-})
+});
