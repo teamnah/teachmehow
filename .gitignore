@@ -1,3 +1,9 @@
 node_modules
 client/lib
 .env
+
+bower_components/
+*.log
+
+build/
+dist/
