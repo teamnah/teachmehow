@@ -3,61 +3,67 @@
 const models = require('../../config/db.connect.js');
 
 module.exports = {
-  lessByCat: (req, res, next)=>{
-    console.log("server:lessByCtrl: lessbyCat ", req.query.id);
-    if(req.body.id){
+  
+   /**
+   * lessByCat() queries for all lessons for each 
+   * Category
+   * 
+   */
+  lessByCat: (req, res, next) => {
+    if (req.body.id) {
       models.Category.findAll({
         where: {
           id: req.query.id
         },
         include: [models.Lesson]
       })
-      .then(result=>{
-        //console.log("look here:", result.dataValues)
+      .then(result => {
         res.json(result)
       })
       .catch(err=>{
-        console.log("Error in user get lesson", err);
+        throw err;
       })
-    }else{
+    } else {
       models.Category.findAll({
         include: [models.Lesson]
       })
-      .then(result=>{
-        //console.log("look here:", result.dataValues)
+      .then(result => {
         res.json(result)
       })
-      .catch(err=>{
-        console.log("Error in user get lesson", err);
+      .catch(err => {
+        throw err;
       })
     }
   },
 
-  lessByUser: (req, res, next)=>{
-    if(req.query.id){
+  /**
+   * lessByUser() queries for all lessons for each 
+   * User
+   * 
+   */
+  lessByUser: (req, res, next) => {
+    if (req.query.id) {
       models.User.findAll({
         where: {
           id: req.query.id
         },
         include: [models.Lesson]
       })
-      .then(result=>{
-        //console.log("look here:", result.dataValues)
-        res.json(result)
+      .then(result => {
+        res.json(result);
       })
       .catch(err=>{
-        console.log("Error in user get lesson", err);
+        throw err;
       })
-    }else{
+    } else {
       models.User.findAll({
         include: [models.Lesson]
       })
-      .then(result=>{
-        //console.log("look here:", result.dataValues)
-        res.json(result)
+      .then(result => {
+        res.json(result);
       })
-      .catch(err=>{
-        console.log("Error in user get lesson", err);
+      .catch(err => {
+        throw err;
       })
     }
   }
