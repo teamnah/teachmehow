@@ -23,3 +23,6 @@ models.sequelize.sync().then(() => {
     console.log('Listening on port ' + port);
   });
 });
+
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
