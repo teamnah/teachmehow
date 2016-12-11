@@ -1,11 +1,11 @@
 const models = require('../../config/db.connect.js');
 
-/** 
+/**
  * when making get requests, the controller assumes the client is sending information as part of the
  * query object on the request
  */
 module.exports = {
-  
+
   getAllRequests: (req, res, next) => {
     models.Request.findAll()
     .then((requests) => {
@@ -16,12 +16,12 @@ module.exports = {
       throw err;
     });
   },
-  
-  /** 
+
+  /**
    * addOneRequest inputs on body of request object:
    * req.body.userName
    * req.body.categoryName
-   * req.body.requestName 
+   * req.body.requestName
    */
   addOneRequest: (req, res, next) => {
     console.log('RequestController (addOneRequest): In the add one request controller');
@@ -41,13 +41,13 @@ module.exports = {
     })
     .then((user) => {
       temp.UserId = user.dataValues.id;
-      /** 
+      /**
        * findOrCreate returns a promise that consists of two values in an array
        * the first value is the returned instance
        * the second value is a boolean indicating whether the instance was created or note
-       * true --> instance created 
+       * true --> instance created
        * false --> instance found
-       * */ 
+       * */
       return models.Category.findOrCreate({
         where: {
           name: req.body.categoryName
