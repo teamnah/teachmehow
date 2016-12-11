@@ -1,6 +1,6 @@
 angular
   .module('app.request', ['datatables'])
-  .controller('RequestCtrl', function ($state, $http, RequestService, Helpers, $timeout, authService) {
+  .controller('RequestCtrl', function ($state, $http, RequestService, Helpers, authService) {
     const vm = this;
     vm.requests = [];
     vm.pendingRequest;
