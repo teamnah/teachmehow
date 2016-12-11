@@ -17,12 +17,19 @@ models.sequelize.sync().then(() => {
   const app = express();
   const port = process.env.PORT || 8080;
   const routes = require('./routes/routes.js');
+  let server = require('http').createServer(app);
+  let io = require('socket.io').listen(server);
   require('./config/middleware.js')(app, express);
   app.use('/api', routes);
-  app.listen(port, () => {
+
+  io.sockets.on('connection', function (socket) {
+    socket.on('send-message', function (data) {
+      io.sockets.emit('get-message', data);
+      console.log('THIS IS DATA', data);
+    });
+  });
+
+  server.listen(port, () => {
     console.log('Listening on port ' + port);
   });
 });
-
-const server = require('http').createServer(app);
-const io = require('socket.io').listen(server);
