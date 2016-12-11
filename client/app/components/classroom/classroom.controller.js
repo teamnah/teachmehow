@@ -1,6 +1,6 @@
 angular
-.module('app.lesson', [])
-.controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $timeout, $http) {
+.module('app.classroom', [])
+.controller('ClassroomCtrl', function ($scope, $state, $stateParams, Helpers, authService, $timeout, $http) {
   const vm = this;
   let userExists = authService.showCurrent();
   if (!userExists) {
@@ -28,7 +28,7 @@ angular
     });
   };
 
-  vm.initLesson = () => {
+  vm.initClassroom = () => {
     vm.Lesson = Helpers
       .getCache()
       .Master
@@ -36,6 +36,7 @@ angular
         if (lesson.id === +vm.id) return lesson;
       })[0];
 
+    console.log('INSIDE', vm.Lesson);
     vm.relLessons = Helpers
       .getCache()
       .LessByCat
@@ -46,26 +47,16 @@ angular
       .filter(lesson => {
         if (lesson.name !== vm.Lesson.name) return lesson;
       });
-
-    /**
-     * ping the giphy api to get illustrate the lesson page
-     */
-    vm.picture = vm.Lesson.UserName.picture || 'http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg';
-    $http.get(`http://api.giphy.com/v1/gifs/search?q=${vm.Lesson.name}&api_key=dc6zaTOxFJmzC&limit=5`)
-      .then(result => {
-        vm.gifs = result.data.data.map(gif => {
-          return gif.images.fixed_height_small.url;
-        });
-        vm.randGif = vm.gifs[Math.floor(Math.random() * vm.gifs.length)];
-      });
   };
 
   if (Object.keys(Helpers.getCache()).length === 0) {
     Helpers.init()
       .then(() => {
-        vm.initLesson();
+        vm.initClassroom();
       });
   } else {
-    vm.initLesson();
+    vm.initClassroom();
   }
+
+  return vm;
 });
