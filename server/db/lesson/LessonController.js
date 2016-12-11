@@ -1,15 +1,13 @@
 
-
-
 const models = require('../../config/db.connect.js');
 
 module.exports = {
    /**
    * getLesson() queries for all instances in the Lesson Table
-   * 
-   * input(optional): queries for lesson with matching id 
+   *
+   * input(optional): queries for lesson with matching id
    *  or queries for everything
-   * 
+   *
    * output: result of query
    */
   getLesson: (req, res, next) => {
@@ -24,31 +22,30 @@ module.exports = {
         result === null || result === undefined ? result : tmp.push(result);
         res.json(tmp);
       })
-      .catch(err=>{
+      .catch(err => {
         throw err;
-        //console.log("LessonCtrlr:getLesson: Error", err);
-      })
+        // console.log("LessonCtrlr:getLesson: Error", err);
+      });
     } else {
       models.Lesson.findAll({})
-      .then(result=>{
+      .then(result => {
         let allItems = [];
         result.map(item => {
           allItems.push(item.dataValues);
-        })
+        });
         res.json(result);
       })
-      .catch(err=>{
+      .catch(err => {
         throw err;
-        //console.log("LessonCtrlr:getAll: Error trying to get all lessons", err);
-      })
+        // console.log("LessonCtrlr:getAll: Error trying to get all lessons", err);
+      });
     }
   },
 
   addLesson: (req, res, next) => {
-
     if (!req.body.userName || !req.body.category) {
       res.json([]);
-      return
+      return;
     }
     /**
      * Needs to check if the user or parameter even exists and grab
@@ -56,8 +53,8 @@ module.exports = {
      */
     let lessonConfig = {
       UserId: null,
-      CategoryId: null,
-    }
+      CategoryId: null
+    };
     lessonConfig.name = req.body.name ? req.body.name : null;
     lessonConfig.details = req.body.details ? req.body.details : null;
 
@@ -71,13 +68,13 @@ module.exports = {
       if (result !== null && result.id && result.teachFlag) {
         lessonConfig.UserId = result.id;
         return models.Category.findOrCreate({
-            where: {
-              name: req.body.category
-            },
-            defaults: {
-              name: req.body.category
-            }
-          })
+          where: {
+            name: req.body.category
+          },
+          defaults: {
+            name: req.body.category
+          }
+        });
       } else {
         res.json([]);
       }
@@ -93,8 +90,8 @@ module.exports = {
           name: lessonConfig.name,
           details: lessonConfig.details,
           UserId: lessonConfig.UserId,
-          CategoryId: lessonConfig.CategoryId,
-        })
+          CategoryId: lessonConfig.CategoryId
+        });
       } else {
         res.json([]);
       }
@@ -103,26 +100,24 @@ module.exports = {
       let tmp = [];
       if (result) {
         tmp.push(result);
-        res.json(tmp)
+        res.json(tmp);
       } else {
         res.json(tmp);
       }
     })
     .catch(err => {
       res.json(err);
-      throw err;
-    })
-
+    });
   },
 
   updateLesson: (req, res, next) => {
-     if (!req.body.userId || !req.body.lessonId) {
+    if (!req.body.userId || !req.body.lessonId) {
       res.json([]);
-      return
+      return;
     }
     /**
      * We need to check if the user or parameter even exists and grab
-     * the foreign key before we store it. Client can only update 
+     * the foreign key before we store it. Client can only update
      * name and details as of now
      */
     let lessonConfig = {};
@@ -137,14 +132,14 @@ module.exports = {
     .then(result => {
       if (result) {
         /**
-         * will update everything so the user needs to confirm on 
+         * will update everything so the user needs to confirm on
          * the client side all the details
          */
         result.name = lessonConfig.name;
         result.details = lessonConfig.details;
         return result.save();
       } else {
-        res.json([])
+        res.json([]);
       }
     })
     .then(result => {
@@ -152,9 +147,7 @@ module.exports = {
     })
     .catch(err => {
       res.json(err);
-      throw err;
-    })
-
+    });
   }
 
-}
+};

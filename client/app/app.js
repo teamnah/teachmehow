@@ -9,6 +9,7 @@ angular.module('teachMe', [
   'app.splash',
   'app.helpers',
   'app.youtube',
+  'app.classroom',
   'ui.router'
 ])
 .config(config)
@@ -45,6 +46,11 @@ function config ($stateProvider,
       url: '/request',
       templateUrl: 'app/components/request/request.html',
       controller: 'RequestCtrl as vm'
+    })
+    .state('classroom', {
+      url: '/lesson/:input/classroom',
+      templateUrl: 'app/components/classroom/classroom.template.html',
+      controller: 'ClassroomCtrl as vm'
     });
 
   lockProvider.init({
