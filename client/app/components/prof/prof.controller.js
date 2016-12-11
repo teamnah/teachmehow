@@ -1,6 +1,6 @@
 angular
   .module('app.prof', ['datatables'])
-  .controller('ProfCtrl', function ($state, $stateParams, $scope, $http, $timeout, authService, Helpers) {
+  .controller('ProfCtrl', function ($state, $stateParams, $scope, $http, authService, Helpers) {
     let vm = this;
     vm.cache = {};
     vm.cache = Helpers.getCache();
@@ -10,21 +10,6 @@ angular
         input: input
       });
     };
-
-    /**
-     * Place any functionality that requires cached information
-     * in the $timeout to avoid async issues
-     */
-    /** initializes the cache if it is empty */
-    if (!Object.keys(vm.cache).length) {
-      Helpers.init()
-        .then(() => {
-          vm.cache = Helpers.getCache();
-          init();
-        });
-    } else {
-      init();
-    }
 
     function init () {
       /**
@@ -106,6 +91,16 @@ angular
             .then(resp => console.log(resp));
         }
       });
+    }
+
+    if (!Object.keys(vm.cache).length) {
+      Helpers.init()
+        .then(() => {
+          vm.cache = Helpers.getCache();
+          init();
+        });
+    } else {
+      init();
     }
 
     return vm;

@@ -1,6 +1,6 @@
 angular
   .module('app.dash', ['datatables'])
-  .controller('DashCtrl', function ($scope, $state, $stateParams, authService, Helpers, $timeout, $http) {
+  .controller('DashCtrl', function ($scope, $state, $stateParams, authService, Helpers, $http) {
     if (!authService.showCurrent()) {
       $state.go('splash');
     }
@@ -68,13 +68,13 @@ angular
     };
 
     if (Object.keys(Helpers.getCache()).length === 0) {
-        Helpers.init()
+      Helpers.init()
           .then(() => {
             vm.initDash();
           });
-      } else {
-        vm.initDash();
-      }
+    } else {
+      vm.initDash();
+    }
 
     return vm;
   });

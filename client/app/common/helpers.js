@@ -142,7 +142,7 @@ angular
       return cache;
     };
 
-    init();
+    // init();
 
     return {
       init: init,
