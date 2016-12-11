@@ -9,7 +9,8 @@ const modelPaths = [
   __dirname + '/../db/lesson/LessonModel.js',
   __dirname + '/../db/rating/RatingModel.js',
   __dirname + '/../db/request/RequestModel.js',
-  __dirname + '/../db/user/UserModel.js'
+  __dirname + '/../db/user/UserModel.js',
+  __dirname + '/../db/chatroom/ChatroomModel.js'
 ];
 
 const sequelize = new Sequelize(process.env.DB_URL);
