@@ -1,0 +1,30 @@
+
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+       <div >
+          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf" src="{{vm.picture}}" />
+          <p></p>
+          <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
+      </div>
+      <div class="well">
+          <button ng-click="vm.bookLesson()">Book Lesson!</button>
+      </div>
+      <h5>Suggestions for you...</h5>
+      <p ng-repeat="item in vm.relLessons|limitTo:3">
+        <a ng-click="vm.goLesson(item.id)">{{item.name}}</a>
+      </p>
+    </div>
+    <div class="col-sm-8 text-left" style="padding-left: 50px;"> 
+      <h1>{{vm.Lesson.name}}</h1>
+      <h5>Current rating: {{vm.Lesson.rating}}</h5>
+      <h5>Category: {{vm.Lesson.CategoryName.name}}</h5>
+      <youtube-stream></youtube-stream>
+      <hr>
+      <p>{{vm.Lesson.details}}</p>
+      <hr>
+      <h3>This could be you...</h3>
+      <img ng-src="{{vm.randGif}}"/>
+    </div>
+  </div>
+</div>
