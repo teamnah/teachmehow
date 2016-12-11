@@ -1,4 +1,3 @@
-
 angular
     .module('app.youtube')
     .directive('youtubeStream', function () {
@@ -7,7 +6,7 @@ angular
         restrict: 'E',
         templateUrl: '/app/common/youtube/youtube.template.html',
         controller: 'YoutubeController',
-        controllerAs: 'vm'
+        controllerAs: 'vmYoutube'
       };
     })
 ;

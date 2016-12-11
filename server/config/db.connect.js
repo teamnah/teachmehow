@@ -44,13 +44,11 @@ const db = {};
  * models each time we need to access a model
  */
 modelPaths.forEach(path => {
-
   let model = sequelize.import(path);
   db[model.name] = model;
 });
 
 Object.keys(db).forEach((modelName) => {
-
   if ('associate' in db[modelName]) {
     db[modelName].associate(db);
   }
