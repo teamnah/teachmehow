@@ -60,12 +60,18 @@ angular
         });
 
       /**
-       * initialize current booking
-       * custom button
-       * we have two variables (button text, and button function)
+       * fetch bookings and store bookings
        */
 
-      vm.booking;
+      vm.bookings = Helpers
+        .getCache()
+        .Master
+        .filter(lesson => {
+          if (lesson.id === +vm.id) return lesson;
+        })[0].bookings;
+      console.log('this is cache', Helpers.getCache());
+      console.log('this is vm', vm);
+    };
 
     $timeout(() => {
       if (Object.keys(Helpers.getCache()).length === 0) {
