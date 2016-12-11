@@ -1,7 +1,7 @@
 angular
   .module('app.lesson', [])
-  .controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $timeout, $http) {
-    vm = this;
+  .controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $http) {
+    const vm = this;
     let userExists = authService.showCurrent();
     if (!userExists) {
       $state.go('splash');
@@ -73,15 +73,14 @@ angular
       console.log('this is vm', vm);
     };
 
-    $timeout(() => {
-      if (Object.keys(Helpers.getCache()).length === 0) {
-        Helpers.init()
+    if (Object.keys(Helpers.getCache()).length === 0) {
+      Helpers.init()
           .then(() => {
             vm.initLesson();
           });
-      } else {
-        vm.initLesson();
-      }
-    }, 500);
+    } else {
+      vm.initLesson();
+    }
+
     return vm;
   });

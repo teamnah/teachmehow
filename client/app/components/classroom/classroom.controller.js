@@ -1,6 +1,6 @@
 angular
 .module('app.classroom', [])
-.controller('ClassroomCtrl', function ($scope, $state, $stateParams, Helpers, authService, $timeout, $http) {
+.controller('ClassroomCtrl', function ($scope, $state, $stateParams, Helpers, authService, $http) {
   const vm = this;
   let userExists = authService.showCurrent();
   if (!userExists) {
