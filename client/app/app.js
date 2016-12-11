@@ -10,15 +10,16 @@ angular.module('teachMe', [
   'app.helpers',
   'app.youtube',
   'app.classroom',
+  'app.chatroom',
   'ui.router'
 ])
-.config(config)
-.run(run);
+  .config(config)
+  .run(run);
 
 function config ($stateProvider,
-                 $urlRouterProvider,
-                 jwtOptionsProvider,
-                 lockProvider) {
+  $urlRouterProvider,
+  jwtOptionsProvider,
+  lockProvider) {
   $urlRouterProvider.otherwise('/splash');
 
   $stateProvider
@@ -70,22 +71,22 @@ function config ($stateProvider,
 }
 
 function run ($rootScope, authService, authManager, lock, editableOptions, editableThemes) {
-    // set `default` theme for xEditable
+  // set `default` theme for xEditable
   editableOptions.theme = 'default';
 
-    // overwrite submit button template for xEditable
+  // overwrite submit button template for xEditable
   editableThemes['default'].submitTpl = '<button type="submit">ok</button>';
 
-    // Put the authService on $rootScope so its methods
-    // can be accessed from the nav bar
+  // Put the authService on $rootScope so its methods
+  // can be accessed from the nav bar
   $rootScope.authService = authService;
 
-    // Register the authentication listener that is
-    // set up in auth.service.js
+  // Register the authentication listener that is
+  // set up in auth.service.js
   authService.registerAuthListener();
 
-    // Register the synchronous hash parser
-    // when using UI Router
+  // Register the synchronous hash parser
+  // when using UI Router
   lock.interceptHash();
 
   /**

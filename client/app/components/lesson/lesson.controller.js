@@ -7,6 +7,14 @@ angular
       $state.go('splash');
     }
     vm.id = $stateParams.input;
+.module('app.lesson', [])
+.controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $timeout, $http) {
+  const vm = this;
+  let userExists = authService.showCurrent();
+  if (!userExists) {
+    $state.go('splash');
+  }
+  vm.id = $stateParams.input;
 
     vm.goLesson = (input) => {
       $state.go('lesson', {

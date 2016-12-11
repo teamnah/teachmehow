@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    
+
     <div ng-app="teachMe">
 
     <!-- NAVIGATION -->
@@ -28,7 +28,7 @@
 
         <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
         <div ui-view></div>
-        
+
     </div>
 
 
@@ -40,6 +40,9 @@
         <!--<link rel="stylesheet" href="lib/sweetalert/themes/google/google.css">-->
         <link rel="stylesheet" href="lib/sweetalert/themes/facebook/facebook.css">
         <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+
+        <!-- sockets -->
+        <script src="/socket.io/socket.io.js"></script>
 
         <!-- JS (load angular, ui-router, and our custom js file) -->
         <script src="lib/jquery/dist/jquery.min.js"></script>
@@ -64,6 +67,12 @@
         <script src="app/common/youtube/youtube.directive.js"></script>
         <script src="app/components/classroom/classroom.controller.js"></script>
 
+
+
+        <script src="app/common/chatroom/chatroom.module.js"></script>
+        <script src="app/common/chatroom/chatroom.controller.js"></script>
+        <script src="app/common/chatroom/chatroom.directive.js"></script>
+        <script src="app/common/chatroom/chatroom.services.js"></script>
 
         <script src="lib/auth0-lock/build/lock.js"></script>
         <script src="lib/angular-lock/dist/angular-lock.js"></script>
