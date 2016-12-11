@@ -1,16 +1,14 @@
-
-
 angular
 .module('app.helpers', [])
-.factory('Helpers', function($http) {
+.factory('Helpers', function ($http) {
   /**
    * to save on many server calls, the helpers
-   * calls all the data and stores it in a cache object 
-   * 
+   * calls all the data and stores it in a cache object
+   *
    */
   const cache = {};
 
-  const getLessons = (lessonId )=> {
+  const getLessons = (lessonId) => {
     return $http.get('/api/lessons', {
       params: {
         lessonId: lessonId
@@ -54,11 +52,11 @@ angular
    * init returns a promise with the data formatted
    * if data new data was ever stored in the database
    * the cache object would need to reinitialize
-   * 
+   *
    */
   const init = () => {
     return getLessons()
-    .then(result=>{
+    .then(result => {
       cache.Lessons = result.data;
       return getCategory();
     })
@@ -80,19 +78,19 @@ angular
       /**
        * Combines all data and stores in cache for quick
        * access. Helper functions are still available
-       * 
+       *
        */
       let tmp = [];
       tmp = cache.Lessons.map(lesson => {
         let UserName = cache.Users.filter(user => {
-          if(user.id === lesson.UserId) {
+          if (user.id === lesson.UserId) {
             return user.name;
           }
-        })
+        });
         let CategoryName = cache.Category.filter(cat => {
-          if(cat.id === lesson.CategoryId) {
+          if (cat.id === lesson.CategoryId) {
             return cat.name;
-          };
+          }
         });
         return {
           id: lesson.id,
@@ -110,17 +108,15 @@ angular
       cache.Master = tmp;
 
       return cache;
-
     })
-    .catch(err=>console.log(err));
+    .catch(err => console.log(err));
   };
 
   const getCache = () => {
     return cache;
   };
-
-  init();
-
+  console.log('IN HELPERS');
+  // init();
 
   return {
     init: init,
@@ -131,5 +127,4 @@ angular
     getlessByCat: getlessByCat,
     getlessByUser: getlessByUser
   };
-  
 });
