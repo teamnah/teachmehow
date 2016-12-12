@@ -1,13 +1,13 @@
 <div class="container">
 <h1> Private Chat </h1>
-<div id="chat" ng-init="vm.chatInit()">
+<div id="chat" ng-init="vmCR.chatInit()">
   <br>
-  <p id="chatwell" class="well well-sm" ng-repeat="message in vm.messages track by $index">
+  <p id="chatwell" class="well well-sm" ng-repeat="message in vmCR.messages track by $index">
     {{message.currentUserName + ' '}}({{message.date | date:'h:mm a | M-d-yy'}}): {{message.text}}
   </p>
 </div>
-<form ng-submit="vm.sendMessage()">
-  <input type="text" ng-model="vm.messages.text"/>
+<form ng-submit="vmCR.sendMessage()">
+  <input type="text" ng-model="vmCR.messages.text"/>
   <input type="submit"/>
 </form>
 </div>

@@ -7,7 +7,7 @@
         restrict: 'E',
         templateUrl: '/app/common/chatroom/chatroom.template.html',
         controller: 'ChatroomCtrl',
-        controllerAs: 'vm'
+        controllerAs: 'vmCR'
       };
     });
 })();
