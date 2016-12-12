@@ -89,8 +89,8 @@ router
   .get(chatroomController.getChatroom)
   .post(chatroomController.addChatroom);
 
-router
-  .route('/chatrooms/:chatroomId')
-  .put(chatroomController.updateChatroom);
+// router
+  //   .route('/chatrooms/:chatroomId')
+  //   .put(chatroomController.updateChatroom)
 
 module.exports = router;
