@@ -57,24 +57,22 @@ module.exports = {
   },
 
   updateChatroom: (req, res, next) => {
-    if (!req.body.chatroomId) {
+    if (!req.params.chatroomId) {
       res.json([]);
       return;
     }
 
     let chatroomConfig = {};
-    chatroomConfig.name = req.body.name ? req.body.name : null;
-    chatroomConfig.chat = req.body.chat ? req.body.chat : null;
+    chatroomConfig.msg = req.body.msg ? req.body.msg : null;
 
     models.Chatroom.findOne({
       where: {
-        id: req.body.chatroomId
+        id: req.params.chatroomId
       }
     })
       .then(result => {
         if (result) {
-          result.name = chatroomConfig.name;
-          result.chat = chatroomConfig.chat;
+          result.chat.push(chatroomConfig.msg);
           return result.save();
         } else {
           res.json([]);
