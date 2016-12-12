@@ -58,10 +58,9 @@ angular
           });
           vm.randGif = vm.gifs[Math.floor(Math.random() * vm.gifs.length)];
         });
-
-      /**
-       * fetch bookings and store bookings
-       */
+        /**
+         * fetch bookings and store bookings
+         */
 
       vm.bookings = Helpers
         .getCache()
@@ -75,9 +74,9 @@ angular
 
     if (Object.keys(Helpers.getCache()).length === 0) {
       Helpers.init()
-          .then(() => {
-            vm.initLesson();
-          });
+        .then(() => {
+          vm.initLesson();
+        });
     } else {
       vm.initLesson();
     }
