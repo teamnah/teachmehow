@@ -8,7 +8,8 @@ angular
     vm.lesson = {
       name: '',
       category: '',
-      details: ''
+      details: '',
+      youtubeKey: ''
     };
     vm.teacherId = authService.showCurrent().id;
     vm.goLesson = (input) => {
@@ -32,7 +33,8 @@ angular
           userName: vm.teacher.name,
           name: vm.lesson.name,
           category: vm.lesson.category,
-          details: vm.lesson.details
+          details: vm.lesson.details,
+          youtubeKey: vm.lesson.youtubeKey
         };
         $http.post('/api/lessons', body)
           .then(result => {
