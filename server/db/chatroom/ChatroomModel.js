@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
 
   const Chatroom = sequelize.define('Chatroom', {
@@ -5,19 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     chat: {
-      type: DataTypes.TEXT
-    }
-  }, {
-    freezeTableName: true,
-    classMethods: {
-      associate: (models) => {
-        Chatroom.belongsTo(models.Lesson, {
-          foreignKey: {
-            allowNull: false
-          },
-          onDelete: 'CASCADE'
-        });
-      }
+      type: Sequelize.ARRAY(Sequelize.TEXT)
     }
   });
 
