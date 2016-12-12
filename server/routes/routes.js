@@ -8,6 +8,7 @@ const ratingController = require('../db/rating/RatingController.js');
 const requestController = require('../db/request/RequestController.js');
 const userController = require('../db/user/UserController.js');
 const lessByController = require('../db/lessonBy/lessonByController.js');
+const chatroomController = require('../db/chatroom/ChatroomController.js');
 
 router
   .route('/users')
@@ -82,5 +83,10 @@ router
   .route('/bookings')
   .get(bookingController.getBooking)
   .post(bookingController.addBooking);
+
+router
+  .route('/chatrooms')
+  .get(chatroomController.getChatroom)
+  .post(chatroomController.addChatroom);
 
 module.exports = router;

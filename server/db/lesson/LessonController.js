@@ -54,6 +54,7 @@ module.exports = {
     let lessonConfig = {
       UserId: null,
       CategoryId: null,
+      ChatroomId: null,
       price: null
     };
     lessonConfig.name = req.body.name ? req.body.name : null;
@@ -82,17 +83,29 @@ module.exports = {
         }
       })
       .then(result => {
+        /**
+        * Create Chatroom
+        * Will have the same Id as Lesson
+        */
+        lessonConfig.CategoryId = result[0].id;
+        return models.Chatroom.create({
+          name: `${req.body.name} Chatroom`,
+          chat: []
+        });
+      })
+      .then(result => {
         if (result) {
           /**
            * Find or create returns the instance created
            * and if bool if was already created
            */
-          lessonConfig.CategoryId = result[0].id;
+          lessonConfig.ChatroomId = result.id;
           return models.Lesson.create({
             name: lessonConfig.name,
             details: lessonConfig.details,
             UserId: lessonConfig.UserId,
             CategoryId: lessonConfig.CategoryId,
+            ChatroomId: lessonConfig.ChatroomId,
             price: lessonConfig.price
           });
         } else {

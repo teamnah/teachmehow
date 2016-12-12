@@ -32,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
           },
           onDelete: 'CASCADE'
         });
+        Lesson.belongsTo(models.Chatroom, {
+          foreignKey: {
+            allowNull: false
+          },
+          onDelete: 'CASCADE'
+        });
       }
     }
   });
