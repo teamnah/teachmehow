@@ -7,14 +7,6 @@ angular
       $state.go('splash');
     }
     vm.id = $stateParams.input;
-.module('app.lesson', [])
-.controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $timeout, $http) {
-  const vm = this;
-  let userExists = authService.showCurrent();
-  if (!userExists) {
-    $state.go('splash');
-  }
-  vm.id = $stateParams.input;
 
     vm.goLesson = (input) => {
       $state.go('lesson', {
@@ -66,10 +58,9 @@ angular
           });
           vm.randGif = vm.gifs[Math.floor(Math.random() * vm.gifs.length)];
         });
-
-      /**
-       * fetch bookings and store bookings
-       */
+        /**
+         * fetch bookings and store bookings
+         */
 
       vm.bookings = Helpers
         .getCache()
@@ -83,9 +74,9 @@ angular
 
     if (Object.keys(Helpers.getCache()).length === 0) {
       Helpers.init()
-          .then(() => {
-            vm.initLesson();
-          });
+        .then(() => {
+          vm.initLesson();
+        });
     } else {
       vm.initLesson();
     }
