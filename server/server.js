@@ -18,16 +18,9 @@ models.sequelize.sync().then(() => {
   const port = process.env.PORT || 8080;
   const routes = require('./routes/routes.js');
   let server = require('http').createServer(app);
-  let io = require('socket.io').listen(server);
+  require('./config/sockets.config.js')(server); // All socket setup here
   require('./config/middleware.js')(app, express);
   app.use('/api', routes);
-
-  io.sockets.on('connection', function (socket) {
-    socket.on('send-message', function (data) {
-      io.sockets.emit('get-message', data);
-      console.log('THIS IS DATA', data);
-    });
-  });
 
   server.listen(port, () => {
     console.log('Listening on port ' + port);
