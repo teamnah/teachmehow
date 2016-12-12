@@ -54,5 +54,38 @@ module.exports = {
         res.json(err);
         throw err;
       });
+  },
+
+  updateChatroom: (req, res, next) => {
+    if (!req.body.chatroomId) {
+      res.json([]);
+      return;
+    }
+
+    let chatroomConfig = {};
+    chatroomConfig.name = req.body.name ? req.body.name : null;
+    chatroomConfig.chat = req.body.chat ? req.body.chat : null;
+
+    models.Chatroom.findOne({
+      where: {
+        id: req.body.chatroomId
+      }
+    })
+      .then(result => {
+        if (result) {
+          result.name = chatroomConfig.name;
+          result.chat = chatroomConfig.chat;
+          return result.save();
+        } else {
+          res.json([]);
+        }
+      })
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => {
+        res.json(err);
+        throw err;
+      });
   }
 };
