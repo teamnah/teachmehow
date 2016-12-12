@@ -55,11 +55,13 @@ module.exports = {
       UserId: null,
       CategoryId: null,
       ChatroomId: null,
-      price: null
+      price: null,
+      youtubeKey: null
     };
     lessonConfig.name = req.body.name ? req.body.name : null;
     lessonConfig.details = req.body.details ? req.body.details : null;
     lessonConfig.price = req.body.price ? req.body.price : null;
+    lessonConfig.youtubeKey = req.body.youtubeKey ? req.body.youtubeKey : null;
 
     models.User.findOne({
       where: {
@@ -106,7 +108,8 @@ module.exports = {
             UserId: lessonConfig.UserId,
             CategoryId: lessonConfig.CategoryId,
             ChatroomId: lessonConfig.ChatroomId,
-            price: lessonConfig.price
+            price: lessonConfig.price,
+            youtubeKey: lessonConfig.youtubeKey
           });
         } else {
           res.json([]);
@@ -141,6 +144,7 @@ module.exports = {
     lessonConfig.name = req.body.name ? req.body.name : null;
     lessonConfig.details = req.body.details ? req.body.details : null;
     lessonConfig.price = req.body.price ? req.body.price : null;
+    lessonConfig.youtubeKey = req.body.youtubeKey ? req.body.youtubeKey : null;
 
     models.Lesson.findOne({
       where: {
@@ -156,6 +160,7 @@ module.exports = {
           result.name = lessonConfig.name;
           result.details = lessonConfig.details;
           result.price = lessonConfig.price;
+          result.youtubeKey = lessonConfig.youtubeKey;
           return result.save();
         } else {
           res.json([]);
