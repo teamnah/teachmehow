@@ -15,14 +15,9 @@
     vmCR.messages;
 
     vmCR.gotoBottom = function () {
-      // set the location.hash to the id of
-      // the element you wish to scroll to.
-      $location.hash('bottom');
-      // call $anchorScroll()
-      $anchorScroll();
+      var objDiv = document.getElementById('chat');
+      objDiv.scrollTop = objDiv.scrollHeight;
     };
-
-    vmCR.objDiv = document.getElementById('chat');
 
     vmCR.chatInit = function () {
       vmCR.currentClass = parseInt($stateParams.input);
@@ -42,6 +37,10 @@
       });
     };
 
+    window.setTimeout(function () {
+      vmCR.gotoBottom();
+    }, 500);
+
     vmCR.sendMessage = function () {
       console.log('THIS IS CURRENT CHAT', vmCR.messages.text);
       var chat = {
@@ -49,7 +48,7 @@
         'msg': {
           'user': vmCR.currentUserName,
           'text': vmCR.messages.text,
-          'date': new Date
+          'date': new Date()
         }
       };
       socket.emit('send-message', chat);

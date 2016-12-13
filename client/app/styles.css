@@ -23,11 +23,15 @@ h1{
  /*Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
     height: 100%;
-    width: 1350px;
+    /*width: 1350px;*/
 }
 
 .chat-text {
   font-size: 0.8em;
+}
+
+.ninety {
+  width: 100%;
 }
 
 /*.row.content {height: 100%}*/
@@ -95,7 +99,29 @@ assContainer {
     width: 100%;
 }
 
-/*Custom CSS*/
-/*.chatbox {
-    float: right;
-}*/
+.container {
+  margin-top: 60px !important;
+}
+
+.container-fluid {
+  height: 60% !important;
+}
+
+.footer-note {
+  margin: auto;
+  font-size: 0.6em;
+}
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
