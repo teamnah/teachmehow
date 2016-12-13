@@ -59,6 +59,10 @@ angular
       .filter(lesson => {
         if (lesson.name !== vm.Lesson.name) return lesson;
       });
+
+    var fbId = vm.Lesson.UserName.auth.slice(9);
+    var url = 'https://graph.facebook.com/' + fbId + '/picture?width=9999';
+    vm.picture = url || 'http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg';
   };
 
   if (Object.keys(Helpers.getCache()).length === 0) {
