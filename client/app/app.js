@@ -72,7 +72,7 @@ function config ($stateProvider,
    */
   jwtOptionsProvider.config({
     tokenGetter: function () {
-      return localStorage.getItem('id_token');
+      return window.localStorage.getItem('id_token');
     }
   });
 }
@@ -97,7 +97,7 @@ function run ($rootScope, authService, authManager, lock, editableOptions, edita
   lock.interceptHash();
 
   /**
-   * Use the authManager from angular-jwt to check for
+   * Use the authManager from angular-jwt to check forf
    * the user's authentication state when the page is
    * refreshed and maintain authentication. Will use
    * the setting set in jwtOptionsProvider.config

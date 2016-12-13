@@ -12,7 +12,7 @@ angular.module('teachMe')
    */
   $timeout(() => {
     vm.isTeach = authService.showCurrent().teachFlag;
-  }, 300);
+  }, 100);
 
   vm.becomeTeacher = () => {
     authService.becomeTeacher()

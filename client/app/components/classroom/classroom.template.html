@@ -3,18 +3,23 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
        <div >
-          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf" src="{{vm.Lesson.UserName.picture}}" />
-          <p></p>
-          <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
+          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf img-thumbnail" src="{{vm.picture}}" />
+          <p>Instructor: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
       </div>
       <div class="well">
-          <button ng-click="vm.goLesson(vm.id)">Go to Lesson</button>
-          <button ng-click="vm.goPrivateRoom(vm.id)">Go to Private Room</button>
+        <button class="btn btn-primary btn-block" ng-click="vm.goLesson(vm.id)">Lesson Homepage</button>
+        <button class="btn btn-primary btn-block disabled">Classroom</button>
+        <button class="btn btn-primary btn-block" ng-click="vm.goPrivateRoom(vm.id)">One on One Tutoring</button>
       </div>
-      <h5>Suggestions for you...</h5>
-      <p ng-repeat="item in vm.relLessons|limitTo:3">
-        <a ng-click="vm.goLesson(item.id)">{{item.name}}</a>
-      </p>
+      <div class="well">
+        <h2>Related Lessons</h2><hr/>
+        <p ng-repeat="item in vm.relLessons|limitTo:3">
+          <a href="" ng-click="vm.goLesson(item.id)">{{item.name}}</a>
+        </p>
+        <p ng-show="vm.relLessons.length===0">-</p>
+        <hr/>
+        <p>Become a teacher today and submit a lesson in the <strong>{{vm.Lesson.CategoryName.name}}</strong> category!
+      </div>
     </div>
     <div class="col-sm-5 text-left classroomCols" style="padding-left: 35px;"> 
       <h1>{{vm.Lesson.name}}</h1>
