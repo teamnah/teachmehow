@@ -29,16 +29,20 @@
     </div>
   </div>
 
-  <form action="/your-server-side-code" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_NySIISDeW4hNZE3ibRCxdCAf"
-    data-amount="2499"
-    data-name="FILL IN LESSON NAME"
-    data-description="LESSON DESCRIPTION"
-    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    data-locale="auto"
-    data-label="Buy Lesson Now!">
-  </script>
-</form>
+  <form action="/api/bookings" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_NySIISDeW4hNZE3ibRCxdCAf"
+      data-amount="2499"
+      data-name="FILL IN LESSON NAME"
+      data-description="LESSON DESCRIPTION"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto"
+      data-label="Buy Lesson Now!">
+    </script>
+      <input type="hidden" name="UserId" value="{{vm.currUserId}}">
+      <input type="hidden" name="LessonId" value="{{vm.Lesson.id}}">
+      <input type="hidden" name="details" value="{{vm.Lesson.details}}">
+      <input type="hidden" name="Spare1" value="Spare1">
+  </form>
 </div>

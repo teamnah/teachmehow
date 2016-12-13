@@ -73,7 +73,7 @@ module.exports = {
         console.log('lesson:', lesson);
         temp.LessonId = lesson[0].dataValues.id;
         return models.Booking.create({
-          accept: req.body.accept,
+          accept: true,
           details: req.body.details,
           Spare1: req.body.Spare1,
           UserId: temp.UserId,
