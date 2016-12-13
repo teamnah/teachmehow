@@ -61,6 +61,17 @@ angular
         /**
          * fetch bookings and store bookings
          */
+      vm.goClassroom = (input) => {
+        $state.go('classroom', {
+          input: input
+        });
+      };
+
+      vm.goPrivateRoom = (input) => {
+        $state.go('privateRoom', {
+          input: input
+        });
+      };
 
       vm.bookings = Helpers
         .getCache()

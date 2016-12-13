@@ -8,7 +8,8 @@
           <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
       </div>
       <div class="well">
-          <button ng-click="vm.bookLesson()">Book Lesson!</button>
+          <button ng-click="vm.goLesson(vm.id)">Go to Lesson</button>
+          <button ng-click="vm.goPrivateRoom(vm.id)">Go to Private Room</button>
       </div>
       <h5>Suggestions for you...</h5>
       <p ng-repeat="item in vm.relLessons|limitTo:3">
@@ -19,9 +20,8 @@
       <h1>{{vm.Lesson.name}}</h1>
       <h5>Current rating: {{vm.Lesson.rating}}</h5>
       <h5>Category: {{vm.Lesson.CategoryName.name}}</h5>
-      <youtube-stream></youtube-stream>
       <hr>
-      <p>{{vm.Lesson.details}}</p>
+      <youtube-stream></youtube-stream>
       <hr>
       <chatroom></chatroom>
     </div>
