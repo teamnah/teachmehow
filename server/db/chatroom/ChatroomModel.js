@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     chat: {
-      type: Sequelize.ARRAY(Sequelize.JSON)
+      type: Sequelize.ARRAY(Sequelize.STRING)
     }
   });
 

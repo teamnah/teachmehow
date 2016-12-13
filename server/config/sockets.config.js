@@ -13,17 +13,33 @@ module.exports = function (server) {
       })
         .then(result => {
           if (result) {
-            console.log('THIS IS CHATTTT', data.msg);
-            result.chat.push(data.msg);
-            console.log('THIS IS RESULT', result.chat);
-            console.log('THIS IS DATA', result);
-            result.save();
+            db.Chatroom.update(
+              { chat: [...result.dataValues.chat, JSON.stringify(data.msg)] },
+              { where: { id: data.id } }
+            )
+              .then(result => console.log('updating')
+            )
+              .catch(err => console.log('ERR', err)
+            );
           }
+        })
+        .catch(function (err) {
+          console.log('THIS IS ERR', err);
         });
 
       io.sockets.emit('get-message', data);
+    });
 
-      console.log('THIS IS DATA', data.id);
+    socket.on('send-room', function (data) {
+      console.log('THIS IS ROOM DATA', data);
+      db.Chatroom.findOne({
+        where: {
+          id: data
+        }
+      })
+        .then(result => {
+          io.sockets.emit('get-room', result.chat);
+        });
     });
   });
 };
