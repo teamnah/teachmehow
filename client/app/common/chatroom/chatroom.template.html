@@ -3,8 +3,9 @@
 <div id="chat" ng-init="vmCR.chatInit()">
   <br>
   <p id="chatwell" class="well well-sm" ng-repeat="message in vmCR.messages track by $index">
-    {{message.currentUserName + ' '}}({{message.date | date:'h:mm a | M-d-yy'}}): {{message.text}}
+    {{message.user + ' '}}({{message.date | date:'h:mm a | M-d-yy'}}): {{message.text}}
   </p>
+  <a id='bottom'></a>
 </div>
 <form ng-submit="vmCR.sendMessage()">
   <input type="text" ng-model="vmCR.messages.text"/>
