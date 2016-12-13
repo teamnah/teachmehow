@@ -9,16 +9,23 @@
 
   function ChatroomCtrl (socket, authService, Helpers, $stateParams, $scope) {
     var vm = this;
-    vm.currentClass = '';
+    vm.currentClass;
     vm.currentUserName = '';
     vm.text = '';
-    vm.messages = [];
+    vm.messages;
 
     vm.chatInit = function () {
-      vm.currentClass = $stateParams.input;
+      vm.currentClass = parseInt($stateParams.input);
       vm.currentUserName = authService.showCurrent().name;
-      console.log(vm.currentClass);
-      console.log(vm.currentUserName);
+      socket.emit('send-room', parseInt($stateParams.input));
+      socket.on('get-room', function (data) {
+        console.log('THIS IS CHATS', data);
+        vm.messages = data.map(function (message) {
+          return JSON.parse(message);
+        });
+        console.log('vm.messages = ', vm.messages);
+        $scope.$digest();
+      });
     };
 
     vm.sendMessage = function () {
