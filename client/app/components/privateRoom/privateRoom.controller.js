@@ -1,6 +1,6 @@
 angular
-.module('app.classroom', [])
-.controller('ClassroomCtrl', function ($scope, $state, $stateParams, Helpers, authService, $http) {
+.module('app.privateRoom', [])
+.controller('PrivateRoomCtrl', function ($scope, $state, $stateParams, Helpers, authService, $http) {
   const vm = this;
   let userExists = authService.showCurrent();
   if (!userExists) {
@@ -14,20 +14,14 @@ angular
     });
   };
 
+  vm.goClassroom = (input) => {
+    $state.go('classroom', {
+      input: input
+    });
+  };
+
   vm.goProfile = (input) => {
     $state.go('prof', {
-      input: input
-    });
-  };
-
-  vm.goLesson = (input) => {
-    $state.go('lesson', {
-      input: input
-    });
-  };
-
-  vm.goPrivateRoom = (input) => {
-    $state.go('privateRoom', {
       input: input
     });
   };
