@@ -8,13 +8,13 @@
   ChatroomCtrl.$inject = ['socket', 'authService', 'Helpers', '$stateParams', '$scope', '$anchorScroll', '$location'];
 
   function ChatroomCtrl (socket, authService, Helpers, $stateParams, $scope, $anchorScroll, $location) {
-    var vm = this;
-    vm.currentClass;
-    vm.currentUserName = '';
-    vm.text = '';
-    vm.messages;
+    var vmCR = this;
+    vmCR.currentClass;
+    vmCR.currentUserName = '';
+    vmCR.text = '';
+    vmCR.messages;
 
-    vm.gotoBottom = function () {
+    vmCR.gotoBottom = function () {
       // set the location.hash to the id of
       // the element you wish to scroll to.
       $location.hash('bottom');
@@ -22,48 +22,51 @@
       $anchorScroll();
     };
 
-    vm.objDiv = document.getElementById('chat');
+    vmCR.objDiv = document.getElementById('chat');
 
-    vm.chatInit = function () {
-      vm.currentClass = parseInt($stateParams.input);
-      vm.currentUserName = authService.showCurrent().name;
+    vmCR.chatInit = function () {
+      vmCR.currentClass = parseInt($stateParams.input);
+      vmCR.currentUserName = authService.showCurrent().name;
       socket.emit('send-room', parseInt($stateParams.input));
       socket.on('get-room', function (data) {
-        console.log('THIS IS CHATS', data);
-        vm.messages = data.map(function (message) {
-          return JSON.parse(message);
-        });
-        console.log('vm.messages = ', vm.messages);
-        vm.gotoBottom();
-        $scope.$digest();
+        if (data.id === vmCR.currentClass) {
+          console.log('THIS IS CHATS', data.id);
+          console.log('THIS IS CURRENT CLASS', vmCR.currentClass);
+          vmCR.messages = data.chat.map(function (message) {
+            return JSON.parse(message);
+          });
+          console.log('vmCR.messages = ', vmCR.messages);
+          vmCR.gotoBottom();
+          $scope.$digest();
+        }
       });
     };
 
-    vm.sendMessage = function () {
-      console.log('THIS IS CURRENT CHAT', vm.messages.text);
+    vmCR.sendMessage = function () {
+      console.log('THIS IS CURRENT CHAT', vmCR.messages.text);
       var chat = {
-        'id': vm.currentClass,
+        'id': vmCR.currentClass,
         'msg': {
-          'user': vm.currentUserName,
-          'text': vm.messages.text,
+          'user': vmCR.currentUserName,
+          'text': vmCR.messages.text,
           'date': new Date
         }
       };
       socket.emit('send-message', chat);
-      vm.messages.text = '';
+      vmCR.messages.text = '';
     };
 
     socket.on('get-message', function (data) {
-      if (data.id === vm.currentClass) {
+      if (data.id === vmCR.currentClass) {
         var chat = {
           user: data.msg.user,
           text: data.msg.text,
           date: data.msg.date
         };
 
-        vm.messages.push(chat);
+        vmCR.messages.push(chat);
         $scope.$digest();
-        vm.gotoBottom();
+        vmCR.gotoBottom();
       }
     });
   }
