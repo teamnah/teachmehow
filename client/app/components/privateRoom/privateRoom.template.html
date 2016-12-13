@@ -3,14 +3,13 @@
   <div class="row content">
     <div class="col-sm-3 sidenav">
        <div >
-          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf" src="{{vm.picture}}" />
+          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf" src="{{vm.Lesson.UserName.picture}}" />
           <p></p>
           <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
       </div>
       <div class="well">
-          <button ng-click="vm.bookLesson()">Book Lesson</button>
+          <button ng-click="vm.goLesson(vm.id)">Go to Lesson</button>
           <button ng-click="vm.goClassroom(vm.id)">Go to Classroom</button>
-          <button ng-click="vm.goPrivateRoom(vm.id)">Go to Private Room</button>
       </div>
       <h5>Suggestions for you...</h5>
       <p ng-repeat="item in vm.relLessons|limitTo:3">
@@ -19,13 +18,11 @@
     </div>
     <div class="col-sm-8 text-left" style="padding-left: 50px;">
       <h1>{{vm.Lesson.name}}</h1>
-      <h5>Current rating: {{vm.Lesson.rating}}</h5>
-      <h5>Category: {{vm.Lesson.CategoryName.name}}</h5>
+      <h5>Private Video Chat Room</h5>
       <hr>
-      <p>{{vm.Lesson.details}}</p>
+      <pubnub-stream></pubnub-stream>
       <hr>
-      <h3>This could be you...</h3>
-      <img ng-src="{{vm.randGif}}"/>
+      <chatroom></chatroom>
     </div>
   </div>
 </div>
