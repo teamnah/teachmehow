@@ -20,13 +20,17 @@ h1{
   box-shadow: 10px 6px 32px 8px rgba(0,0,0,0.75);
   font-family: 'Courgette', cursive;
 }
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-/*.row.content {
-    height: 450px;
+ /*Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+    height: 100%;
     width: 1350px;
-    }*/
+}
 
-.row.content {height: 100%}
+.chat-text {
+  font-size: 0.8em;
+}
+
+/*.row.content {height: 100%}*/
 
 /* Set gray background color and 100% height */
 .sidenav {
@@ -51,7 +55,7 @@ h1{
 }
 
 button{
-  font-size: 0.95em !important;
+  font-size: 0.8em !important;
   margin-top: 5px;
 }
 
