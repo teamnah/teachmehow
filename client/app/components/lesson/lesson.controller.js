@@ -3,6 +3,7 @@ angular
   .controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $http) {
     const vm = this;
     vm.currUserId = authService.showCurrent().id;
+    console.log(vm.currUserId);
     if (!vm.currUserId) {
       $state.go('splash');
     }
@@ -50,11 +51,13 @@ angular
       /**
        * ping the giphy api to get illustrate the lesson page
        */
-      vm.picture = vm.Lesson.UserName.picture || 'http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg';
+      var fbId = vm.Lesson.UserName.auth.slice(9);
+      var url = 'https://graph.facebook.com/' + fbId + '/picture?width=9999';
+      vm.picture = url || 'http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg';
       $http.get(`http://api.giphy.com/v1/gifs/search?q=${vm.Lesson.name}&api_key=dc6zaTOxFJmzC&limit=5`)
         .then(result => {
           vm.gifs = result.data.data.map(gif => {
-            return gif.images.fixed_height_small.url;
+            return gif.images.fixed_height.url;
           });
           vm.randGif = vm.gifs[Math.floor(Math.random() * vm.gifs.length)];
         });
@@ -79,6 +82,8 @@ angular
         .filter(lesson => {
           if (lesson.id === +vm.id) return lesson;
         })[0].bookings;
+
+      vm.booked = !!vm.bookings.length;
 
       console.log('this is cache', Helpers.getCache());
       console.log('this is vm', vm);

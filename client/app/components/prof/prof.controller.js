@@ -25,9 +25,9 @@ angular
           if (lesson.UserName.id === +$stateParams.input) return lesson;
         });
 
-      vm.picture = vm.profile.picture ||
-        'http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg';
-
+      var fbId = vm.profile.auth.slice(9);
+      var url = 'https://graph.facebook.com/' + fbId + '/picture?width=9999';
+      vm.picture = url || 'http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg';
       /**
       * The 'bio' information for the profile is stored on the server as JSON
       * data. This must be parsed back to an object, however new profiles might
