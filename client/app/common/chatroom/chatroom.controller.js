@@ -7,7 +7,7 @@
 
   ChatroomCtrl.$inject = ['socket', 'authService', 'Helpers', '$stateParams', '$scope', '$anchorScroll', '$location'];
 
-  function ChatroomCtrl (socket, authService, Helpers, $stateParams, $scope, $anchorScroll, $location) {
+  function ChatroomCtrl (socket, authService, Helpers, $stateParams, $scope, $location) {
     var vmCR = this;
     vmCR.currentClass;
     vmCR.currentUserName = '';
@@ -68,5 +68,14 @@
         vmCR.gotoBottom();
       }
     });
+
+    if (Object.keys(Helpers.getCache()).length === 0) {
+      Helpers.init()
+      .then(() => {
+        vmCR.chatInit();
+      });
+    } else {
+      vmCR.chatInit();
+    }
   }
 })();
