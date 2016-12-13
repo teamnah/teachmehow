@@ -2,8 +2,8 @@ angular
   .module('app.lesson', [])
   .controller('LessonCtrl', function ($state, $stateParams, Helpers, authService, $http) {
     const vm = this;
-    let userExists = authService.showCurrent();
-    if (!userExists) {
+    vm.currUserId = authService.showCurrent().id;
+    if (!vm.currUserId) {
       $state.go('splash');
     }
     vm.id = $stateParams.input;
