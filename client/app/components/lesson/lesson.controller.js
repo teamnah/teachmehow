@@ -79,6 +79,7 @@ angular
         .filter(lesson => {
           if (lesson.id === +vm.id) return lesson;
         })[0].bookings;
+
       console.log('this is cache', Helpers.getCache());
       console.log('this is vm', vm);
     };

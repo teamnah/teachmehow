@@ -8,9 +8,25 @@
           <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
       </div>
       <div class="well">
-          <button ng-click="vm.bookLesson()">Book Lesson</button>
-          <button ng-click="vm.goClassroom(vm.id)">Go to Classroom</button>
-          <button ng-click="vm.goPrivateRoom(vm.id)">Go to Private Room</button>
+          <!--<button ng-if="!vm.bookings" ng-click="vm.bookLesson()">Book Lesson</button>-->
+          <button ng-if="vm.bookings.length!==0" ng-click="vm.goClassroom(vm.id)">Go to Classroom</button>
+          <button ng-if="vm.bookings.length!==0" ng-click="vm.goPrivateRoom(vm.id)">Go to Private Room</button>
+          <form ng-if="vm.bookings.length===0" action="/api/bookings" method="POST">
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_NySIISDeW4hNZE3ibRCxdCAf"
+              data-amount="2499"
+              data-name="{{vm.Lesson.name}}"
+              data-description="{{vm.Lesson.details}}"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto"
+              data-label="Buy Lesson Now!">
+            </script>
+            <input type="hidden" name="UserId" value="{{vm.currUserId}}">
+            <input type="hidden" name="LessonId" value="{{vm.Lesson.id}}">
+            <input type="hidden" name="details" value="{{vm.Lesson.details}}">
+            <input type="hidden" name="Spare1" value="Spare1">
+        </form>
       </div>
       <h5>Suggestions for you...</h5>
       <p ng-repeat="item in vm.relLessons|limitTo:3">
@@ -29,20 +45,5 @@
     </div>
   </div>
 
-  <form action="/api/bookings" method="POST">
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_NySIISDeW4hNZE3ibRCxdCAf"
-      data-amount="2499"
-      data-name="FILL IN LESSON NAME"
-      data-description="LESSON DESCRIPTION"
-      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-      data-locale="auto"
-      data-label="Buy Lesson Now!">
-    </script>
-      <input type="hidden" name="UserId" value="{{vm.currUserId}}">
-      <input type="hidden" name="LessonId" value="{{vm.Lesson.id}}">
-      <input type="hidden" name="details" value="{{vm.Lesson.details}}">
-      <input type="hidden" name="Spare1" value="Spare1">
-  </form>
+
 </div>

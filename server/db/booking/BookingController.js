@@ -82,7 +82,7 @@ module.exports = {
       })
       .then((booking) => {
         if (booking) {
-          res.json(booking);
+          res.redirect(`/#!/lesson/${req.body.LessonId}/classroom`);
         } else {
           res.json([]);
         }
