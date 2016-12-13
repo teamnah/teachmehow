@@ -3,7 +3,7 @@
   <div class="row content">
     <div class="col-sm-3 sidenav">
        <div >
-          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf" src="{{vm.picture}}" />
+          <img ng-click="vm.goProfile(vm.Lesson.UserName.id)" class="lessonProf" src="{{vm.Lesson.UserName.picture}}" />
           <p></p>
           <p>Taught by: <a ng-click="vm.goProfile(vm.Lesson.UserName.id)">{{vm.Lesson.UserName.name}}</a></p>
       </div>
@@ -23,8 +23,7 @@
       <hr>
       <p>{{vm.Lesson.details}}</p>
       <hr>
-      <h3>This could be you...</h3>
-      <img ng-src="{{vm.randGif}}"/>
+      <chatroom></chatroom>
     </div>
   </div>
 </div>
