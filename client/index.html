@@ -10,7 +10,7 @@
     <div ng-app="teachMe">
 
     <!-- NAVIGATION -->
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand" ui-sref="splash">Teach Me How</a>
         </div>
@@ -18,13 +18,9 @@
     </nav>
 
     <!-- MAIN CONTENT -->
-    <div class="container">
-
-        
-
-        <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+    <div class="container ninety">
+    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
         <div ui-view></div>
-
     </div>
 
 
@@ -90,7 +86,7 @@
 
         <script src="app/common/helpers.js"></script>
     </div>
-    <footer class="container-fluid">
-        <p>Powered By Team Nah</p>
-    </footer>
+    <!--<footer class="container-fluid">
+        <div footer-note>Powered By Team Nah. Perfected by Point Blank.</div>
+    </footer>-->
 </body>
