@@ -38,7 +38,7 @@ module.exports = function (server) {
         }
       })
         .then(result => {
-          io.sockets.emit('get-room', result.chat);
+          io.sockets.emit('get-room', result);
         });
     });
   });
