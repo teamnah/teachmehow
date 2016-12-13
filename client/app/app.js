@@ -11,6 +11,8 @@ angular.module('teachMe', [
   'app.youtube',
   'app.classroom',
   'app.chatroom',
+  'app.pubNub',
+  'app.privateRoom',
   'ui.router'
 ])
   .config(config)
@@ -52,6 +54,11 @@ function config ($stateProvider,
       url: '/lesson/:input/classroom',
       templateUrl: 'app/components/classroom/classroom.template.html',
       controller: 'ClassroomCtrl as vm'
+    })
+    .state('privateRoom', {
+      url: '/lesson/:input/privateRoom',
+      templateUrl: 'app/components/privateRoom/privateRoom.template.html',
+      controller: 'PrivateRoomCtrl as vm'
     });
 
   lockProvider.init({
