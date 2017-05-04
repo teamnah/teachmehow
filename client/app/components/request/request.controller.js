@@ -12,6 +12,7 @@ angular
     };
 
     vm.init = () => {
+      console.log('this is vm', vm);
       vm.cache = Helpers.getCache();
       RequestService
         .getAllRequests()
@@ -44,8 +45,12 @@ angular
       } else {
         let UserId = authService.showCurrent().id;
         vm.UserId = UserId;
+        let newRequest = {};
+        newRequest.userId = vm.UserId;
+        newRequest.requestName = vm.requestName;
+        newRequest.categoryName = vm.categoryName;
         RequestService
-          .addRequest()
+          .addRequest(newRequest)
           .then((addedRequest) => {
             vm.pendingRequest = addedRequest;
             return Helpers.init();
