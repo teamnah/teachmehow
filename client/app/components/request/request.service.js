@@ -14,12 +14,7 @@ angular
     });
   };
 
-  const addRequest = () => {
-    let newRequest = {};
-    newRequest.userId = vm.UserId;
-    newRequest.requestName = vm.requestName;
-    newRequest.categoryName = vm.categoryName;
-
+  const addRequest = newRequest => {
     return $http({
       method: 'POST',
       url: '/api/requests',
