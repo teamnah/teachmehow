@@ -33,7 +33,7 @@
     "null-loader": "^0.1.1",
     "pg": "^6.1.0",
     "raw-loader": "^0.5.1",
-    "sequelize": "^3.27.0",
+    "sequelize": "^5.19.3",
     "socket.io": "^1.7.1",
     "style-loader": "^0.13.0"
   }
